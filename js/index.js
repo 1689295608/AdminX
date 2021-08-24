@@ -71,5 +71,5 @@ function notice(msg) {
     document.getElementById("notice").classList.add("show");
     setTimeout(() => {
         document.getElementById("notice").classList.remove("show");
-    }, 1000);
+    }, 3000);
 }
