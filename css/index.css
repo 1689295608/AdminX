@@ -166,6 +166,6 @@ file:active, dire:active {
     background: #a1a1a1;
 }
 
-dire[selected=true], file[selected=true] {
+dire.selected, file.selected {
     background: #0090ff;
 }
