@@ -2,6 +2,7 @@ let selected = [];
 let files = document.getElementsByTagName("file");
 let path = document.getElementById("path").dataset.path;
 if (path.startsWith("/")) path = path.substring(1);
+let encodePath = encodeURIComponent(path);
 let ctrl = false;
 SetClickSelect(files);
 let dires = document.getElementsByTagName("dire");
@@ -20,9 +21,9 @@ function SetClickSelect(elements) {
                     select(elements[i]);
                 } else {
                     if (elements[i].tagName == "FILE") {
-                        window.open(`?operation=edit&dir=${encodeURIComponent(path)}&file=${encodeURIComponent(elements[i].innerText)}`);
+                        window.open(`?operation=edit&dir=${encodePath}&file=${encodeURIComponent(elements[i].innerText)}`);
                     } else {
-                        window.location.search = `?dir=${encodeURIComponent(path) + elements[i].innerText}`;
+                        window.location.search = `?dir=${encodePath + elements[i].innerText}`;
                     }
                 }
             });
@@ -74,6 +75,26 @@ for (let i in paths) {
         });
     }
 }
+document.getElementById("save").addEventListener("click", () => {
+    document.getElementById("save").innerText = "保存中...";
+    let file = document.getElementById("code").dataset.file;
+    fetch(`?operation=savefile&dir=${encodePath}&file=${file}`, {
+        method: "POST",
+        body: "data=" + document.getElementById("code").innerText,
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+    }).then(response => {
+        return response.json();
+    }).then(data => {
+        if (data["code"] == 200) {
+            document.getElementById("save").innerText = "成功";
+            setTimeout(() => {
+                document.getElementById("save").innerText = "保存";
+            }, 3000);
+        }
+    })
+})
 function notice(msg) {
     document.getElementById("notice-text").innerText = msg;
     document.getElementById("notice").classList.add("show");
