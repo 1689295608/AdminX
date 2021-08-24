@@ -162,17 +162,20 @@ file:hover, dire:hover {
     height: calc(100% - 105px);
 }
 
-#code, .CodeMirror {
-    width: 100%;
-    height: calc(100% - 35px);
+#code {
     resize: none;
     border: none;
     outline: none;
-    border-top: 1px solid #bbb;
     background: #f9f9f9;
     padding: 20px;
     font-size: 1em;
     font-family: auto;
+}
+
+#code, .CodeMirror {
+    height: calc(100% - 36px) !important;
+    border-top: 1px solid #bbb;
+    width: 100%;
 }
 
 .adminx-path::after {
