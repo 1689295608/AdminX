@@ -74,8 +74,8 @@ document.getElementById("login").addEventListener("click", () => {
 
 function notice(msg) {
     document.getElementById("notice-text").innerText = msg;
-    document.getElementById("notice-text").classList.add("show");
+    document.getElementById("notice").classList.add("show");
     setTimeout(() => {
-        document.getElementById("notice-text").classList.remove("show");
+        document.getElementById("notice").classList.remove("show");
     }, 1000);
 }
