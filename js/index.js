@@ -3,21 +3,7 @@ let files = document.getElementsByTagName("file");
 let path = document.getElementById("path").dataset.path;
 let ctrl = false;
 SetClickSelecte(files);
-for (let i in files) {
-    if (files[i].addEventListener) {
-        files[i].addEventListener("dbclick", () => {
-            window.open(`?operstion=edit&dir=${encodeURIComponent(path)}$file=${encodeURIComponent(files[i].innerText)}`);
-        });
-    }
-}
 let dires = document.getElementsByTagName("dire");
-for (let i in dires) {
-    if (dires[i].addEventListener) {
-        dires[i].addEventListener("dbclick", () => {
-            window.location.search = `?dir=${encodeURIComponent(path)}`;
-        });
-    }
-}
 document.addEventListener("keydown", (event) => {
     ctrl = event.ctrlKey;
 });
@@ -31,6 +17,12 @@ function SetClickSelecte(elements) {
             elements[i].addEventListener("click", () => {
                 if (ctrl) {
                     selecte(elements[i]);
+                } else {
+                    if (elements[i].tagName == "FILE") {
+                        window.open(`?operstion=edit&dir=${encodeURIComponent(path)}$file=${encodeURIComponent(files[i].innerText)}`);
+                    } else {
+                        window.location.search = `?dir=${encodeURIComponent(path)}`;
+                    }
                 }
             });
             elements[i].addEventListener("contextmenu", () => {
