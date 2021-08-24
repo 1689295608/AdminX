@@ -65,7 +65,15 @@ document.getElementById("login").addEventListener("click", () => {
         }
     })
 });
-
+let paths = document.getElementsByTagName("path");
+for (let i in paths) {
+    if (paths[i].addEventListener) {
+        paths[i].addEventListener("click", () => {
+            let p = paths[i].hasAttribute("p") ? paths[i].getAttribute("p") : "/";
+            window.location.search = `?dir=${encodeURIComponent(p)}`;
+        });
+    }
+}
 function notice(msg) {
     document.getElementById("notice-text").innerText = msg;
     document.getElementById("notice").classList.add("show");
