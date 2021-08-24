@@ -1,6 +1,7 @@
 let selected = [];
 let files = document.getElementsByTagName("file");
 let path = document.getElementById("path").dataset.path;
+if (path.startsWith("/")) path = path.substring(1);
 let ctrl = false;
 SetClickSelecte(files);
 let dires = document.getElementsByTagName("dire");
@@ -25,9 +26,9 @@ function SetClickSelecte(elements) {
                     }
                 }
             });
-            elements[i].addEventListener("contextmenu", () => {
+            elements[i].addEventListener("contextmenu", (event) => {
                 selecte(elements[i]);
-                return false;
+                event.preventDefault();
             });
         }
     }
