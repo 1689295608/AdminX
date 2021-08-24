@@ -1,3 +1,5 @@
+const { notStrictEqual } = require("assert");
+
 let selected = [];
 let files = document.getElementsByTagName("file");
 let path = document.getElementById("path").dataset.path;
@@ -38,4 +40,29 @@ function ReloadSelected() {
     for (let i = 0; i < selectedElement.length; i ++) {
         selected[i] = selectedElement[i].innerText;
     }
+}
+document.getElementById("login").addEventListener("click", () => {
+    fetch("?operation=login", {
+        body: "password=" + document.getElementById("password").value,
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+    }).then(response => {
+        return response.json()
+    }).then(data => {
+        if (data["code"] == 200) {
+            window.location.reload();
+        } else {
+            notice(data["msg"]);
+        }
+    })
+});
+
+function notice(msg) {
+    document.getElementById("notice-text").innerText = msg;
+    document.getElementById("notice-text").classList.add("show");
+    setTimeout(() => {
+        document.getElementById("notice-text").classList.remove("show");
+    }, 200);
 }
