@@ -1,5 +1,3 @@
-const { notStrictEqual } = require("assert");
-
 let selected = [];
 let files = document.getElementsByTagName("file");
 let path = document.getElementById("path").dataset.path;
