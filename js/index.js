@@ -35,6 +35,7 @@ function SetClickSelecte(elements) {
             });
             elements[i].addEventListener("contextmenu", () => {
                 selecte(elements[i]);
+                return false;
             });
         }
     }
