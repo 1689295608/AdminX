@@ -3,7 +3,7 @@ let files = document.getElementsByTagName("file");
 let path = document.getElementById("path").dataset.path;
 if (path.startsWith("/")) path = path.substring(1);
 let ctrl = false;
-SetClickSelecte(files);
+SetClickSelect(files);
 let dires = document.getElementsByTagName("dire");
 document.addEventListener("keydown", (event) => {
     ctrl = event.ctrlKey;
@@ -11,13 +11,13 @@ document.addEventListener("keydown", (event) => {
 document.addEventListener("keyup", (event) => {
     ctrl = event.ctrlKey;
 });
-SetClickSelecte(dires);
-function SetClickSelecte(elements) {
+SetClickSelect(dires);
+function SetClickSelect(elements) {
     for (let i in elements) {
         if (elements[i].addEventListener) {
             elements[i].addEventListener("click", () => {
                 if (ctrl) {
-                    selecte(elements[i]);
+                    select(elements[i]);
                 } else {
                     if (elements[i].tagName == "FILE") {
                         window.open(`?operation=edit&dir=${encodeURIComponent(path)}&file=${encodeURIComponent(elements[i].innerText)}`);
@@ -27,13 +27,13 @@ function SetClickSelecte(elements) {
                 }
             });
             elements[i].addEventListener("contextmenu", (event) => {
-                selecte(elements[i]);
+                select(elements[i]);
                 event.preventDefault();
             });
         }
     }
 }
-function selecte(element) {
+function select(element) {
     if (element.classList.contains("selected")) {
         element.classList.remove("selected");
     } else {
