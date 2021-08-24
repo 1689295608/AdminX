@@ -20,7 +20,7 @@ function SetClickSelecte(elements) {
                     selecte(elements[i]);
                 } else {
                     if (elements[i].tagName == "FILE") {
-                        window.open(`?operstion=edit&dir=${encodeURIComponent(path)}&file=${encodeURIComponent(elements[i].innerText)}`);
+                        window.open(`?operation=edit&dir=${encodeURIComponent(path)}&file=${encodeURIComponent(elements[i].innerText)}`);
                     } else {
                         window.location.search = `?dir=${encodeURIComponent(path) + elements[i].innerText}`;
                     }
