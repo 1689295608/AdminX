@@ -198,3 +198,37 @@ file:active, dire:active {
 dire.selected, file.selected {
     background: #0090ff;
 }
+
+#notice {
+    position: fixed;
+    bottom: -30px;
+    width: calc(100% - 10px);
+    height: 30px;
+    background: orange;
+    border-radius: 10px 10px 0 0;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    transition: .2s;
+}
+
+#notice-text::before {
+    content: '';
+    display: inline-block;
+    width: 1.2em;
+    height: 1.2em;
+    background-image: url("data:image/svg+xml,%3Csvg t='1629776240392' class='icon' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='3487' width='200' height='200'%3E%3Cpath d='M512 373.8c-20.1 0-36.3 16.3-36.3 36.3v181.6c0 20.1 16.3 36.3 36.3 36.3 20.1 0 36.3-16.3 36.3-36.3V410.1c0-20-16.2-36.3-36.3-36.3z m0 326.9c-20.1 0-36.3 16.3-36.3 36.3 0 20.1 16.3 36.3 36.3 36.3 20.1 0 36.3-16.3 36.3-36.3 0-20-16.2-36.3-36.3-36.3z' p-id='3488' fill='%23ffffff'%3E%3C/path%3E%3Cpath d='M730 836.4H149.2L294 584.6l37.6-65.5L512 205.5l180.3 313.6 37.7 65.5 144.8 251.8H730z m220.8-13.5l-389-676.5c-11.5-20-29.6-31.5-49.8-31.5-20.2 0-38.3 11.5-49.8 31.5l-389 676.5C61.8 842.8 61 864.3 71 881.7c10.1 17.4 29.1 27.4 52 27.4h778c22.9 0 41.8-10 51.9-27.4 10.2-17.4 9.4-38.9-2.1-58.8z' p-id='3489' fill='%23ffffff'%3E%3C/path%3E%3C/svg%3E");
+    background-size: cover;
+    vertical-align: middle;
+    margin: 5px;
+}
+
+#notice-text {
+    display: flex;
+    align-items: center;
+}
+
+#notice.show {
+    bottom: 0;
+}
