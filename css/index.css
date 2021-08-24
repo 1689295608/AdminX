@@ -162,7 +162,7 @@ file:hover, dire:hover {
     height: calc(100% - 105px);
 }
 
-#code {
+#code, .CodeMirror {
     width: 100%;
     height: calc(100% - 35px);
     resize: none;
