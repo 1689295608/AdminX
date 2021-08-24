@@ -165,3 +165,7 @@ btn:active {
 file:active, dire:active {
     background: #a1a1a1;
 }
+
+dire[selected=true], file[selected=true] {
+    background: #0090ff;
+}
