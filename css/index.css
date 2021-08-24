@@ -252,3 +252,7 @@ dire.selected, file.selected {
 #notice.show {
     bottom: 0;
 }
+
+.adminx-path deli::before {
+    content: '/';
+}
