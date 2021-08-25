@@ -10,9 +10,6 @@ if (path.startsWith("/")) path = path.substring(1);
 /* URI 编码后的路径 */
 let encodePath = encodeURIComponent(path);
 
-/* 是否已按下 Ctrl 键 */
-let ctrl = false;
-
 /* 所有的文件元素 */
 let files = document.getElementsByTagName("file");
 SetClickSelect(files);
@@ -20,6 +17,9 @@ SetClickSelect(files);
 /* 所有的目录元素 */
 let dires = document.getElementsByTagName("dire");
 SetClickSelect(dires);
+
+/* 是否已按下 Ctrl 键 */
+let ctrl = false;
 
 /* 在按下或弹起某键时更新 Ctrl 键状态 */
 document.addEventListener("keydown", (event) => {
