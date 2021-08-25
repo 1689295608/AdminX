@@ -174,10 +174,22 @@ document.getElementById("zip").addEventListener("click", () => {
 document.getElementById("delete").addEventListener("click", () => {
     if (selected.length > 0) {
         if (confirm(`真的要删除这 ${selected.length} 个文件吗喵？？`)) {
-            let delwin = window.open(`?operation=delete&dir=${encodePath}&files=${JSON.stringify(selected)}`);
-            delwin.addEventListener("load", () => {
-                delwin.close();
-            });
+            fetch(`?operation=delete&dir=${encodePath}`, {
+                method: "POST",
+                body: `files=${JSON.stringify(selected)}`,
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                }
+            }).then(response => {
+                return response.json();
+            }).then(data => {
+                if (data["code"] == 200) {
+                    notice("删除成功了喵！");
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 3000);
+                }
+            })
         } else {
             notice("不删就不要乱点嘛喵~");
         }
