@@ -174,7 +174,7 @@ document.getElementById("zip").addEventListener("click", () => {
 document.getElementById("delete").addEventListener("click", () => {
     if (selected.length > 0) {
         if (confirm(`真的要删除这 ${selected.length} 个文件吗喵？？`)) {
-            fetch(`?operation=delete&dir=${encodePath}`, {
+            fetch(`?operation=unlink&dir=${encodePath}`, {
                 method: "POST",
                 body: `files=${JSON.stringify(selected)}`,
                 headers: {
