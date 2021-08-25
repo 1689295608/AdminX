@@ -13,6 +13,12 @@ let encodePath = uri(path);
 /* 当前正在编辑的文件名，可能为 undefined */
 let file = document.getElementById("code").dataset.file;
 
+/* 编辑器对象变量 */
+let editor = null;
+if (enableEditor) { /* "enableEditor" 变量在 PHP 中使用 <script> 设置 */
+    editor = CodeMirror.fromTextArea(document.getElementById("code"), { lineNumbers:true });
+}
+
 /* 所有的文件元素 */
 let files = document.getElementsByTagName("file");
 SetClickSelect(files);
@@ -148,7 +154,7 @@ document.getElementById("save").addEventListener("click", () => {
     /* 当前编辑的文件名 */
     fetch(`?operation=savefile&dir=${encodePath}&file=${file}`, {
         method: "POST",
-        body: "data=" + document.getElementById("code").innerText.trim(),
+        body: "data=" + (editor ? editor.getValue() : document.getElementById("code").innerText).trim(),
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         }
