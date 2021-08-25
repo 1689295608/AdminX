@@ -25,13 +25,13 @@ let ctrl = false;
 document.addEventListener("keydown", (event) => {
     ctrl = event.ctrlKey;
     if (event.code == "KeyA") {
+        event.preventDefault();
         for (let i in files) {
             select(files[i], event.shiftKey ? undefined : true);
         }
         for (let o in dires) {
             select(dires[o], event.shiftKey ? undefined : true);
         }
-        event.preventDefault();
     }
 });
 document.addEventListener("keyup", (event) => {
@@ -75,6 +75,7 @@ function SetClickSelect(elements) {
  * @param {Element} element 对象
  */
 function select(element, select) {
+    if (element == undefined) return;
     if (element.classList.contains("selected") || !select) {
         element.classList.remove("selected");
     } else {
