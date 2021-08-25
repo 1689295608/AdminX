@@ -239,7 +239,7 @@ document.getElementById("unzip").addEventListener("click", () => {
             }
         });
     } else {
-        notice("你还没选择要删除哪些文件呢喵！");
+        notice("你还没选择要解压哪些文件呢喵！");
     }
 });
 
