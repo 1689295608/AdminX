@@ -16,7 +16,7 @@ let file = document.getElementById("code").dataset.file;
 /* 编辑器对象变量 */
 let editor = null;
 if (enableEditor) { /* "enableEditor" 变量在 PHP 中使用 <script> 设置 */
-    editor = CodeMirror.fromTextArea(document.getElementById("code"), { lineNumbers:true });
+    editor = CodeMirror.fromTextArea(document.getElementById("code"), { lineNumbers: true });
 }
 
 /* 所有的文件元素 */
@@ -162,10 +162,8 @@ document.getElementById("save").addEventListener("click", () => {
         return response.json();
     }).then(data => {
         if (data["code"] == 200) {
-            document.getElementById("save").innerText = "成功";
-            setTimeout(() => {
-                document.getElementById("save").innerText = "保存";
-            }, 3000);
+            notice("文件保存成功辣！", "rgb(0 144 255)");
+            document.getElementById("save").innerText = "保存";
         }
     })
 });
@@ -346,9 +344,22 @@ document.getElementById("upload").addEventListener("click", () => {
 document.getElementById("upload-file").addEventListener("change", () => {
     let files = document.getElementById("upload-file").files;
     if (files.length > 0) {
-        if (files.length > 1) {
-            notice("一次只能上传一个文件喔！");
-            return;
-        }
+        let form = new FormData(document.getElementById("select-file"));
+        fetch(`?operation=upload&dir=${encodePath}`, {
+            method: "POST",
+            body: form,
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        }).then(response => {
+            return response.json();
+        }).then(data => {
+            if (data["code"] == 200) {
+                notice("文件上传成功惹！", "rgb(0 144 255)");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            }
+        });
     }
 });
