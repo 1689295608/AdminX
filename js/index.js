@@ -333,12 +333,12 @@ document.getElementById("mkdir").addEventListener("click", () => {
 
 /* 上传文件按钮点击事件 */
 document.getElementById("upload").addEventListener("click", () => {
-    document.getElementById("select-file").click();
+    document.getElementById("upload-file").click();
 });
 
 /* 选择文件被改变事件 */
-document.getElementById("select-file").addEventListener("change", () => {
-    let files = document.getElementById("select-file").files;
+document.getElementById("upload-file").addEventListener("change", () => {
+    let files = document.getElementById("upload-file").files;
     if (files.length > 0) {
         if (files.length > 1) {
             notice("一次只能上传一个文件喔！");
