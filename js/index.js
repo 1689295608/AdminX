@@ -31,6 +31,7 @@ document.addEventListener("keydown", (event) => {
         for (let i in dires) {
             select(dires, event.shiftKey ? undefined : true);
         }
+        event.preventDefault();
     }
 });
 document.addEventListener("keyup", (event) => {
