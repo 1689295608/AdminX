@@ -10,6 +10,9 @@ if (path.startsWith("/")) path = path.substring(1);
 /* URI 编码后的路径 */
 let encodePath = uri(path);
 
+/* 当前正在编辑的文件名，可能为 undefined */
+let file = document.getElementById("code").dataset.file;
+
 /* 所有的文件元素 */
 let files = document.getElementsByTagName("file");
 SetClickSelect(files);
@@ -85,7 +88,7 @@ function SetClickSelect(elements) {
  */
 function select(element, se) {
     if (!element || !element.classList) return;
-    if (element.classList.contains("selected") || !se) {
+    if (element.classList.contains("selected") && !se) {
         element.classList.remove("selected");
     } else {
         element.classList.add("selected");
@@ -143,7 +146,6 @@ document.getElementById("save").addEventListener("click", () => {
     document.getElementById("save").innerText = "保存中...";
 
     /* 当前编辑的文件名 */
-    let file = document.getElementById("code").dataset.file;
     fetch(`?operation=savefile&dir=${encodePath}&file=${file}`, {
         method: "POST",
         body: "data=" + document.getElementById("code").innerText.trim(),
@@ -166,6 +168,11 @@ document.getElementById("save").addEventListener("click", () => {
 document.getElementById("reload").addEventListener("click", () => {
     /* 刷新本窗口 */
     window.location.reload();
+});
+
+/* 下载按钮点击事件 */
+document.getElementById("download").addEventListener("click", () => {
+    window.location.href = `?operation=download&dir=${encodePath}&file=${file}`;
 });
 
 /**
