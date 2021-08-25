@@ -29,7 +29,7 @@ document.addEventListener("keydown", (event) => {
             select(files[i], event.shiftKey ? undefined : true);
         }
         for (let i in dires) {
-            select(dires, event.shiftKey ? undefined : true);
+            select(dires[i], event.shiftKey ? undefined : true);
         }
         event.preventDefault();
     }
