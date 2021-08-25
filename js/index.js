@@ -349,21 +349,23 @@ document.getElementById("upload-file").addEventListener("change", () => {
             form.append("files", uploadFiles[i]);
         }
         notice("正在开始上传文件啦，要耐心等待喔！", "rgb(0 144 255)");
-        fetch(`?operation=upload&dir=${encodePath}`, {
-            method: "POST",
-            body: form,
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            }
-        }).then(response => {
-            return response.json();
-        }).then(data => {
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", `?operation=upload&dir=${encodePath}`);
+        xhr.addEventListener("load", () => {
+            let data = JSON.parse(xhr.responseText);
             if (data["code"] == 200) {
                 notice("文件上传成功惹！", "rgb(0 144 255)");
                 setTimeout(() => {
                     window.location.reload();
                 }, 2000);
+            } else {
+                notice("上传失败了喵，重新试试吧？");
             }
         });
+        try {
+            xhr.send(form);
+        } catch (e) {
+            notice(`上传失败惹，我也不知道为什么：${e}`)
+        }
     }
 });
