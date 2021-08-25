@@ -83,9 +83,9 @@ function SetClickSelect(elements) {
  * 切换该对象的选中模式
  * @param {Element} element 对象
  */
-function select(element, select) {
+function select(element, se) {
     if (!element || !element.classList) return;
-    if (element.classList.contains("selected") || !select) {
+    if (element.classList.contains("selected") || !se) {
         element.classList.remove("selected");
     } else {
         element.classList.add("selected");
@@ -323,3 +323,19 @@ document.getElementById("mkdir").addEventListener("click", () => {
         notice("既然不告诉我，那我就不新建了 QAQ");
     }
 });
+
+/* 上传文件按钮点击事件 */
+document.getElementById("upload").addEventListener("click", () => {
+    document.getElementById("select-file").click();
+});
+
+/* 选择文件被改变事件 */
+document.getElementById("select-file").addEventListener("change", () => {
+    let files = document.getElementById("select-file").files;
+    if (files.length > 0) {
+        if (files.length > 1) {
+            notice("一次只能上传一个文件喔！");
+            return;
+        }
+    }
+})
