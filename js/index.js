@@ -84,7 +84,7 @@ function SetClickSelect(elements) {
  * @param {Element} element 对象
  */
 function select(element, select) {
-    if (!element) return;
+    if (!element || !element.classList) return;
     if (element.classList.contains("selected") || !select) {
         element.classList.remove("selected");
     } else {
