@@ -208,3 +208,27 @@ document.getElementById("delete").addEventListener("click", () => {
         notice("你还没选择要删除哪些文件呢喵！");
     }
 });
+
+/* 解压按钮点击事件 */
+document.getElementById("unzip").addEventListener("click", () => {
+    if (selected.length > 0) {
+        fetch(`?operation=unzip&dir=${encodePath}`, {
+            method: "POST",
+            body: `files=${JSON.stringify(selected)}`,
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        }).then(response => {
+            return response.json();
+        }).then(data => {
+            if (data["code"] == 200) {
+                notice("解压成功了喵！", "rgb(0 144 255)");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 3000);
+            }
+        })
+    } else {
+        notice("你还没选择要删除哪些文件呢喵！");
+    }
+})
