@@ -8,7 +8,7 @@ let path = document.getElementById("path").dataset.path;
 if (path.startsWith("/")) path = path.substring(1);
 
 /* URI 编码后的路径 */
-let encodePath = encodeURIComponent(path);
+let encodePath = uri(path);
 
 /* 所有的文件元素 */
 let files = document.getElementsByTagName("file");
@@ -20,6 +20,15 @@ SetClickSelect(dires);
 
 /* 是否已按下 Ctrl 键 */
 let ctrl = false;
+
+/**
+ * EncodeURIComponent 太长了，简化一下
+ * @param {string} str 
+ * @returns URI 编码后的内容
+ */
+function uri(str) {
+    return encodeURIComponent(str);
+}
 
 /* 在按下或弹起某键时更新 Ctrl 键状态 */
 document.addEventListener("keydown", (event) => {
@@ -53,7 +62,7 @@ function SetClickSelect(elements) {
                 } else {
                     if (elements[i].tagName == "FILE") {
                         /* 在新窗口中打开该文件的编辑 */
-                        window.open(`?operation=edit&dir=${encodePath}&file=${encodeURIComponent(elements[i].innerText)}`);
+                        window.open(`?operation=edit&dir=${encodePath}&file=${uri(elements[i].innerText)}`);
                     } else {
                         /* 跳转到该目录 */
                         window.location.search = `?dir=${encodePath + elements[i].innerText}`;
@@ -124,7 +133,7 @@ for (let i in paths) {
         paths[i].addEventListener("click", () => {
             /* 使用 PHP 中输出的 "p" 属性 */
             let p = paths[i].hasAttribute("p") ? paths[i].getAttribute("p") : "/";
-            window.location.search = `?dir=${encodeURIComponent(p)}`;
+            window.location.search = `?dir=${uri(p)}`;
         });
     }
 }
@@ -165,7 +174,7 @@ document.getElementById("reload").addEventListener("click", () => {
  * @param {string} color 警告背景颜色
  */
 function notice(msg, color) {
-    if (color != undefined) document.getElementById("notice").style.background = color;
+    if (!color) document.getElementById("notice").style.background = color;
     document.getElementById("notice-text").innerText = msg;
     document.getElementById("notice").classList.add("show");
     setTimeout(() => {
@@ -201,7 +210,7 @@ document.getElementById("delete").addEventListener("click", () => {
                         window.location.reload();
                     }, 3000);
                 }
-            })
+            });
         } else {
             notice("不删就不要乱点嘛喵~");
         }
@@ -226,10 +235,91 @@ document.getElementById("unzip").addEventListener("click", () => {
                 notice("解压成功了喵！", "rgb(0 144 255)");
                 setTimeout(() => {
                     window.location.reload();
-                }, 3000);
+                }, 2000);
             }
-        })
+        });
     } else {
         notice("你还没选择要删除哪些文件呢喵！");
     }
-})
+});
+
+/* 重命名按钮点击事件 */
+document.getElementById("rename").addEventListener("click", () => {
+    if (selected.length < 0) {
+        notice("你还没选择要重命名哪个文件呢喵！");
+        return;
+    }
+    if (selected.length > 1) {
+        notice("一次只能重命名一个文件嗷！");
+        return;
+    }
+    let newName = prompt("请输入新名称喵：", selected[0]);
+    if (newName) {
+        fetch(`?operation=rename&dir=${encodePath}&file=${uri(selected[0])}`, {
+            method: "POST",
+            body: `new-name=${uri(newName)}`,
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        }).then(response => {
+            return response.json();
+        }).then(data => {
+            if (data["code"] == 200) {
+                notice("重命名成功了喵！", "rgb(0 144 255)");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            }
+        });
+    }
+});
+
+/* 新建文件按钮点击事件 */
+document.getElementById("newfile").addEventListener("click", () => {
+    let filename = prompt("不妨告诉我一下新文件的名称？");
+    if (filename) {
+        fetch(`?operation=newfile&dir=${encodePath}`, {
+            method: "POST",
+            body: `name=${uri(filename)}`,
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        }).then(response => {
+            return response.json();
+        }).then(data => {
+            if (data["code"] == 200) {
+                notice("新建文件成功喵！", "rgb(0 144 255)");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            }
+        });
+    } else {
+        notice("既然不告诉我，那我就不新建了 QAQ");
+    }
+});
+
+/* 新建文件夹按钮点击事件 */
+document.getElementById("mkdir").addEventListener("click", () => {
+    let dirname = prompt("不妨告诉我一下新文件夹的名称？");
+    if (dirname) {
+        fetch(`?operation=mkdir&dir=${encodePath}`, {
+            method: "POST",
+            body: `name=${uri(dirname)}`,
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        }).then(response => {
+            return response.json();
+        }).then(data => {
+            if (data["code"] == 200) {
+                notice("新建文件夹成功喵！", "rgb(0 144 255)");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            }
+        });
+    } else {
+        notice("既然不告诉我，那我就不新建了 QAQ");
+    }
+});
