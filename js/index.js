@@ -42,7 +42,7 @@ function uri(str) {
 /* 在按下或弹起某键时更新 Ctrl 键状态 */
 document.addEventListener("keydown", (event) => {
     ctrl = event.ctrlKey;
-    if (event.code == "KeyA") {
+    if (event.code == "KeyA" && ctrl) {
         event.preventDefault();
         for (let i in files) {
             select(files[i], event.shiftKey ? undefined : true);
