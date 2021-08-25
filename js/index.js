@@ -345,6 +345,7 @@ document.getElementById("upload-file").addEventListener("change", () => {
     let uploadFiles = document.getElementById("upload-file").files;
     if (uploadFiles.length > 0) {
         let form = new FormData(document.getElementById("select-file"));
+        notice("正在开始上传文件啦，要耐心等待喔！", "rgb(0 144 255)");
         fetch(`?operation=upload&dir=${encodePath}`, {
             method: "POST",
             body: form,
