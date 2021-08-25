@@ -185,7 +185,7 @@ document.getElementById("download").addEventListener("click", () => {
  * @param {string} color 警告背景颜色
  */
 function notice(msg, color) {
-    if (!color) document.getElementById("notice").style.background = color;
+    if (color) document.getElementById("notice").style.background = color;
     document.getElementById("notice-text").innerText = msg;
     document.getElementById("notice").classList.add("show");
     setTimeout(() => {
