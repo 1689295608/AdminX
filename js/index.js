@@ -342,8 +342,8 @@ document.getElementById("upload").addEventListener("click", () => {
 
 /* 选择文件被改变事件 */
 document.getElementById("upload-file").addEventListener("change", () => {
-    let files = document.getElementById("upload-file").files;
-    if (files.length > 0) {
+    let uploadFiles = document.getElementById("upload-file").files;
+    if (uploadFiles.length > 0) {
         let form = new FormData(document.getElementById("select-file"));
         fetch(`?operation=upload&dir=${encodePath}`, {
             method: "POST",
