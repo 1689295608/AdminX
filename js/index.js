@@ -152,8 +152,10 @@ document.getElementById("reload").addEventListener("click", () => {
 /**
  * 弹出底部警告
  * @param {string} msg 警告内容
+ * @param {string} color 警告背景颜色
  */
-function notice(msg) {
+function notice(msg, color) {
+    if (color != undefined) document.getElementById("notice").style.background = color;
     document.getElementById("notice-text").innerText = msg;
     document.getElementById("notice").classList.add("show");
     setTimeout(() => {
@@ -184,7 +186,7 @@ document.getElementById("delete").addEventListener("click", () => {
                 return response.json();
             }).then(data => {
                 if (data["code"] == 200) {
-                    notice("删除成功了喵！");
+                    notice("删除成功了喵！", "#36FF00");
                     setTimeout(() => {
                         window.location.reload();
                     }, 3000);
