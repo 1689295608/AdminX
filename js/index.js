@@ -169,3 +169,16 @@ document.getElementById("zip").addEventListener("click", () => {
         notice("好像还没有选中文件呢喵？");
     }
 });
+
+/* 删除文件点击事件 */
+document.getElementById("delete").addEventListener("click", () => {
+    if (selected.length > 0) {
+        if (confirm(`真的要删除这 ${selected.length} 个文件吗喵？？`)) {
+            window.location.search = `?operation=delete&files=${JSON.stringify(selected)}`;
+        } else {
+            notice("不删就不要乱点嘛喵~");
+        }
+    } else {
+        notice("你还没选择要删除哪些文件呢喵！");
+    }
+});
