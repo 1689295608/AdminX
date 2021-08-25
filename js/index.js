@@ -13,14 +13,6 @@ let encodePath = encodeURIComponent(path);
 /* 是否已按下 Ctrl 键 */
 let ctrl = false;
 
-/* 在按下或弹起某键时更新 Ctrl 键状态 */
-document.addEventListener("keydown", (event) => {
-    ctrl = event.ctrlKey;
-});
-document.addEventListener("keyup", (event) => {
-    ctrl = event.ctrlKey;
-});
-
 /* 所有的文件元素 */
 let files = document.getElementsByTagName("file");
 SetClickSelect(files);
@@ -28,6 +20,22 @@ SetClickSelect(files);
 /* 所有的目录元素 */
 let dires = document.getElementsByTagName("dire");
 SetClickSelect(dires);
+
+/* 在按下或弹起某键时更新 Ctrl 键状态 */
+document.addEventListener("keydown", (event) => {
+    ctrl = event.ctrlKey;
+    if (event.code == "KeyA") {
+        for (let i in files) {
+            select(files[i], event.shiftKey ? undefined : true);
+        }
+        for (let i in dires) {
+            select(dires, event.shiftKey ? undefined : true);
+        }
+    }
+});
+document.addEventListener("keyup", (event) => {
+    ctrl = event.ctrlKey;
+});
 
 /**
  * 注册文件、目录的单击和菜单事件
@@ -65,8 +73,8 @@ function SetClickSelect(elements) {
  * 切换该对象的选中模式
  * @param {Element} element 对象
  */
-function select(element) {
-    if (element.classList.contains("selected")) {
+function select(element, select) {
+    if (element.classList.contains("selected") || !select) {
         element.classList.remove("selected");
     } else {
         element.classList.add("selected");
