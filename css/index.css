@@ -266,3 +266,7 @@ dire.selected, file.selected {
 .mult-control-btn {
     padding: 10px 10px 0 10px;
 }
+
+#select-file {
+    display: none;
+}
