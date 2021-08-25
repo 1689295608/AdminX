@@ -186,7 +186,7 @@ document.getElementById("delete").addEventListener("click", () => {
                 return response.json();
             }).then(data => {
                 if (data["code"] == 200) {
-                    notice("删除成功了喵！", "#36FF00");
+                    notice("删除成功了喵！", "rgb(0 144 255)");
                     setTimeout(() => {
                         window.location.reload();
                     }, 3000);
