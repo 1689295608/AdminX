@@ -369,9 +369,6 @@ if (isset($_GET["operation"])) {
                 <textarea id="code" name="data" <?php if (isset($data)) echo "data-file=\"" . $_GET["file"] . "\""; ?>><?php echo isset($data) ? htmlentities($data) : ""; ?></textarea>
             </div>
         </div>
-        <div id="notice">
-            <span id="notice-text"></span>
-        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/gh/codemirror/CodeMirror/lib/codemirror.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/gh/codemirror/CodeMirror/mode/htmlmixed/htmlmixed.js" type="text/javascript"></script>
