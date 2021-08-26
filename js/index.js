@@ -402,5 +402,17 @@ document.getElementById("showeditor").addEventListener("click", () => {
 
 /* 检查更新按钮点击事件 */
 document.getElementById("check-update").addEventListener("click", () => {
-
-})
+    fetch(`?operation=chackupdata`).then(response => {
+        return response.json();
+    }).then(data => {
+        if (data["now-version"] != data["last-version"]) {
+            let updataLog = "";
+            for (let i in data["updata-log"]) {
+                updataLog += `${i}. ${data["updata-log"][i]}\n`;
+            }
+            if (window.confirm(`发现新版本！\n新版版本号：${data["last-version"]}\n当前版本号：${data["now-version"]}\n本次更新内容：\n${updataLog}是否下载新版源代码？`)) {
+                window.open(data["updata-link"]);
+            }
+        }
+    })
+});
