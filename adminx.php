@@ -287,7 +287,7 @@ if (isset($_GET["operation"])) {
                 $files = json_decode($_POST["files"], true);
                 foreach ($files as $key => $file) {
                     $zip = new ZipArchive();
-                    $result_code = $zip->open($file, ZipArchive::RDONLY);
+                    $result_code = $zip->open($file, $phpver <= 7.4 ? ZipArchive::OVERWRITE : ZipArchive::RDONLY);
                     if ($result_code === true) {
                         if (isset($_POST["password"]) && $_POST["password"] != "") {
                             $zip->setPassword($_GET["password"]);
