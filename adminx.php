@@ -4,7 +4,7 @@ $password = "AdminX"; /* 填入你的密码，使用这个密码就可以操作�
 $backupdir = "./adminx/backup";
 $backuptime = true;
 $savedfiles = [
-    "./adminx.php"
+    "/.\/adminx.php/i"
 ]; /* 受保护的文件列表，它们无法使用 AdminX 修改 */
 $phpver = 7; /* 输入你的 PHP 版本，不兼容 PHP 5- */
 $https = true; /* 输入你的域名是否是 HTTPS 协议 */
@@ -50,7 +50,7 @@ function is_saved($file, $savedfiles)
 {
     if (!isset($savedfiles)) return false;
     for ($i = 0; $i < count($savedfiles); $i++) {
-        if ($savedfiles[$i] == $file) {
+        if (preg_match($savedfiles[$i], $file)) {
             return true;
         }
     }
