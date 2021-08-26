@@ -22,6 +22,17 @@ $cookieoptions = [
     'httponly' => true,
     'samesite' => 'None'
 ];
+$ZIP_ERROR = [
+    ZipArchive::ER_EXISTS => '文件已存在',
+    ZipArchive::ER_INCONS => 'Zip 文件不一致',
+    ZipArchive::ER_INVAL => '参数无效',
+    ZipArchive::ER_MEMORY => 'Malloc 失败',
+    ZipArchive::ER_NOENT => '文件不存在',
+    ZipArchive::ER_NOZIP => '不是 Zip 文件',
+    ZipArchive::ER_OPEN => "无法打开文件",
+    ZipArchive::ER_READ => '读取失败',
+    ZipArchive::ER_SEEK => '查找失败',
+  ];
 if (!function_exists('str_ends_with')) {
     /* 为旧版 PHP 实现 str_ends_with 函数 */
     function str_ends_with($haystack, $needle)
@@ -120,7 +131,7 @@ if (isset($_GET["operation"])) {
             }
             if ($files != null) {
                 $zip = new ZipArchive();
-                if ($zip->open("./adminx.zip", ZipArchive::OVERWRITE) === true) {
+                if ($zip->open("./adminx.zip", ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
                     foreach ($files as $key => $filename) {
                         if (is_dir("./$dir/$filename")) {
                             adddir($zip, "./$dir/$filename");
@@ -139,7 +150,8 @@ if (isset($_GET["operation"])) {
                     unlink("./adminx.zip");
                     return;
                 } else {
-                    $notice = "打包文件失败！";
+                    $msg = isset($ZIP_ERROR[$result_code])? $ZIP_ERROR[$result_code] : "未知错误";
+                    $notice = "打包文件失败！因为$msg";
                 }
             } else {
                 $notice = "未指明打包的文件！";
