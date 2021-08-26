@@ -92,6 +92,7 @@ function mkdirs($pathname)
     $paths = explode("/", $pathname);
     $nowp = "";
     foreach ($paths as $key => $value) {
+        if ($value == "." || $value == ".." || $value == "") continue;
         $nowp .= $value . "/";
         @mkdir($nowp);
     }
