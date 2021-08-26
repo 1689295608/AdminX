@@ -188,6 +188,8 @@ document.getElementById("save").addEventListener("click", () => {
         if (data["code"] == 200) {
             notice("文件保存成功辣！", "rgb(0 144 255)");
             document.getElementById("save").innerText = "保存";
+        } else if (data["code"] == 403) {
+            notice("该文件受到保护了喵...");
         }
     })
 });
@@ -306,6 +308,10 @@ document.getElementById("rname").addEventListener("click", () => {
                 setTimeout(() => {
                     window.location.reload();
                 }, 2000);
+            } else if (data["code"] == 403) {
+                notice("该文件或该名称的文件受到保护，不能修改喵~");
+            } else if (data["code"] == 404) {
+                notice("咦？这个文件怎么不见了？");
             }
         });
     }
@@ -329,6 +335,8 @@ document.getElementById("newfile").addEventListener("click", () => {
                 setTimeout(() => {
                     window.location.reload();
                 }, 2000);
+            } else if (data["code"] == 403) {
+                notice("该文件已存在了嗷！");
             }
         });
     } else {
@@ -354,6 +362,8 @@ document.getElementById("mkdir").addEventListener("click", () => {
                 setTimeout(() => {
                     window.location.reload();
                 }, 2000);
+            } else if (data["code"] == 403) {
+                notice("该目录已存在了嗷！");
             }
         });
     } else {
