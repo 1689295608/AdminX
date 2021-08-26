@@ -2,6 +2,7 @@
 /* ----------=== 配置部分 ===---------- */
 $password = "AdminX"; /* 填入你的密码，使用这个密码就可以操作您的主机中的所有文件 */
 $backupdir = "./adminx/backup";
+$backuptime = true;
 $savedfiles = [
     "./adminx.php"
 ]; /* 受保护的文件列表，它们无法使用 AdminX 修改 */
@@ -196,7 +197,7 @@ if (isset($_GET["operation"])) {
                     if (!is_dir($backupdir)) {
                         mkdirs($backupdir);
                     }
-                    file_put_contents("$backupdir/$fname.bak", @file_get_contents($file));
+                    file_put_contents("$backupdir/$fname.bak" . ($backuptime ? "." . time() : ""), @file_get_contents($file));
                 }
                 if (!is_saved($file, $savedfiles)) {
                     file_put_contents($file, $_POST["data"]);
