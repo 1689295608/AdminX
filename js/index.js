@@ -287,7 +287,7 @@ document.getElementById("unzip").addEventListener("click", () => {
                 notice("解压成功了喵！", "rgb(0 144 255)");
                 setTimeout(() => {
                     window.location.reload();
-                }, 2000);
+                }, 1500);
             }
         });
     } else {
@@ -320,7 +320,7 @@ document.getElementById("rname").addEventListener("click", () => {
                 notice("重命名成功了喵！", "rgb(0 144 255)");
                 setTimeout(() => {
                     window.location.reload();
-                }, 2000);
+                }, 1500);
             } else if (data["code"] == 403) {
                 notice("该文件或该名称的文件受到保护，不能修改喵~");
             } else if (data["code"] == 404) {
@@ -347,7 +347,7 @@ document.getElementById("newfile").addEventListener("click", () => {
                 notice("新建文件成功喵！", "rgb(0 144 255)");
                 setTimeout(() => {
                     window.location.reload();
-                }, 2000);
+                }, 1500);
             } else if (data["code"] == 403) {
                 notice("该文件已存在了嗷！");
             }
@@ -374,7 +374,7 @@ document.getElementById("mkdir").addEventListener("click", () => {
                 notice("新建文件夹成功喵！", "rgb(0 144 255)");
                 setTimeout(() => {
                     window.location.reload();
-                }, 2000);
+                }, 1500);
             } else if (data["code"] == 403) {
                 notice("该目录已存在了嗷！");
             }
@@ -406,7 +406,7 @@ document.getElementById("upload-file").addEventListener("change", () => {
                 notice("文件上传成功惹！", "rgb(0 144 255)");
                 setTimeout(() => {
                     window.location.reload();
-                }, 2000);
+                }, 1500);
             } else {
                 notice("上传失败了喵，重新试试吧？");
             }
@@ -425,7 +425,7 @@ document.getElementById("showeditor").addEventListener("click", () => {
     notice("修改成功了喵~", "rgb(0 144 255)");
     setTimeout(() => {
         window.location.reload();
-    }, 2000);
+    }, 1500);
 });
 
 /* 检查更新按钮点击事件 */
