@@ -6,7 +6,7 @@ $backuptime = true;
 $savedfiles = [
     "/.\/adminx.php/i"
 ]; /* 受保护的文件列表，它们无法使用 AdminX 修改 */
-$phpver = 7; /* 输入你的 PHP 版本，不兼容 PHP 5- */
+$phpver = 7.4; /* 输入你的 PHP 版本，不兼容 PHP 5- */
 $https = true; /* 输入你的域名是否是 HTTPS 协议 */
 /* 配置部分结束，除非你知道你在干什么，否则不要乱改下面的代码 */
 ?>
@@ -288,7 +288,7 @@ if (isset($_GET["operation"])) {
                 $files = json_decode($_POST["files"], true);
                 foreach ($files as $key => $file) {
                     $zip = new ZipArchive();
-                    $result_code = $zip->open($file, $phpver <= 7.4 ? ZipArchive::CREATE : ZipArchive::RDONLY);
+                    $result_code = $phpver <= 7.4 ? $zip->open($file) : $zip->open($file, ZipArchive::RDONLY);
                     if ($result_code === true) {
                         if (isset($_POST["password"]) && $_POST["password"] != "") {
                             $zip->setPassword($_GET["password"]);
