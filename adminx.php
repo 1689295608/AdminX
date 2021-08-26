@@ -76,7 +76,8 @@ function delete_dir($dirname)
         unlink($dirname);
     }
 }
-function mkdirs($pathname) {
+function mkdirs($pathname)
+{
     $paths = explode("/", $pathname);
     $nowp = "";
     foreach ($paths as $key => $value) {
@@ -118,23 +119,28 @@ if (isset($_GET["operation"])) {
                 $files = json_decode($_GET["files"], true);
             }
             if ($files != null) {
-                header("Content-Type: application/zip");
-                header("Content-Transfer-Encoding: binary");
-                header("Content-disposition: attachment; filename=" . ($operation == "zipdir" ? $dirname : "Files") . "-ziped.zip");
                 $zip = new ZipArchive();
-                $zip->open("./adminx.zip", ZIPARCHIVE::OVERWRITE);
-                foreach ($files as $key => $filename) {
-                    if (is_dir("./$dir/$filename")) {
-                        adddir($zip, "./$dir/$filename");
-                    }
-                    if (is_file("./$dir/$filename")) {
-                        $zip->addFile("./$dir/$filename");
+                if ($zip->open("./adminx.zip", ZipArchive::OVERWRITE) === true) {
+                    foreach ($files as $key => $filename) {
+                        if (is_dir("./$dir/$filename")) {
+                            adddir($zip, "./$dir/$filename");
+                        }
+                        if (is_file("./$dir/$filename")) {
+                            $zip->addFile("./$dir/$filename");
+                        }
                     }
                 }
                 $zip->close();
-                echo file_get_contents("./adminx.zip");
-                unlink("./adminx.zip");
-                return;
+                if (file_exists("./adminx.zip")) {
+                    header("Content-Type: application/zip");
+                    header("Content-Transfer-Encoding: binary");
+                    header("Content-disposition: attachment; filename=" . ($operation == "zipdir" ? $dirname : "Files") . "-ziped.zip");
+                    echo file_get_contents("./adminx.zip");
+                    unlink("./adminx.zip");
+                    return;
+                } else {
+                    $notice = "打包文件失败！";
+                }
             } else {
                 $notice = "未指明打包的文件！";
             }
