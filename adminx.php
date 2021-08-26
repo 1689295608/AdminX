@@ -299,7 +299,7 @@ if (isset($_GET["operation"])) {
                         $zip->close();
                     } else {
                         $msg = isset($ZIP_ERROR[$result_code]) ? $ZIP_ERROR[$result_code] : "未知错误";
-                        echo json_encode(["code" => 500, "reason" => $msg]);
+                        echo json_encode(["code" => 500, "msg" => $msg]);
                         return;
                     }
                 }
