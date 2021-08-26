@@ -145,11 +145,11 @@ if (isset($_GET["operation"])) {
             if (isset($_POST["files"])) {
                 $files = json_decode($_POST["files"], true);
                 foreach ($files as $key => $value) {
-                    $file = "./" . $dir . $value;
+                    $file = "./$dir/$value";
                     if (is_dir($file)) {
                         delete_dir($file);
                     } else {
-                        unlink($file);
+                        @unlink($file);
                     }
                 }
                 echo json_encode(["code" => 200]);
