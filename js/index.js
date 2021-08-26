@@ -90,7 +90,7 @@ document.addEventListener("keydown", (event) => {
     if ($_GET["operation"] == "edit") {
         if (event.code == "KeyO" && ctrl) {
             event.preventDefault();
-            document.getElementById("open").click();
+            document.getElementById("view").click();
         }
     }
 });
@@ -467,6 +467,6 @@ document.getElementById("check-update").addEventListener("click", () => {
 });
 
 /* 访问按钮点击事件 */
-document.getElementById("open").addEventListener("click", () => {
+document.getElementById("view").addEventListener("click", () => {
     open(`${path}/${file}`);
 });
