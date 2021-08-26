@@ -321,13 +321,13 @@ if (isset($_GET["operation"])) {
             <span id="notice-text"></span>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/gh/1689295608/AdminX/js/index.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/gh/codemirror/CodeMirror/lib/codemirror.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/gh/codemirror/CodeMirror/mode/htmlmixed/htmlmixed.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/gh/codemirror/CodeMirror/mode/css/css.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/gh/codemirror/CodeMirror/mode/javascript/javascript.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/gh/codemirror/CodeMirror/mode/xml/xml.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/gh/codemirror/CodeMirror/mode/php/php.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/gh/1689295608/AdminX/js/index.js" type="text/javascript"></script>
     <!-- <script src="https://1689295608.github.io/AdminX/js/index.js"></script> -->
     <?php if (isset($notice)) echo "<script>notice(\"$notice\")</script>"; ?>
 </body>
