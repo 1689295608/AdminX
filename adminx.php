@@ -79,7 +79,7 @@ function mkdirs($pathname) {
     $paths = explode("/", $pathname);
     $nowp = "";
     foreach ($paths as $key => $value) {
-        $nowp .= $value;
+        $nowp .= $value . "/";
         mkdir($nowp);
     }
 }
