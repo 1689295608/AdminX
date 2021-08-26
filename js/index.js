@@ -468,5 +468,5 @@ document.getElementById("check-update").addEventListener("click", () => {
 
 /* 访问按钮点击事件 */
 document.getElementById("view").addEventListener("click", () => {
-    open(`${path}/${file}`);
+    window.open(`${path}/${file}`);
 });
