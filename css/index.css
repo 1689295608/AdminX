@@ -231,7 +231,7 @@ dire.selected, file.selected {
     color: white;
 }
 
-#notice {
+.notice {
     position: fixed;
     bottom: -30px;
     width: calc(100% - 10px);
@@ -246,7 +246,7 @@ dire.selected, file.selected {
     z-index: 10;
 }
 
-#notice-text::before {
+.notice-text::before {
     content: '';
     display: inline-block;
     width: 1.2em;
@@ -257,12 +257,12 @@ dire.selected, file.selected {
     margin: 5px;
 }
 
-#notice-text {
+.notice-text {
     display: flex;
     align-items: center;
 }
 
-#notice.show {
+.notice.show {
     bottom: 0;
 }
 
