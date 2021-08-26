@@ -10,7 +10,7 @@ if (isset($_COOKIE["password"])) $verified = $_COOKIE["password"] == $password;
 $cookieoptions = [
     'expires' => time() + 60 * 60 * 24 * 7,
     'path' => "/",
-    'domain' => $SERVER["HTTP_HOST"],
+    'domain' => $_SERVER["HTTP_HOST"],
     'secure' => $https,
     'httponly' => true,
     'samesite' => 'None'
