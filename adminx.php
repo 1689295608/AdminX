@@ -80,7 +80,7 @@ function mkdirs($pathname) {
     $nowp = "";
     foreach ($paths as $key => $value) {
         $nowp .= $value . "/";
-        mkdir($nowp);
+        @mkdir($nowp);
     }
 }
 $dir = "/";
