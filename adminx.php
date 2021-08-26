@@ -129,8 +129,8 @@ if (isset($_GET["operation"])) {
                             $zip->addFile("./$dir/$filename");
                         }
                     }
+                    $zip->close();
                 }
-                $zip->close();
                 if (file_exists("./adminx.zip")) {
                     header("Content-Type: application/zip");
                     header("Content-Transfer-Encoding: binary");
