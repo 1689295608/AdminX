@@ -362,6 +362,7 @@ if (isset($_GET["operation"])) {
                 <btn id="zip">打包</btn>
                 <btn id="delete">删除</btn>
                 <btn id="unzip">解压</btn>
+                <btn id="open">访问</btn>
                 <btn id="rname">重命名</btn>
                 <btn id="newfile">新建文件</btn>
                 <btn id="mkdir">新建目录</btn>
