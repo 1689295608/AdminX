@@ -208,8 +208,10 @@ btn {
     cursor: pointer;
 }
 
-.control-btn {
-    padding: 0 10px;height: 35px;
+.mult-control-btn, .control-btn {
+    margin: 10px;
+    overflow-x: scroll;
+    white-space: nowrap;
 }
 
 btn:hover {
@@ -266,12 +268,6 @@ dire.selected, file.selected {
 
 .adminx-path deli::before {
     content: '/';
-}
-
-.mult-control-btn {
-    padding: 10px;
-    overflow-x: scroll;
-    white-space: nowrap;
 }
 
 #upload-file {
