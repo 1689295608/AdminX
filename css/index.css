@@ -284,6 +284,6 @@ dire.selected, file.selected {
     overflow-y: scroll;
 }
 
-* {
+*::-webkit-scrollbar {
     display: none;
 }
