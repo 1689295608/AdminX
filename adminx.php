@@ -1,7 +1,13 @@
 <?php
+/* ----------=== 配置部分 ===---------- */
 $password = "AdminX"; /* 填入你的密码，使用这个密码就可以操作您的主机中的所有文件 */
+$backupdir = "./adminx/backup";
+$savedfiles = [
+    "./adminx.php"
+]; /* 受保护的文件列表，它们无法使用 AdminX 修改 */
 $phpver = 7; /* 输入你的 PHP 版本，不兼容 PHP 5- */
 $https = true; /* 输入你的域名是否是 HTTPS 协议 */
+/* 配置部分结束，除非你知道你在干什么，否则不要乱改下面的代码 */
 ?>
 <?php
 $verified = false;
@@ -27,6 +33,16 @@ if (!function_exists('str_starts_with')) {
     {
         return substr_compare($haystack, $needle, 0, strlen($needle)) === 0;
     }
+}
+function is_saved($file, $savedfiles)
+{
+    if (!isset($savedfiles)) return false;
+    for ($i = 0; $i < count($savedfiles); $i++) {
+        if ($savedfiles[$i] == $file) {
+            return true;
+        }
+    }
+    return false;
 }
 function adddir($zip, $opendir)
 {
@@ -130,11 +146,15 @@ if (isset($_GET["operation"])) {
             if (isset($_GET["file"], $_POST["new-name"])) {
                 $file = "./" . $dir . $_GET["file"];
                 $name = $_POST["new-name"];
-                if (file_exists($file) || is_dir($file)) {
-                    rename($file, $name);
-                    echo json_encode(["code" => 200]);
+                if (!(is_saved($file, $savedfiles) || is_saved("./$dir/$name", $savedfiles))) {
+                    if (file_exists($file) || is_dir($file)) {
+                        rename($file, $name);
+                        echo json_encode(["code" => 200]);
+                    } else {
+                        echo json_encode(["code" => 404]);
+                    }
                 } else {
-                    echo json_encode(["code" => 404]);
+                    echo json_encode(["code" => 403]);
                 }
             } else {
                 echo json_encode(["code" => 400]);
@@ -146,10 +166,12 @@ if (isset($_GET["operation"])) {
                 $files = json_decode($_POST["files"], true);
                 foreach ($files as $key => $value) {
                     $file = "./$dir/$value";
-                    if (is_dir($file)) {
-                        delete_dir($file);
-                    } else {
-                        @unlink($file);
+                    if (!is_saved($file, $savedfiles)) {
+                        if (is_dir($file)) {
+                            delete_dir($file);
+                        } else {
+                            @unlink($file);
+                        }
                     }
                 }
                 echo json_encode(["code" => 200]);
@@ -160,9 +182,20 @@ if (isset($_GET["operation"])) {
         }
         if ($operation == "savefile") {
             if (isset($_GET["file"], $_POST["data"])) {
+                $fname = $_GET["file"];
                 $file = "./" . $dir . $_GET["file"];
-                file_put_contents($file, $_POST["data"]);
-                echo json_encode(["code" => 200]);
+                if (isset($backupdir) && $backupdir != "") {
+                    if (!is_dir($backupdir)) {
+                        mkdir($backupdir);
+                    }
+                    file_put_contents("$backupdir/$fname.bak", @file_get_contents($file));
+                }
+                if (!is_saved($file, $savedfiles)) {
+                    file_put_contents($file, $_POST["data"]);
+                    echo json_encode(["code" => 200]);
+                } else {
+                    echo json_encode(["code" => 403]);
+                }
             } else {
                 echo json_encode(["code" => 400]);
             }
@@ -181,8 +214,12 @@ if (isset($_GET["operation"])) {
         if ($operation == "mkdir") {
             if (isset($_POST["name"])) {
                 $d = "./" . $dir . $_POST["name"];
-                mkdir($d);
-                echo json_encode(["code" => 200]);
+                if (!is_dir($d)) {
+                    mkdir($d);
+                    echo json_encode(["code" => 200]);
+                } else {
+                    echo json_encode(["code" => 403]);
+                }
             } else {
                 echo json_encode(["code" => 400]);
             }
@@ -191,8 +228,12 @@ if (isset($_GET["operation"])) {
         if ($operation == "newfile") {
             if (isset($_POST["name"])) {
                 $d = "./" . $dir . $_POST["name"];
-                file_put_contents($d, "");
-                echo json_encode(["code" => 200]);
+                if (!file_exists($d)) {
+                    file_put_contents($d, "");
+                    echo json_encode(["code" => 200]);
+                } else {
+                    echo json_encode(["code" => 403]);
+                }
             } else {
                 echo json_encode(["code" => 400]);
             }
@@ -201,7 +242,10 @@ if (isset($_GET["operation"])) {
         if ($operation == "upload") {
             if (isset($_FILES) && count($_FILES) > 0) {
                 foreach ($_FILES as $key => $file) {
-                    move_uploaded_file($file["tmp_name"], "./" . $dir . $file["name"]);
+                    $p = "./" . $dir . $file["name"];
+                    if (!is_saved($p, $savedfiles)) {
+                        move_uploaded_file($file["tmp_name"], $p);
+                    }
                 }
                 echo json_encode(["code" => 200]);
             } else {
@@ -216,7 +260,7 @@ if (isset($_GET["operation"])) {
                     $zip = new ZipArchive();
                     $zip->open($file, ZipArchive::RDONLY);
                     if (isset($_POST["password"]) && $_POST["password"] != "") {
-                        $zip -> setPassword($_GET["password"]);
+                        $zip->setPassword($_GET["password"]);
                     }
                     $path = "/";
                     if (isset($_POST["path"]) && $_POST["path"] != "") {
