@@ -243,6 +243,7 @@ dire.selected, file.selected {
     align-items: center;
     padding-left: 10px;
     transition: .2s;
+    box-shadow: 0 0 5px 0px black;
     z-index: 10;
 }
 
