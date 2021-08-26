@@ -11,7 +11,7 @@ $https = true; /* 输入你的域名是否是 HTTPS 协议 */
 ?>
 <?php
 $verified = false;
-$version = "1.0";
+$version = "1.1";
 if (isset($_COOKIE["password"])) $verified = $_COOKIE["password"] == $password;
 $cookieoptions = [
     'expires' => time() + 60 * 60 * 24 * 7,
