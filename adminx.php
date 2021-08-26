@@ -296,7 +296,11 @@ if (isset($_GET["operation"])) {
                         if (isset($_POST["path"]) && $_POST["path"] != "") {
                             $path = $_POST["path"];
                         }
-                        $zip->extractTo("./$dir/$path");
+                        $p = "./$dir/$path";
+                        if (!is_dir($p)) {
+                            mkdirs($p);
+                        }
+                        $zip->extractTo($p);
                         $zip->close();
                     } else {
                         $msg = isset($ZIP_ERROR[$result_code]) ? $ZIP_ERROR[$result_code] : "未知错误";
