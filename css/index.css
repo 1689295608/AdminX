@@ -1,6 +1,7 @@
 .admin-login {
     position: fixed;
     width: 100%;
+    bottom: 0;
     height: calc(100% - 65px);
     background: white;
     z-index: 5;
