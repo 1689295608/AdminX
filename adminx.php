@@ -32,7 +32,7 @@ $ZIP_ERROR = [
     ZipArchive::ER_OPEN => "无法打开文件",
     ZipArchive::ER_READ => '读取失败',
     ZipArchive::ER_SEEK => '查找失败',
-  ];
+];
 if (!function_exists('str_ends_with')) {
     /* 为旧版 PHP 实现 str_ends_with 函数 */
     function str_ends_with($haystack, $needle)
@@ -131,7 +131,8 @@ if (isset($_GET["operation"])) {
             }
             if ($files != null) {
                 $zip = new ZipArchive();
-                if ($zip->open("./adminx.zip", ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
+                $result_code = $zip->open("./adminx.zip", ZipArchive::CREATE | ZipArchive::OVERWRITE);
+                if ($result_code === true) {
                     foreach ($files as $key => $filename) {
                         if (is_dir("./$dir/$filename")) {
                             adddir($zip, "./$dir/$filename");
@@ -150,7 +151,7 @@ if (isset($_GET["operation"])) {
                     unlink("./adminx.zip");
                     return;
                 } else {
-                    $msg = isset($ZIP_ERROR[$result_code])? $ZIP_ERROR[$result_code] : "未知错误";
+                    $msg = isset($ZIP_ERROR[$result_code]) ? $ZIP_ERROR[$result_code] : "未知错误";
                     $notice = "打包文件失败！因为$msg";
                 }
             } else {
@@ -285,16 +286,21 @@ if (isset($_GET["operation"])) {
                 $files = json_decode($_POST["files"], true);
                 foreach ($files as $key => $file) {
                     $zip = new ZipArchive();
-                    $zip->open($file, ZipArchive::RDONLY);
-                    if (isset($_POST["password"]) && $_POST["password"] != "") {
-                        $zip->setPassword($_GET["password"]);
+                    $result_code = $zip->open($file, ZipArchive::RDONLY);
+                    if ($result_code === true) {
+                        if (isset($_POST["password"]) && $_POST["password"] != "") {
+                            $zip->setPassword($_GET["password"]);
+                        }
+                        $path = "/";
+                        if (isset($_POST["path"]) && $_POST["path"] != "") {
+                            $path = $_POST["path"];
+                        }
+                        $zip->extractTo("./$dir/$path");
+                        $zip->close();
+                    } else {
+                        $msg = isset($ZIP_ERROR[$result_code]) ? $ZIP_ERROR[$result_code] : "未知错误";
+                        echo json_encode(["code" => 500, "reason" => $msg]);
                     }
-                    $path = "/";
-                    if (isset($_POST["path"]) && $_POST["path"] != "") {
-                        $path = $_POST["path"];
-                    }
-                    $zip->extractTo("./$dir/$path");
-                    $zip->close();
                 }
                 echo json_encode(["code" => 200]);
             } else {
