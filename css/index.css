@@ -285,7 +285,6 @@ dire.selected, file.selected {
 
 .adminx-filelist {
     height: calc(100vh - 150px);
-    padding-top: 15px;
     overflow-y: scroll;
 }
 
