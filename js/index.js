@@ -232,7 +232,9 @@ function notice(msg, color) {
     noticeText.innerText = msg;
     notice.appendChild(noticeText);
     document.body.appendChild(notice);
-    notice.classList.add("show");
+    setTimeout(() => {
+        notice.classList.add("show");
+    }, 1);
     setTimeout(() => {
         notice.classList.remove("show");
         setTimeout(() => {
