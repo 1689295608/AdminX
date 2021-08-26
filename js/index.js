@@ -299,6 +299,8 @@ document.getElementById("unzip").addEventListener("click", () => {
                 setTimeout(() => {
                     window.location.reload();
                 }, 1500);
+            } else if (data["code"] == 500) {
+                notice(`解压失败，因为${data["msg"]}..`);
             }
         });
     } else {
