@@ -357,7 +357,7 @@ if (isset($_GET["operation"])) {
             $jumplink = "";
             for ($i = 0; $i < count($dirs); $i++) {
                 if ($dirs[$i] == "") continue;
-                $jumplink .= $dirs[$i];
+                $jumplink .= $dirs[$i] . "/";
                 echo "<path p=\"$jumplink\">" . $dirs[$i] . "</path><deli></deli>";
             }
             ?>
