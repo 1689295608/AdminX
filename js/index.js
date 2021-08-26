@@ -47,7 +47,7 @@ function uri(str) {
 }
 
 /* 在按下或弹起某键时更新 Ctrl 键状态 */
-document.addEventListener("keydown", (event) => {
+document.getElementById("filelist").addEventListener("keydown", (event) => {
     ctrl = event.ctrlKey;
     if (event.code == "KeyA" && ctrl) {
         event.preventDefault();
@@ -71,7 +71,7 @@ document.addEventListener("keydown", (event) => {
         document.getElementById("save").click();
     }
 });
-document.addEventListener("keyup", (event) => {
+document.getElementById("filelist").addEventListener("keyup", (event) => {
     ctrl = event.ctrlKey;
 });
 
