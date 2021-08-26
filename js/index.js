@@ -87,6 +87,12 @@ document.addEventListener("keydown", (event) => {
             document.getElementById("save").click();
         }
     }
+    if ($_GET["operation"] == "edit") {
+        if (event.code == "KeyO" && ctrl) {
+            event.preventDefault();
+            document.getElementById("open").click();
+        }
+    }
 });
 
 document.addEventListener("keyup", (event) => {
@@ -458,4 +464,9 @@ document.getElementById("check-update").addEventListener("click", () => {
             notice("已是最新版本啦~", "rgb(0 144 255)");
         }
     })
+});
+
+/* 访问按钮点击事件 */
+document.getElementById("open").addEventListener("click", () => {
+    open(`${path}/${file}`);
 });
