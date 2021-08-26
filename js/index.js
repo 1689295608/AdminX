@@ -346,7 +346,7 @@ document.getElementById("upload-file").addEventListener("change", () => {
     if (uploadFiles.length > 0) {
         let form = new FormData();
         for (let i = 0; i < uploadFiles.length; i ++) {
-            form.append("files", uploadFiles[i]);
+            form.append(`files${i}`, uploadFiles[i]);
         }
         notice("正在开始上传文件啦，要耐心等待喔！", "rgb(0 144 255)");
         let xhr = new XMLHttpRequest();
