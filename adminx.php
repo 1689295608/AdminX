@@ -245,7 +245,7 @@ if (isset($_GET["operation"])) {
             if (isset($_POST["name"])) {
                 $d = "./" . $dir . $_POST["name"];
                 if (!is_dir($d)) {
-                    mkdir($d);
+                    mkdirs($d);
                     echo json_encode(["code" => 200]);
                 } else {
                     echo json_encode(["code" => 403]);
