@@ -402,7 +402,7 @@ document.getElementById("showeditor").addEventListener("click", () => {
 
 /* 检查更新按钮点击事件 */
 document.getElementById("check-update").addEventListener("click", () => {
-    fetch(`?operation=chackupdata`).then(response => {
+    fetch(`?operation=checkupdata`).then(response => {
         return response.json();
     }).then(data => {
         if (data["now-version"] != data["last-version"]) {
