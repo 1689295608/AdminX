@@ -224,12 +224,21 @@ document.getElementById("download").addEventListener("click", () => {
  * @param {string} color 警告背景颜色
  */
 function notice(msg, color) {
-    if (color) document.getElementById("notice").style.background = color;
-    document.getElementById("notice-text").innerText = msg;
-    document.getElementById("notice").classList.add("show");
+    let notice = document.createElement("DIV");
+    notice.classList.add("notice");
+    if (color) notice.style.background = color;
+    let noticeText = document.createElement("SPAN");
+    noticeText.classList.add("notice-text");
+    noticeText.innerText = msg;
+    notice.appendChild(noticeText);
+    document.body.appendChild(notice);
+    notice.classList.add("show");
     setTimeout(() => {
-        document.getElementById("notice").classList.remove("show");
-    }, 3000);
+        notice.classList.remove("show");
+        setTimeout(() => {
+            notice.remove();
+        }, 200);
+    }, 2500);
 }
 
 /* 打包文件点击事件 */
