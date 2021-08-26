@@ -288,7 +288,7 @@ if (isset($_GET["operation"])) {
                 $files = json_decode($_POST["files"], true);
                 foreach ($files as $key => $file) {
                     $zip = new ZipArchive();
-                    $result_code = $zip->open($file, $phpver <= 7.4 ? ZipArchive::OVERWRITE : ZipArchive::RDONLY);
+                    $result_code = $zip->open($file, $phpver <= 7.4 ? ZipArchive::CREATE : ZipArchive::RDONLY);
                     if ($result_code === true) {
                         if (isset($_POST["password"]) && $_POST["password"] != "") {
                             $zip->setPassword($_GET["password"]);
@@ -297,7 +297,11 @@ if (isset($_GET["operation"])) {
                         if (isset($_POST["path"]) && $_POST["path"] != "") {
                             $path = $_POST["path"];
                         }
-                        $zip->extractTo("./$dir/$path");
+                        $p = "./$dir/$path";
+                        if (!is_dir($p)) {
+                            mkdirs($p);
+                        }
+                        $zip->extractTo($p);
                         $zip->close();
                     } else {
                         $msg = isset($ZIP_ERROR[$result_code]) ? $ZIP_ERROR[$result_code] : "未知错误";
