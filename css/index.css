@@ -270,6 +270,8 @@ dire.selected, file.selected {
 
 .mult-control-btn {
     padding: 10px;
+    overflow-x: scroll;
+    white-space: nowrap;
 }
 
 #upload-file {
@@ -287,6 +289,6 @@ dire.selected, file.selected {
     overflow-y: scroll;
 }
 
-.adminx-filelist::-webkit-scrollbar {
+.adminx-filelist::-webkit-scrollbar, .mult-control-btn::-webkit-scrollbar {
     display: none;
 }
