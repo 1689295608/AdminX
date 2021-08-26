@@ -252,9 +252,11 @@ document.getElementById("delete").addEventListener("click", () => {
 /* 解压按钮点击事件 */
 document.getElementById("unzip").addEventListener("click", () => {
     if (selected.length > 0) {
+        let password = prompt("如果有密码的话要告诉我喵~ 没有的话留空就够了~");
+        let path = prompt("另外告诉我要解压到哪个路径吧？", "/");
         fetch(`?operation=unzip&dir=${encodePath}`, {
             method: "POST",
-            body: `files=${JSON.stringify(selected)}`,
+            body: `files=${JSON.stringify(selected)}&password=${uri(password ? password : "")}&path=${uri(path)}`,
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             }
@@ -397,3 +399,8 @@ document.getElementById("showeditor").addEventListener("click", () => {
         window.location.reload();
     }, 2000);
 });
+
+/* 检查更新按钮点击事件 */
+document.getElementById("check-update").addEventListener("click", () => {
+
+})
