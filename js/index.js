@@ -13,9 +13,16 @@ let encodePath = uri(path);
 /* 当前正在编辑的文件名，可能为 undefined */
 let file = document.getElementById("code").dataset.file;
 
+/* 是否开启 CodeMirrir 编辑器 */
+let showeditor = true;
+showeditor = localStorage.getItem("editor") == "true";
+
+/* 设置打开/关闭编辑器按钮内容 */
+document.getElementById("showeditor").innerText = (showeditor ? "关闭" : "打开") + "编辑器";
+
 /* 编辑器对象变量 */
 let editor = null;
-if (enableEditor) { /* "enableEditor" 变量在 PHP 中使用 <script> 设置 */
+if (showeditor) {
     editor = CodeMirror.fromTextArea(document.getElementById("code"), { lineNumbers: true });
 }
 
@@ -380,4 +387,13 @@ document.getElementById("upload-file").addEventListener("change", () => {
             notice(`上传失败惹，我也不知道为什么：${e}`)
         }
     }
+});
+
+/* 开启/关闭编辑器按钮点击事件 */
+document.getElementById("showeditor").addEventListener("click", () => {
+    localStorage.setItem("editor", !showeditor) /* 取反 */
+    notice("修改成功了喵~", "rgb(0 144 255)");
+    setTimeout(() => {
+        window.location.reload();
+    }, 2000);
 });
