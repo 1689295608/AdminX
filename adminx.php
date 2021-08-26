@@ -75,6 +75,14 @@ function delete_dir($dirname)
         unlink($dirname);
     }
 }
+function mkdirs($pathname) {
+    $paths = explode("/", $pathname);
+    $nowp = "";
+    foreach ($paths as $key => $value) {
+        $nowp .= $value;
+        mkdir($nowp);
+    }
+}
 $dir = "/";
 if (isset($_GET["dir"])) $dir = $_GET["dir"];
 if (!str_ends_with($dir, "/")) $dir = "$dir/";
@@ -186,7 +194,7 @@ if (isset($_GET["operation"])) {
                 $file = "./" . $dir . $_GET["file"];
                 if (isset($backupdir) && $backupdir != "") {
                     if (!is_dir($backupdir)) {
-                        mkdir($backupdir);
+                        mkdirs($backupdir);
                     }
                     file_put_contents("$backupdir/$fname.bak", @file_get_contents($file));
                 }
