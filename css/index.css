@@ -284,6 +284,6 @@ dire.selected, file.selected {
     overflow-y: scroll;
 }
 
-.adminx-filelist::-webkit-scrollbar, .mult-control-btn::-webkit-scrollbar {
+* {
     display: none;
 }
