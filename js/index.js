@@ -413,6 +413,8 @@ document.getElementById("check-update").addEventListener("click", () => {
             if (window.confirm(`发现新版本！\n新版版本号：${data["last-version"]}\n当前版本号：${data["now-version"]}\n本次更新内容：\n${updataLog}是否下载新版源代码？`)) {
                 window.open(data["updata-link"]);
             }
+        } else {
+            notice("已是最新版本啦~", "rgb(0 144 255)");
         }
     })
 });
