@@ -276,7 +276,7 @@ document.getElementById("unzip").addEventListener("click", () => {
 });
 
 /* 重命名按钮点击事件 */
-document.getElementById("rename").addEventListener("click", () => {
+document.getElementById("rname").addEventListener("click", () => {
     if (selected.length < 1) {
         notice("你还没选择要重命名哪个文件呢喵！");
         return;
