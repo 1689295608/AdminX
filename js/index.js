@@ -37,6 +37,19 @@ SetClickSelect(dires);
 /* 是否已按下 Ctrl 键 */
 let ctrl = false;
 
+/* 网上找来的轮子，获取 search 参数 */
+const $_GET = (() => {
+    let re = {};
+    if (location.search) {
+        let a = location.search.replace("?", "").split("&");
+        for (let i in a) {
+            let b = a[i].split("=");
+            re[b[0]] = decodeURIComponent(b[1]);
+        }
+    }
+    return re;
+})();
+
 /**
  * EncodeURIComponent 太长了，简化一下
  * @param {string} str 
@@ -47,38 +60,38 @@ function uri(str) {
 }
 
 /* 在按下或弹起某键时更新 Ctrl 键状态 */
-document.getElementById("filelist").addEventListener("keydown", (event) => {
+document.addEventListener("keydown", (event) => {
     ctrl = event.ctrlKey;
-    if (event.code == "KeyA" && ctrl) {
-        event.preventDefault();
-        for (let i in files) {
-            select(files[i], event.shiftKey ? undefined : true);
+    if ($_GET["operation"] != "editor") {
+        if (event.code == "KeyA" && ctrl) {
+            event.preventDefault();
+            for (let i in files) {
+                select(files[i], event.shiftKey ? undefined : true);
+            }
+            for (let o in dires) {
+                select(dires[o], event.shiftKey ? undefined : true);
+            }
         }
-        for (let o in dires) {
-            select(dires[o], event.shiftKey ? undefined : true);
+        if (event.code == "Delete") {
+            event.preventDefault();
+            document.getElementById("delete").click();
+        }
+        if (event.code == "KeyM" && ctrl) {
+            event.preventDefault();
+            document.getElementById("rename").click();
         }
     }
-    if (event.code == "Delete") {
-        event.preventDefault();
-        document.getElementById("delete").click();
-    }
-    if (event.code == "KeyM" && ctrl) {
-        event.preventDefault();
-        document.getElementById("rename").click();
+    if ($_GET["operation"] == "edit") {
+        if (event.code == "KeyS" && ctrl) {
+            event.preventDefault();
+            document.getElementById("save").click();
+        }
     }
 });
 
-document.getElementById("filelist").addEventListener("keyup", (event) => {
+document.addEventListener("keyup", (event) => {
     ctrl = event.ctrlKey;
 });
-
-/* 注册快捷键 */
-document.getElementById("editor").addEventListener("keydown", (event) => {
-    if (event.code == "KeyS" && ctrl) {
-        event.preventDefault();
-        document.getElementById("save").click();
-    }
-})
 
 /**
  * 注册文件、目录的单击和菜单事件
@@ -381,7 +394,7 @@ document.getElementById("upload-file").addEventListener("change", () => {
     let uploadFiles = document.getElementById("upload-file").files;
     if (uploadFiles.length > 0) {
         let form = new FormData();
-        for (let i = 0; i < uploadFiles.length; i ++) {
+        for (let i = 0; i < uploadFiles.length; i++) {
             form.append(`files${i}`, uploadFiles[i]);
         }
         notice("正在开始上传文件啦，要耐心等待喔！", "rgb(0 144 255)");
