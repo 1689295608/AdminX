@@ -51,6 +51,18 @@ document.addEventListener("keydown", (event) => {
             select(dires[o], event.shiftKey ? undefined : true);
         }
     }
+    if (event.code == "Delete") {
+        event.preventDefault();
+        document.getElementById("delete").click();
+    }
+    if (event.code == "KeyM" && ctrl) {
+        event.preventDefault();
+        document.getElementById("rename").click();
+    }
+    if (event.code == "KeyS" && ctrl) {
+        event.preventDefault();
+        document.getElementById("save").click();
+    }
 });
 document.addEventListener("keyup", (event) => {
     ctrl = event.ctrlKey;
