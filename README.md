@@ -2,7 +2,7 @@
 一个轻量级的 PHP 文件编辑器
 
 ## 安装
-只需要前往 [Release](/releases) 页面下载最新版本的 `adminx.php` 放在你的主机文件里即可
+只需要前往 [Release](https://github.com/1689295608/AdminX/releases) 页面下载最新版本的 `adminx.php` 放在你的主机文件里即可
 
 若需要实时更新的 `Develop Version` 可以前往源代码找到 `adminx.php` 即可
 
