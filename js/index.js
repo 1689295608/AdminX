@@ -66,14 +66,19 @@ document.getElementById("filelist").addEventListener("keydown", (event) => {
         event.preventDefault();
         document.getElementById("rename").click();
     }
+});
+
+document.getElementById("filelist").addEventListener("keyup", (event) => {
+    ctrl = event.ctrlKey;
+});
+
+/* 注册快捷键 */
+document.getElementById("editor").addEventListener("keydown", (event) => {
     if (event.code == "KeyS" && ctrl) {
         event.preventDefault();
         document.getElementById("save").click();
     }
-});
-document.getElementById("filelist").addEventListener("keyup", (event) => {
-    ctrl = event.ctrlKey;
-});
+})
 
 /**
  * 注册文件、目录的单击和菜单事件
