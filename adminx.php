@@ -104,7 +104,7 @@ if (!str_starts_with($dir, "/")) $dir = "/$dir";
 $dirs = explode("/", $dir);
 $dirname = "根目录";
 if (count($dirs) > 0 && end($dirs) != "") $dirname = end($dirs);
-/* 目录结尾不能包含括号 */
+/* 目录结尾不能是斜杠 */
 if (isset($_GET["operation"])) {
     $operation = $_GET["operation"];
     if ($operation == "login") {
