@@ -337,6 +337,10 @@ file.selected {
     display: none;
 }
 
+btn:active {
+    box-shadow: 0px 1px 3px #000000a8;
+}
+
 @media screen and (max-width:800px) {
     .admin-login-window {
         border: none;
