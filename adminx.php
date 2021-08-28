@@ -7,7 +7,7 @@ $savedfiles = [
     "/.\/adminx.php/i"
 ]; /* 受保护的文件列表，它们无法使用 AdminX 修改 */
 $phpver = 7.4; /* 输入你的 PHP 版本，不兼容 PHP 5- */
-$https = true; /* 输入你的域名是否是 HTTPS 协议 */
+$https = false; /* 输入你的域名是否是 HTTPS 协议 */
 /* 配置部分结束，除非你知道你在干什么，否则不要乱改下面的代码 */
 ?>
 <?php
@@ -104,7 +104,7 @@ if (!str_starts_with($dir, "/")) $dir = "/$dir";
 $dirs = explode("/", $dir);
 $dirname = "根目录";
 if (count($dirs) > 0 && end($dirs) != "") $dirname = end($dirs);
-/* 目录结尾不能是斜杠 */
+/* 目录结尾不能包含括号 */
 if (isset($_GET["operation"])) {
     $operation = $_GET["operation"];
     if ($operation == "login") {
@@ -330,7 +330,7 @@ if (isset($_GET["operation"])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5">
     <title id="title">AdminX [Release <?php echo $version ?>]</title>
-    <link href="https://adminx.xurl.ltd/css/index.css" rel="stylesheet">
+    <link href="index.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/codemirror/CodeMirror/lib/codemirror.css" rel="stylesheet">
     <link rel="shortcut icon" href="data:image/svg+xml,%3Csvg t='1629778780616' class='icon' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='6362' width='200' height='200'%3E%3Cpath d='M678.4 642.4c24-12.8 52-20.8 81.6-20.8 3.2 0 4.8-3.2 2.4-5.6-30.4-27.2-65.6-49.6-104-65.6-0.8 0-0.8 0-1.6-0.8 62.4-44.8 102.4-118.4 102.4-200.8 0-136.8-110.4-248-247.2-248s-247.2 111.2-247.2 248c0 82.4 40 156 102.4 200.8 0 0-0.8 0-1.6 0.8-44.8 19.2-84.8 46.4-119.2 80.8-34.4 34.4-61.6 74.4-80.8 119.2-18.4 44-28 90.4-29.6 138.4 0 4.8 3.2 8 8 8h60c4 0 8-3.2 8-8 1.6-77.6 32.8-149.6 88-204 56.8-56.8 132-88 212-88 56.8 0 111.2 16 158.4 44.8 2.4 1.6 5.6 2.4 8 0.8zM512 520.8c-45.6 0-88.8-17.6-121.6-50.4-32-32.8-50.4-76-50.4-121.6s17.6-88.8 50.4-121.6 75.2-50.4 121.6-50.4 88.8 17.6 121.6 50.4 50.4 76 50.4 121.6-17.6 88.8-50.4 121.6-75.2 50.4-121.6 50.4z m404 336.8l-26.4-22.4c1.6-7.2 1.6-15.2 1.6-23.2s-0.8-15.2-1.6-23.2l26.4-22.4c4-3.2 5.6-8.8 4-14.4v-0.8c-7.2-20-17.6-38.4-32-55.2l-0.8-0.8c-3.2-4-8.8-5.6-13.6-4l-32 11.2c-12-9.6-25.6-17.6-40-23.2l-6.4-33.6c-0.8-5.6-4.8-9.6-10.4-10.4H784c-20.8-4-42.4-4-63.2 0H720c-5.6 0.8-9.6 4.8-10.4 10.4l-6.4 33.6c-14.4 5.6-27.2 12.8-39.2 23.2l-32.8-11.2c-4.8-1.6-10.4 0-13.6 4l-1.6 2.4c-13.6 16-24.8 35.2-32 55.2v0.8c-1.6 4.8 0 10.4 4 14.4l26.4 22.4c-1.6 7.2-1.6 15.2-1.6 22.4 0 8 0.8 15.2 1.6 22.4l-26.4 22.4c-4 3.2-5.6 8.8-4 14.4v0.8c7.2 20 17.6 38.4 32 55.2l0.8 0.8c3.2 4 8.8 5.6 13.6 4l32.8-11.2c12 9.6 24.8 17.6 39.2 23.2l6.4 33.6c0.8 5.6 4.8 9.6 10.4 10.4h0.8c10.4 1.6 20.8 3.2 32 3.2s21.6-0.8 32-3.2h0.8c5.6-0.8 9.6-4.8 10.4-10.4l6.4-33.6c14.4-5.6 28-12.8 40-23.2l32 11.2c4.8 1.6 10.4 0 13.6-4l0.8-0.8c13.6-16 24.8-35.2 32-55.2v-0.8c1.6-4.8 0-10.4-4-14.4z m-81.6-58.4c0.8 4.8 0.8 8.8 0.8 13.6s0 9.6-0.8 13.6l-1.6 12 22.4 19.2c-3.2 8-8 15.2-12.8 22.4l-28-9.6-9.6 8c-7.2 5.6-15.2 10.4-24 13.6l-11.2 4-5.6 28.8c-8.8 0.8-16.8 0.8-25.6 0l-5.6-28.8-11.2-4c-8.8-3.2-16.8-8-24-13.6l-9.6-8-28 9.6c-4.8-7.2-9.6-14.4-12.8-22.4l22.4-19.2-1.6-12c-0.8-4.8-0.8-8.8-0.8-13.6 0-4.8 0-8.8 0.8-13.6l1.6-12L648 768c3.2-8 8-15.2 12.8-22.4l28 9.6 9.6-8c7.2-5.6 15.2-10.4 24-13.6l11.2-4 5.6-28.8c8.8-0.8 16.8-0.8 25.6 0l5.6 28.8 11.2 4c8.8 3.2 16.8 8 24 13.6l9.6 8 28-9.6c4.8 7.2 9.6 14.4 12.8 22.4l-22.4 19.2 0.8 12z' p-id='6363'%3E%3C/path%3E%3C/svg%3E" type="image/x-icon" />
 </head>
@@ -345,9 +345,9 @@ if (isset($_GET["operation"])) {
     <div class="adminx-index">
         <div class="admin-login <?php echo $verified ? "hidden" : "" ?>">
             <div class="admin-login-window">
+                <span class="admin-login-header">登录AdminX</span>
                 <span class="admin-login-title">请输入密码以管理您的文件</span>
-                <input type="password" id="password">
-                <btn id="login">登录</btn>
+                <input type="password" id="password"><btn id="login">登录</btn>
             </div>
         </div>
         <div class="adminx-path" id="path" data-path="<?php echo $dir; ?>">
@@ -407,7 +407,7 @@ if (isset($_GET["operation"])) {
     <script src="https://cdn.jsdelivr.net/gh/codemirror/CodeMirror/mode/javascript/javascript.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/gh/codemirror/CodeMirror/mode/xml/xml.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/gh/codemirror/CodeMirror/mode/php/php.js" type="text/javascript"></script>
-    <script src="https://adminx.xurl.ltd/js/index.js" type="text/javascript"></script>
+    <script src="index.js" type="text/javascript"></script>
     <?php if (isset($notice)) echo "<script>notice(\"$notice\")</script>"; ?>
 </body>
 
