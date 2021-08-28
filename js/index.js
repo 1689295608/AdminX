@@ -113,8 +113,14 @@ function SetClickSelect(elements) {
                     select(elements[i]);
                 } else {
                     if (elements[i].tagName == "FILE") {
-                        /* 在新窗口中打开该文件的编辑 */
-                        window.open(`?operation=edit&dir=${encodePath}&file=${uri(elements[i].innerText)}`);
+                        let filesearch = `?operation=edit&dir=${encodePath}&file=${uri(elements[i].innerText)}`;
+                        if (ctrl) {
+                            /* 在新窗口中打开该文件的编辑 */
+                            window.open(filesearch);
+                        } else {
+                            /* 在当前窗口打开 */
+                            window.location.search = filesearch;
+                        }
                     } else {
                         /* 跳转到该目录 */
                         window.location.search = `?dir=${encodePath + elements[i].innerText}`;
