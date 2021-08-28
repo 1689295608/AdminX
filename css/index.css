@@ -325,6 +325,22 @@ file.selected {
     overflow-y: scroll;
 }
 
-*::-webkit-scrollbar {
+.mult-control-btn::-webkit-scrollbar {
     display: none;
+}
+
+.adminx-filelist::-webkit-scrollbar {
+    display: none;
+}
+
+.control-btn::-webkit-scrollbar {
+    display: none;
+}
+
+@media screen and (max-width:800px) {
+    .admin-login-window {
+        border: none;
+        padding: 0;
+        box-shadow: none !important;
+    }
 }
