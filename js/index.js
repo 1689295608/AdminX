@@ -203,7 +203,7 @@ document.getElementById("save").addEventListener("click", () => {
     /* 当前编辑的文件名 */
     fetch(`?operation=savefile&dir=${encodePath}&file=${file}`, {
         method: "POST",
-        body: "data=" + (editor ? editor.getValue() : document.getElementById("code").value).trim(),
+        body: "data=" + uri((editor ? editor.getValue() : document.getElementById("code").value).trim()),
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         }
