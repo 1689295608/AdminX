@@ -38,6 +38,7 @@ SetClickSelect(dires);
 let ctrl = false;
 
 /* 是否已按下 Shift 键 */
+let shift = false;
 
 /* 网上找来的轮子，获取 search 参数 */
 const $_GET = (() => {
