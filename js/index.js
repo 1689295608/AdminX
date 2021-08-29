@@ -134,7 +134,7 @@ function SetClickSelect(elements) {
             });
             /* 鼠标中键在新窗口打开 */
             elements[i].addEventListener("mousedown", (event) => {
-                if (event.code == 1) {
+                if (event.button == 1) {
                     event.preventDefault();
                     window.open(`?operation=edit&dir=${encodePath}&file=${uri(elements[i].innerText)}`);
                 }
