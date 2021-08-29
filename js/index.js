@@ -37,6 +37,8 @@ SetClickSelect(dires);
 /* 是否已按下 Ctrl 键 */
 let ctrl = false;
 
+/* 是否已按下 Shift 键 */
+
 /* 网上找来的轮子，获取 search 参数 */
 const $_GET = (() => {
     let re = {};
@@ -62,6 +64,7 @@ function uri(str) {
 /* 在按下或弹起某键时更新 Ctrl 键状态 */
 document.addEventListener("keydown", (event) => {
     ctrl = event.ctrlKey;
+    shift = event.shiftKey;
     if ($_GET["operation"] != "editor") {
         if (event.code == "KeyA" && ctrl) {
             event.preventDefault();
@@ -97,6 +100,7 @@ document.addEventListener("keydown", (event) => {
 
 document.addEventListener("keyup", (event) => {
     ctrl = event.ctrlKey;
+    shift = event.shiftKey;
 });
 
 /**
@@ -114,7 +118,7 @@ function SetClickSelect(elements) {
                 } else {
                     if (elements[i].tagName == "FILE") {
                         let filesearch = `?operation=edit&dir=${encodePath}&file=${uri(elements[i].innerText)}`;
-                        if (ctrl) {
+                        if (shift) {
                             /* 在新窗口中打开该文件的编辑 */
                             window.open(filesearch);
                         } else {
