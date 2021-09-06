@@ -8,10 +8,14 @@ $savedfiles = [
 ]; /* 受保护的文件列表，它们无法使用 AdminX 修改 */
 $phpver = 7.4; /* 输入你的 PHP 版本，不兼容 PHP 5- */
 $https = true; /* 输入你的域名是否是 HTTPS 协议 */
+$useopendir = true; /* 是否使用 opendir 列出文件列表 */
 /* 配置部分结束，除非你知道你在干什么，否则不要乱改下面的代码 */
 ?>
 
 <?php
+/* 设置缓存为不缓存 */
+header("Cache-control: no-store");
+
 /* 是否已验证变量，用于判断密码是否正确 */
 $verified = false;
 
@@ -45,6 +49,22 @@ if (!function_exists('str_starts_with')) {
     {
         return substr_compare($haystack, $needle, 0, strlen($needle)) === 0;
     }
+}
+ /* 实现方法 */
+if ($useopendir) {
+  function dirlist($dir) {
+    $return = [];
+    if ($dh = opendir($dir)) {
+      while (($file = readdir($dh)) !== false) {
+        array_push($return, $file);
+      }
+    }
+    return $return;
+  }
+} else {
+  function dirlist($dir) {
+    return scandir($dir);
+  }
 }
 
 /* 当前所在目录变量 */
@@ -92,7 +112,7 @@ function is_saved($file, $savedfiles)
 /* 向 Zip 添加目录 */
 function adddir($zip, $opendir)
 {
-    $dirlist = scandir($opendir);
+    $dirlist = dirlist($opendir);
     foreach ($dirlist as $key => $file) {
         if ($file == "." || $file == "..") continue;
         if (is_dir("./$opendir/$file")) {
@@ -109,7 +129,7 @@ function adddir($zip, $opendir)
 function delete_dir($dirname)
 {
     if (is_dir($dirname)) {
-        $filelist = scandir($dirname);
+        $filelist = dirlist($dirname);
         foreach ($filelist as $key => $file) {
             if ($file == "." || $file == "..") continue;
             if (is_dir("$dirname/$file")) {
@@ -391,6 +411,9 @@ if (isset($_GET["operation"])) {
                 $jumplink .= $dirs[$i] . "/";
                 echo "<path p=\"$jumplink\">" . $dirs[$i] . "</path><deli></deli>";
             }
+            if ($operation == "edit") {
+                echo "<edit>".$_GET["file"]."</edit>";
+            }
             ?>
         </div>
         <div class="admin-view">
@@ -408,7 +431,7 @@ if (isset($_GET["operation"])) {
                 <?php
                 if ($verified) {
                     if (@is_dir("./$dir")) {
-                        $files = scandir("./$dir");
+                        $files = dirlist("./$dir");
                         for ($i = 0; $i < count($files); $i++) {
                             if ($files[$i] == "." || $files[$i] == "..") continue;
                             $element = is_dir("./" . ($dir == "/" ? "" : $dir) . $files[$i]) ? "dire" : "file";
