@@ -3,9 +3,9 @@
 $password = "AdminX"; /* 填入你的密码，使用这个密码就可以操作您的主机中的所有文件 */
 $backupdir = "./adminx/backup";
 $backuptime = true;
-$savedfiles = [
+$savedfiles = [/*
     "/.\/adminx.php/i"
-]; /* 受保护的文件列表，它们无法使用 AdminX 修改 */
+*/]; /* 受保护的文件列表，它们无法使用 AdminX 修改 */
 $phpver = 7.4; /* 输入你的 PHP 版本，不兼容 PHP 5- */
 $https = true; /* 输入你的域名是否是 HTTPS 协议 */
 $useopendir = true; /* 是否使用 opendir 列出文件列表 */
