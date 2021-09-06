@@ -11,6 +11,7 @@ $savedfiles = [
 $phpver = 7.4; /* 输入你的 PHP 版本，不兼容 PHP 5- */
 $https = true; /* 输入你的域名是否是 HTTPS 协议 */
 $useopendir = true; /* 是否使用 opendir 列出文件列表 */
+
 /* 配置部分结束，除非你知道你在干什么，否则不要乱改下面的代码 */
 ?>
 
@@ -52,21 +53,22 @@ if (!function_exists('str_starts_with')) {
         return substr_compare($haystack, $needle, 0, strlen($needle)) === 0;
     }
 }
+
  /* 实现方法 */
-if ($useopendir) {
-  function dirlist($dir) {
-    $return = [];
+function dirlist($dir)
+{
+  $out = [];
+  if ($useopendir) {
     if ($dh = opendir($dir)) {
       while (($file = readdir($dh)) !== false) {
-        array_push($return, $file);
+        array_push($out, $file);
       }
+      closedir($dh);
     }
-    return $return;
+  } else {
+    $out = scandir($dir);
   }
-} else {
-  function dirlist($dir) {
-    return scandir($dir);
-  }
+  return $out;
 }
 
 /* 当前所在目录变量 */
@@ -434,10 +436,10 @@ if (isset($_GET["operation"])) {
                 if ($verified) {
                     if (@is_dir("./$dir")) {
                         $files = dirlist("./$dir");
-                        for ($i = 0; $i < count($files); $i++) {
-                            if ($files[$i] == "." || $files[$i] == "..") continue;
-                            $element = is_dir("./" . ($dir == "/" ? "" : $dir) . $files[$i]) ? "dire" : "file";
-                            echo "<$element>" . $files[$i] . "</$element>";
+                        foreach ($files as $key => $fname) {
+                            if ($fname == "." || $fname == "..") continue;
+                            $element = is_dir("./" . ($dir == "/" ? "" : $dir) . $fname) ? "dire" : "file";
+                            echo "<$element>" . $fname . "</$element>";
                         }
                     } else {
                         $notice = "该文件夹不存在！";
