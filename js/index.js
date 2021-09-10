@@ -5,7 +5,7 @@ let selected = [];
 
 /* 当前打开的路径 */
 let path = document.getElementById("path").dataset.path;
-if (path.startsWith("/")) path = path.substring(1);
+if (path.startsWith("/") || path.startsWith(".")) path = path.substring(1);
 
 /* URI 编码后的路径 */
 let encodePath = uri(path);
