@@ -206,7 +206,7 @@ addEvent("login", "click", () => {
         try {
             return response.json();
         } catch (e) {
-            notcie("操作失败了喵，因为 " + e.toString());
+            notice("操作失败了喵，因为 " + e.toString());
         }
     }).then(data => {
         if (data["code"] == 200) {
@@ -216,7 +216,7 @@ addEvent("login", "click", () => {
             notice(data["msg"]);
         }
     }).catch(e => {
-        notcie("请求失败了喵.. 因为 " + e.toString());
+        notice("请求失败了喵.. 因为 " + e.toString());
     });
 });
 
@@ -248,7 +248,7 @@ addEvent("save", "click", () => {
         try {
             return response.json();
         } catch (e) {
-            notcie("操作失败了喵，因为 " + e.toString());
+            notice("操作失败了喵，因为 " + e.toString());
         }
     }).then(data => {
         if (data["code"] == 200) {
@@ -258,7 +258,7 @@ addEvent("save", "click", () => {
             notice("该文件受到保护了喵...");
         }
     }).catch(e => {
-        notcie("请求失败了喵.. 因为 " + e.toString());
+        notice("请求失败了喵.. 因为 " + e.toString());
     });
 });
 
@@ -321,7 +321,7 @@ addEvent("delete", "click", () => {
                 try {
                     return response.json();
                 } catch (e) {
-                    notcie("操作失败了喵，因为 " + e.toString());
+                    notice("操作失败了喵，因为 " + e.toString());
                 }
             }).then(data => {
                 if (data["code"] == 200) {
@@ -331,7 +331,7 @@ addEvent("delete", "click", () => {
                     }, 3000);
                 }
             }).catch(e => {
-                notcie("请求失败了喵.. 因为 " + e.toString());
+                notice("请求失败了喵.. 因为 " + e.toString());
             });
         } else {
             notice("不删就不要乱点嘛喵~");
@@ -356,7 +356,7 @@ addEvent("unzip", "click", () => {
             try {
                 return response.json();
             } catch (e) {
-                notcie("操作失败了喵，因为 " + e.toString());
+                notice("操作失败了喵，因为 " + e.toString());
             }
         }).then(data => {
             if (data["code"] == 200) {
@@ -368,7 +368,7 @@ addEvent("unzip", "click", () => {
                 notice(`解压失败，因为${data["msg"]}..`);
             }
         }).catch(e => {
-            notcie("请求失败了喵.. 因为 " + e.toString());
+            notice("请求失败了喵.. 因为 " + e.toString());
         });
     } else {
         notice("你还没选择要解压哪些文件呢喵！");
@@ -397,7 +397,7 @@ addEvent("rname", "click", () => {
             try {
                 return response.json();
             } catch (e) {
-                notcie("操作失败了喵，因为 " + e.toString());
+                notice("操作失败了喵，因为 " + e.toString());
             }
         }).then(data => {
             if (data["code"] == 200) {
@@ -411,7 +411,7 @@ addEvent("rname", "click", () => {
                 notice("咦？这个文件怎么不见了？");
             }
         }).catch(e => {
-            notcie("请求失败了喵.. 因为 " + e.toString());
+            notice("请求失败了喵.. 因为 " + e.toString());
         });
     }
 });
@@ -430,7 +430,7 @@ addEvent("newfile", "click", () => {
             try {
                 return response.json();
             } catch (e) {
-                notcie("操作失败了喵，因为 " + e.toString());
+                notice("操作失败了喵，因为 " + e.toString());
             }
         }).then(data => {
             if (data["code"] == 200) {
@@ -442,7 +442,7 @@ addEvent("newfile", "click", () => {
                 notice("该文件已存在了嗷！");
             }
         }).catch(e => {
-            notcie("请求失败了喵.. 因为 " + e.toString());
+            notice("请求失败了喵.. 因为 " + e.toString());
         });
     } else {
         notice("既然不告诉我，那我就不新建了 QAQ");
@@ -463,7 +463,7 @@ addEvent("mkdir", "click", () => {
             try {
                 return response.json();
             } catch (e) {
-                notcie("操作失败了喵，因为 " + e.toString());
+                notice("操作失败了喵，因为 " + e.toString());
             }
         }).then(data => {
             if (data["code"] == 200) {
@@ -475,7 +475,7 @@ addEvent("mkdir", "click", () => {
                 notice("该目录已存在了嗷！");
             }
         }).catch(e => {
-            notcie("请求失败了喵.. 因为 " + e.toString());
+            notice("请求失败了喵.. 因为 " + e.toString());
         });
     } else {
         notice("既然不告诉我，那我就不新建了 QAQ");
@@ -503,7 +503,7 @@ addEvent("upload-file", "change", () => {
             try {
                 data = JSON.parse(xhr.responseText);
             } catch (e) {
-                notcie("操作失败了喵，因为 " + e.toString());
+                notice("操作失败了喵，因为 " + e.toString());
             }
             if (!data) return;
             if (data["code"] == 200) {
@@ -516,7 +516,7 @@ addEvent("upload-file", "change", () => {
             }
         });
         xhr.addEventListener("error", e => {
-            notcie("上传失败了喵.. 因为 " + e.toString());
+            notice("上传失败了喵.. 因为 " + e.toString());
         });
         try {
             xhr.send(form);
@@ -541,7 +541,7 @@ addEvent("check-update", "click", () => {
         try {
             return response.json();
         } catch (e) {
-            notcie("操作失败了喵，因为 " + e.toString());
+            notice("操作失败了喵，因为 " + e.toString());
         }
     }).then(data => {
         if (data["now-version"] != data["last-version"]) {
@@ -556,7 +556,7 @@ addEvent("check-update", "click", () => {
             notice("已是最新版本啦~", "rgb(0 144 255)");
         }
     }).catch(e => {
-        notcie("请求失败了喵.. 因为 " + e.toString());
+        notice("请求失败了喵.. 因为 " + e.toString());
     });
 });
 
