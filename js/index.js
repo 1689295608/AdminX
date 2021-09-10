@@ -90,7 +90,7 @@ function addEvent(element, event, func) {
 addEvent(document, "keydown", (event) => {
     ctrl = event.ctrlKey;
     shift = event.shiftKey;
-    if ($_GET["operation"] != "editor") {
+    if ($_GET["operation"] != "edit") {
         if (event.code == "KeyA" && ctrl) {
             event.preventDefault();
             selectAll(event.shiftKey);
@@ -103,14 +103,10 @@ addEvent(document, "keydown", (event) => {
             event.preventDefault();
             document.getElementById("rename").click();
         }
-    }
-    if ($_GET["operation"] == "edit") {
         if (event.code == "KeyS" && ctrl) {
             event.preventDefault();
             document.getElementById("save").click();
         }
-    }
-    if ($_GET["operation"] == "edit") {
         if (event.code == "KeyO" && ctrl) {
             event.preventDefault();
             document.getElementById("view").click();
