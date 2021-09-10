@@ -154,7 +154,7 @@ function delete_dir($dirname)
             if (is_dir("$dirname/$file")) {
                 delete_dir("$dirname/$file");
             } else {
-                if (!is_saved($dirname / $file)) {
+                if (!is_saved("$dirname/$file")) {
                     unlink("$dirname/$file");
                 }
             }
