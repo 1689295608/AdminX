@@ -39,6 +39,9 @@ $version = "1.3";
 /* 是否使用 opendir 方法打开目录的全局变量 */
 $GLOBALS["useopendir"] = $useopendir;
 
+/* 保护的文件的全局变量 */
+$GLOBALS["savedfiles"] = $savedfiles;
+
 /* 判断密码是否匹配 */
 if (isset($_COOKIE["password"])) {
     $verified = password_verify($password, $_COOKIE["password"]);
@@ -92,8 +95,8 @@ $dirname = "根目录";
 if (isset($_GET["dir"]))
     $dir = $_GET["dir"];
 
-if (!str_ends_with($dir, "/"))
-    $dir = "$dir/";
+if (!str_starts_with($dir, "."))
+    $dir = ".$dir";
 
 $dirs = explode("/", $dir);
 
@@ -114,11 +117,11 @@ $ZIP_ERROR = [
 ];
 
 /* 判断文件是否是受保护的 */
-function is_saved($file, $savedfiles)
+function is_saved($file)
 {
-    if (!isset($savedfiles)) return false;
-    for ($i = 0; $i < count($savedfiles); $i++) {
-        if (preg_match($savedfiles[$i], $file)) {
+    if (!isset($GLOBALS["savedfiles"])) return false;
+    for ($i = 0; $i < count($GLOBALS["savedfiles"]); $i++) {
+        if (preg_match($GLOBALS["savedfiles"][$i], $file)) {
             return true;
         }
     }
@@ -151,7 +154,9 @@ function delete_dir($dirname)
             if (is_dir("$dirname/$file")) {
                 delete_dir("$dirname/$file");
             } else {
-                unlink("$dirname/$file");
+                if (!is_saved($dirname / $file)) {
+                    unlink("$dirname/$file");
+                }
             }
         }
         rmdir($dirname);
@@ -203,11 +208,11 @@ if (isset($_GET["operation"])) {
                 $result_code = $zip->open("./adminx.zip", ZipArchive::CREATE | ZipArchive::OVERWRITE);
                 if ($result_code === true) {
                     foreach ($files as $key => $filename) {
-                        if (is_dir("./$dir/$filename")) {
-                            adddir($zip, "./$dir/$filename");
+                        if (is_dir("$dir/$filename")) {
+                            adddir($zip, "$dir/$filename");
                         }
-                        if (is_file("./$dir/$filename")) {
-                            $zip->addFile("./$dir/$filename");
+                        if (is_file("$dir/$filename")) {
+                            $zip->addFile("$dir/$filename");
                         }
                     }
                     $zip->close();
@@ -215,7 +220,7 @@ if (isset($_GET["operation"])) {
                 if (file_exists("./adminx.zip")) {
                     header("Content-Type: application/zip");
                     header("Content-Transfer-Encoding: binary");
-                    header("Content-disposition: attachment; filename=" . ($operation == "zipdir" ? $dirname : "Files") . "-ziped.zip");
+                    header("Content-disposition: attachment; filename=" . $dirname . "-ziped.zip");
                     echo file_get_contents("./adminx.zip");
                     unlink("./adminx.zip");
                     return;
@@ -233,7 +238,7 @@ if (isset($_GET["operation"])) {
                 header("Content-Type: application/octet-stream");
                 header("Content-Transfer-Encoding: binary");
                 header("Content-disposition: attachment; filename=$file");
-                echo file_get_contents("./$dir/$file");
+                echo file_get_contents("$dir/$file");
                 return;
             } else {
                 $notice = "文件名不能为空！";
@@ -241,9 +246,9 @@ if (isset($_GET["operation"])) {
         }
         if ($operation == "rename") { /* 重命名文件 */
             if (isset($_GET["file"], $_POST["new-name"])) {
-                $file = "./" . $dir . $_GET["file"];
+                $file = $dir . $_GET["file"];
                 $name = $_POST["new-name"];
-                if (!(is_saved($file, $savedfiles) || is_saved("./$dir/$name", $savedfiles))) {
+                if (!(is_saved($file) || is_saved("$dir/$name"))) {
                     if (file_exists($file) || is_dir($file)) {
                         rename($file, $name);
                         echo json_encode(["code" => 200]);
@@ -262,8 +267,8 @@ if (isset($_GET["operation"])) {
             if (isset($_POST["files"])) {
                 $files = json_decode($_POST["files"], true);
                 foreach ($files as $key => $value) {
-                    $file = "./$dir/$value";
-                    if (!is_saved($file, $savedfiles)) {
+                    $file = "$dir/$value";
+                    if (!is_saved($file)) {
                         if (is_dir($file)) {
                             delete_dir($file);
                         } else {
@@ -280,14 +285,14 @@ if (isset($_GET["operation"])) {
         if ($operation == "savefile") { /* 写入文件 */
             if (isset($_GET["file"], $_POST["data"])) {
                 $fname = $_GET["file"];
-                $file = "./" . $dir . $_GET["file"];
+                $file = $dir . $_GET["file"];
                 if (isset($backupdir) && $backupdir != "") {
                     if (!is_dir($backupdir)) {
                         mkdirs($backupdir);
                     }
                     @file_put_contents("$backupdir/$fname" . ($backuptime ? "." . time() : "") . ".bak", @file_get_contents($file));
                 }
-                if (!is_saved($file, $savedfiles)) {
+                if (!is_saved($file)) {
                     file_put_contents($file, $_POST["data"]);
                     echo json_encode(["code" => 200]);
                 } else {
@@ -300,7 +305,7 @@ if (isset($_GET["operation"])) {
         }
         if ($operation == "edit") { /* 编辑文件 */
             if (isset($_GET["file"])) {
-                $file = "./" . $dir . $_GET["file"];
+                $file = "$dir/" . $_GET["file"];
                 if (file_exists($file)) {
                     $data = file_get_contents($file);
                 } else {
@@ -310,7 +315,7 @@ if (isset($_GET["operation"])) {
         }
         if ($operation == "mkdir") { /* 创建目录 */
             if (isset($_POST["name"])) {
-                $d = "./" . $dir . $_POST["name"];
+                $d = "$dir/" . $_POST["name"];
                 if (!is_dir($d)) {
                     mkdirs($d);
                     echo json_encode(["code" => 200]);
@@ -324,8 +329,8 @@ if (isset($_GET["operation"])) {
         }
         if ($operation == "newfile") { /* 创建文件 */
             if (isset($_POST["name"])) {
-                $d = "./" . $dir . $_POST["name"];
-                if (!file_exists($d) || !is_saved($d, $savedfiles)) {
+                $d = "$dir/" . $_POST["name"];
+                if (!file_exists($d) || !is_saved($d)) {
                     file_put_contents($d, "");
                     echo json_encode(["code" => 200]);
                 } else {
@@ -339,8 +344,8 @@ if (isset($_GET["operation"])) {
         if ($operation == "upload") { /* 上传文件 */
             if (isset($_FILES) && count($_FILES) > 0) {
                 foreach ($_FILES as $key => $file) {
-                    $p = "./" . $dir . $file["name"];
-                    if (!is_saved($p, $savedfiles)) {
+                    $p = "$dir/" . $file["name"];
+                    if (!is_saved($p)) {
                         move_uploaded_file($file["tmp_name"], $p);
                     }
                 }
@@ -364,7 +369,7 @@ if (isset($_GET["operation"])) {
                         if (isset($_POST["path"]) && $_POST["path"] != "") {
                             $path = $_POST["path"];
                         }
-                        $p = "./$dir/$path";
+                        $p = "$dir/$path";
                         if (!is_dir($p)) {
                             mkdirs($p);
                         }
@@ -396,7 +401,7 @@ if (isset($_GET["operation"])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5">
-    <title id="title">AdminX <?php echo $dir;
+    <title id="title">AdminX <?php echo substr($dir, 1);
                                 if ($operation == "edit") echo $_GET["file"]; ?></title>
     <link href="https://adminx.xurl.ltd/css/index.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/codemirror/CodeMirror/lib/codemirror.css" rel="stylesheet">
@@ -424,7 +429,7 @@ if (isset($_GET["operation"])) {
             <?php
             $jumplink = "";
             for ($i = 0; $i < count($dirs); $i++) {
-                if ($dirs[$i] == "") continue;
+                if ($dirs[$i] == "" || $dirs[$i] == ".") continue;
                 $jumplink .= $dirs[$i] . "/";
                 echo "<path p=\"$jumplink\">" . htmlentities($dirs[$i]) . "</path><deli></deli>";
             }
@@ -449,15 +454,15 @@ if (isset($_GET["operation"])) {
                 <?php
                 if ($verified) {
                     /* 列出文件列表 */
-                    if (@is_dir("./$dir")) {
-                        $files = dirlist("./$dir");
+                    if (@is_dir("$dir")) {
+                        $files = dirlist("$dir");
                         for ($i = 0; $i < count($files); $i++) {
                             if ($files[$i] == "." || $files[$i] == "..") continue;
-                            $element = is_dir("./" . ($dir == "/" ? "" : $dir) . $files[$i]) ? "dire" : "file";
+                            $element = is_dir(($dir == "/" ? "" : $dir) . $files[$i]) ? "dire" : "file";
                             echo "<$element>" . htmlentities($files[$i]) . "</$element>";
                         }
                     } else {
-                        $notice = "该文件夹不存在！";
+                        $notice = "该文件夹不存在！($dir)";
                     }
                 }
                 ?>
