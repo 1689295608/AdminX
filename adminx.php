@@ -285,7 +285,7 @@ if (isset($_GET["operation"])) {
                     if (!is_dir($backupdir)) {
                         mkdirs($backupdir);
                     }
-                    @file_put_contents("$backupdir/$fname." . ($backuptime ? "." . time() : "") . ".bak", @file_get_contents($file));
+                    @file_put_contents("$backupdir/$fname" . ($backuptime ? "." . time() : "") . ".bak", @file_get_contents($file));
                 }
                 if (!is_saved($file, $savedfiles)) {
                     file_put_contents($file, $_POST["data"]);
