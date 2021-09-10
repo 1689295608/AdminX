@@ -62,19 +62,38 @@ function uri(str) {
     return encodeURIComponent(str);
 }
 
+/**
+ * 全选或反选所有
+ * @param {boolean} anti
+ */
+function selectAll(anti) {
+    for (let i in files) {
+        select(files[i], anti ? undefined : true);
+    }
+    for (let i in dires) {
+        select(dires[i], anti ? undefined : true);
+    }
+}
+
+/**
+ * 注册事件，当 element 为 undefined 或 null 则不作为
+ * @param {element} element
+ * @param {string} event
+ * @param {function} function
+ */
+function addEvent(element, event, func) {
+    let el = typeof element == "string" ? document.getElementById(element) : element;
+    if (el) el.addEventListener(event, func);
+}
+
 /* 在按下或弹起某键时更新 Ctrl 键状态 */
-document.addEventListener("keydown", (event) => {
+addEvent(document, "keydown", (event) => {
     ctrl = event.ctrlKey;
     shift = event.shiftKey;
     if ($_GET["operation"] != "editor") {
         if (event.code == "KeyA" && ctrl) {
             event.preventDefault();
-            for (let i in files) {
-                select(files[i], event.shiftKey ? undefined : true);
-            }
-            for (let o in dires) {
-                select(dires[o], event.shiftKey ? undefined : true);
-            }
+            selectAll(event.shiftKey);
         }
         if (event.code == "Delete") {
             event.preventDefault();
@@ -99,7 +118,7 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-document.addEventListener("keyup", (event) => {
+addEvent(document, "keyup", (event) => {
     ctrl = event.ctrlKey;
     shift = event.shiftKey;
 });
@@ -117,18 +136,22 @@ function SetClickSelect(elements) {
                     /* 开关该对象的选中模式 */
                     select(elements[i]);
                 } else {
-                    if (elements[i].tagName == "FILE") {
-                        let filesearch = `?operation=edit&dir=${encodePath}&file=${uri(elements[i].innerText)}`;
-                        if (shift) {
-                            /* 在新窗口中打开该文件的编辑 */
-                            window.open(filesearch);
+                    if (selected.length == 0) {
+                        if (elements[i].tagName == "FILE") {
+                            let filesearch = `?operation=edit&dir=${encodePath}&file=${uri(elements[i].innerText)}`;
+                            if (shift) {
+                                /* 在新窗口中打开该文件的编辑 */
+                                window.open(filesearch);
+                            } else {
+                                /* 在当前窗口打开 */
+                                window.location.search = filesearch;
+                            }
                         } else {
-                            /* 在当前窗口打开 */
-                            window.location.search = filesearch;
+                            /* 跳转到该目录 */
+                            window.location.search = `?dir=${encodePath + elements[i].innerText}`;
                         }
                     } else {
-                        /* 跳转到该目录 */
-                        window.location.search = `?dir=${encodePath + elements[i].innerText}`;
+                        select(elements[i]);
                     }
                 }
             });
@@ -161,13 +184,13 @@ function select(element, se) {
         element.classList.add("selected");
     }
     /* 重新载入所有已选中的对象 */
-    ReloadSelected();
+    reloadSelected();
 }
 
 /**
  * 重新载入所有已选中的对象
  */
-function ReloadSelected() {
+function reloadSelected() {
     let selectedElement = document.getElementsByClassName("selected");
     selected = [];
     for (let i = 0; i < selectedElement.length; i++) {
@@ -176,7 +199,7 @@ function ReloadSelected() {
 }
 
 /* 登录按钮点击事件 */
-document.getElementById("login").addEventListener("click", () => {
+addEvent("login", "click", () => {
     fetch("?operation=login", {
         body: "password=" + document.getElementById("password").value,
         method: "POST",
@@ -184,7 +207,11 @@ document.getElementById("login").addEventListener("click", () => {
             "Content-Type": "application/x-www-form-urlencoded"
         }
     }).then(response => {
-        return response.json()
+        try {
+            return response.json();
+        } catch (e) {
+            notcie("操作失败了喵，因为 " + e.toString());
+        }
     }).then(data => {
         if (data["code"] == 200) {
             window.location.reload();
@@ -192,7 +219,9 @@ document.getElementById("login").addEventListener("click", () => {
             /* 错误处理 */
             notice(data["msg"]);
         }
-    })
+    }).catch(e => {
+        notcie("请求失败了喵.. 因为 " + e.toString());
+    });
 });
 
 /* 路径点击事件 */
@@ -209,7 +238,7 @@ for (let i in paths) {
 }
 
 /* 保存按钮点击事件 */
-document.getElementById("save").addEventListener("click", () => {
+addEvent("save", "click", () => {
     document.getElementById("save").innerText = "保存中...";
 
     /* 当前编辑的文件名 */
@@ -220,7 +249,11 @@ document.getElementById("save").addEventListener("click", () => {
             "Content-Type": "application/x-www-form-urlencoded"
         }
     }).then(response => {
-        return response.json();
+        try {
+            return response.json();
+        } catch (e) {
+            notcie("操作失败了喵，因为 " + e.toString());
+        }
     }).then(data => {
         if (data["code"] == 200) {
             notice("文件保存成功辣！", "rgb(0 144 255)");
@@ -228,17 +261,19 @@ document.getElementById("save").addEventListener("click", () => {
         } else if (data["code"] == 403) {
             notice("该文件受到保护了喵...");
         }
-    })
+    }).catch(e => {
+        notcie("请求失败了喵.. 因为 " + e.toString());
+    });
 });
 
 /* 刷新按钮点击事件 */
-document.getElementById("reload").addEventListener("click", () => {
+addEvent("reload", "click", () => {
     /* 刷新本窗口 */
     window.location.reload();
 });
 
 /* 下载按钮点击事件 */
-document.getElementById("download").addEventListener("click", () => {
+addEvent("download", "click", () => {
     window.location.href = `?operation=download&dir=${encodePath}&file=${file}`;
 });
 
@@ -268,7 +303,7 @@ function notice(msg, color) {
 }
 
 /* 打包文件点击事件 */
-document.getElementById("zip").addEventListener("click", () => {
+addEvent("zip", "click", () => {
     if (selected.length > 0) {
         window.open(`?operation=zipfiles&dir=${encodePath}&files=${JSON.stringify(selected)}`);
     } else {
@@ -277,9 +312,9 @@ document.getElementById("zip").addEventListener("click", () => {
 });
 
 /* 删除文件点击事件 */
-document.getElementById("delete").addEventListener("click", () => {
+addEvent("delete", "click", () => {
     if (selected.length > 0) {
-        if (confirm(`真的要删除这 ${selected.length} 个文件吗喵？？`)) {
+        if (confirm(`真的要删除这 ${selected.length} 个文件/文件夹吗喵？？`)) {
             fetch(`?operation=unlink&dir=${encodePath}`, {
                 method: "POST",
                 body: `files=${JSON.stringify(selected)}`,
@@ -287,7 +322,11 @@ document.getElementById("delete").addEventListener("click", () => {
                     "Content-Type": "application/x-www-form-urlencoded"
                 }
             }).then(response => {
-                return response.json();
+                try {
+                    return response.json();
+                } catch (e) {
+                    notcie("操作失败了喵，因为 " + e.toString());
+                }
             }).then(data => {
                 if (data["code"] == 200) {
                     notice("删除成功了喵！", "rgb(0 144 255)");
@@ -295,6 +334,8 @@ document.getElementById("delete").addEventListener("click", () => {
                         window.location.reload();
                     }, 3000);
                 }
+            }).catch(e => {
+                notcie("请求失败了喵.. 因为 " + e.toString());
             });
         } else {
             notice("不删就不要乱点嘛喵~");
@@ -305,7 +346,7 @@ document.getElementById("delete").addEventListener("click", () => {
 });
 
 /* 解压按钮点击事件 */
-document.getElementById("unzip").addEventListener("click", () => {
+addEvent("unzip", "click", () => {
     if (selected.length > 0) {
         let password = prompt("如果有密码的话要告诉我喵~ 没有的话留空就够了~");
         let unzippath = prompt("另外告诉我要解压到哪个路径吧？", path);
@@ -316,7 +357,11 @@ document.getElementById("unzip").addEventListener("click", () => {
                 "Content-Type": "application/x-www-form-urlencoded"
             }
         }).then(response => {
-            return response.json();
+            try {
+                return response.json();
+            } catch (e) {
+                notcie("操作失败了喵，因为 " + e.toString());
+            }
         }).then(data => {
             if (data["code"] == 200) {
                 notice("解压成功了喵！", "rgb(0 144 255)");
@@ -326,6 +371,8 @@ document.getElementById("unzip").addEventListener("click", () => {
             } else if (data["code"] == 500) {
                 notice(`解压失败，因为${data["msg"]}..`);
             }
+        }).catch(e => {
+            notcie("请求失败了喵.. 因为 " + e.toString());
         });
     } else {
         notice("你还没选择要解压哪些文件呢喵！");
@@ -333,7 +380,7 @@ document.getElementById("unzip").addEventListener("click", () => {
 });
 
 /* 重命名按钮点击事件 */
-document.getElementById("rname").addEventListener("click", () => {
+addEvent("rname", "click", () => {
     if (selected.length < 1) {
         notice("你还没选择要重命名哪个文件呢喵！");
         return;
@@ -351,7 +398,11 @@ document.getElementById("rname").addEventListener("click", () => {
                 "Content-Type": "application/x-www-form-urlencoded"
             }
         }).then(response => {
-            return response.json();
+            try {
+                return response.json();
+            } catch (e) {
+                notcie("操作失败了喵，因为 " + e.toString());
+            }
         }).then(data => {
             if (data["code"] == 200) {
                 notice("重命名成功了喵！", "rgb(0 144 255)");
@@ -363,12 +414,14 @@ document.getElementById("rname").addEventListener("click", () => {
             } else if (data["code"] == 404) {
                 notice("咦？这个文件怎么不见了？");
             }
+        }).catch(e => {
+            notcie("请求失败了喵.. 因为 " + e.toString());
         });
     }
 });
 
 /* 新建文件按钮点击事件 */
-document.getElementById("newfile").addEventListener("click", () => {
+addEvent("newfile", "click", () => {
     let filename = prompt("不妨告诉我一下新文件的名称？");
     if (filename) {
         fetch(`?operation=newfile&dir=${encodePath}`, {
@@ -378,7 +431,11 @@ document.getElementById("newfile").addEventListener("click", () => {
                 "Content-Type": "application/x-www-form-urlencoded"
             }
         }).then(response => {
-            return response.json();
+            try {
+                return response.json();
+            } catch (e) {
+                notcie("操作失败了喵，因为 " + e.toString());
+            }
         }).then(data => {
             if (data["code"] == 200) {
                 notice("新建文件成功喵！", "rgb(0 144 255)");
@@ -388,6 +445,8 @@ document.getElementById("newfile").addEventListener("click", () => {
             } else if (data["code"] == 403) {
                 notice("该文件已存在了嗷！");
             }
+        }).catch(e => {
+            notcie("请求失败了喵.. 因为 " + e.toString());
         });
     } else {
         notice("既然不告诉我，那我就不新建了 QAQ");
@@ -395,7 +454,7 @@ document.getElementById("newfile").addEventListener("click", () => {
 });
 
 /* 新建文件夹按钮点击事件 */
-document.getElementById("mkdir").addEventListener("click", () => {
+addEvent("mkdir", "click", () => {
     let dirname = prompt("不妨告诉我一下新文件夹的名称？");
     if (dirname) {
         fetch(`?operation=mkdir&dir=${encodePath}`, {
@@ -405,7 +464,11 @@ document.getElementById("mkdir").addEventListener("click", () => {
                 "Content-Type": "application/x-www-form-urlencoded"
             }
         }).then(response => {
-            return response.json();
+            try {
+                return response.json();
+            } catch (e) {
+                notcie("操作失败了喵，因为 " + e.toString());
+            }
         }).then(data => {
             if (data["code"] == 200) {
                 notice("新建文件夹成功喵！", "rgb(0 144 255)");
@@ -415,6 +478,8 @@ document.getElementById("mkdir").addEventListener("click", () => {
             } else if (data["code"] == 403) {
                 notice("该目录已存在了嗷！");
             }
+        }).catch(e => {
+            notcie("请求失败了喵.. 因为 " + e.toString());
         });
     } else {
         notice("既然不告诉我，那我就不新建了 QAQ");
@@ -422,12 +487,12 @@ document.getElementById("mkdir").addEventListener("click", () => {
 });
 
 /* 上传文件按钮点击事件 */
-document.getElementById("upload").addEventListener("click", () => {
+addEvent("upload", "click", () => {
     document.getElementById("upload-file").click();
 });
 
 /* 选择文件被改变事件 */
-document.getElementById("upload-file").addEventListener("change", () => {
+addEvent("upload-file", "change", () => {
     let uploadFiles = document.getElementById("upload-file").files;
     if (uploadFiles.length > 0) {
         let form = new FormData();
@@ -438,7 +503,13 @@ document.getElementById("upload-file").addEventListener("change", () => {
         let xhr = new XMLHttpRequest();
         xhr.open("POST", `?operation=upload&dir=${encodePath}`);
         xhr.addEventListener("load", () => {
-            let data = JSON.parse(xhr.responseText);
+            let data = null;
+            try {
+                data = JSON.parse(xhr.responseText);
+            } catch (e) {
+                notcie("操作失败了喵，因为 " + e.toString());
+            }
+            if (!data) return;
             if (data["code"] == 200) {
                 notice("文件上传成功惹！", "rgb(0 144 255)");
                 setTimeout(() => {
@@ -447,6 +518,9 @@ document.getElementById("upload-file").addEventListener("change", () => {
             } else {
                 notice("上传失败了喵，重新试试吧？");
             }
+        });
+        xhr.addEventListener("error", e => {
+            notcie("上传失败了喵.. 因为 " + e.toString());
         });
         try {
             xhr.send(form);
@@ -457,7 +531,7 @@ document.getElementById("upload-file").addEventListener("change", () => {
 });
 
 /* 开启/关闭编辑器按钮点击事件 */
-document.getElementById("showeditor").addEventListener("click", () => {
+addEvent("showeditor", "click", () => {
     localStorage.setItem("editor", !showeditor) /* 取反 */
     notice("修改成功了喵~", "rgb(0 144 255)");
     setTimeout(() => {
@@ -466,9 +540,13 @@ document.getElementById("showeditor").addEventListener("click", () => {
 });
 
 /* 检查更新按钮点击事件 */
-document.getElementById("check-update").addEventListener("click", () => {
+addEvent("check-update", "click", () => {
     fetch(`?operation=checkupdata`).then(response => {
-        return response.json();
+        try {
+            return response.json();
+        } catch (e) {
+            notcie("操作失败了喵，因为 " + e.toString());
+        }
     }).then(data => {
         if (data["now-version"] != data["last-version"]) {
             let updataLog = "";
@@ -481,10 +559,17 @@ document.getElementById("check-update").addEventListener("click", () => {
         } else {
             notice("已是最新版本啦~", "rgb(0 144 255)");
         }
-    })
+    }).catch(e => {
+        notcie("请求失败了喵.. 因为 " + e.toString());
+    });
 });
 
 /* 访问按钮点击事件 */
-document.getElementById("view").addEventListener("click", () => {
-    window.open(`${path + file}`);
+addEvent("view", "click", () => {
+    window.open(path + file);
+});
+
+/* 全选按钮点击事件 */
+addEvent("select-all", "click", () => {
+    selectAll(true);
 });
