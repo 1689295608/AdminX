@@ -426,10 +426,10 @@ if (isset($_GET["operation"])) {
             for ($i = 0; $i < count($dirs); $i++) {
                 if ($dirs[$i] == "") continue;
                 $jumplink .= $dirs[$i] . "/";
-                echo "<path p=\"$jumplink\">" . $dirs[$i] . "</path><deli></deli>";
+                echo "<path p=\"$jumplink\">" . htmlentities($dirs[$i]) . "</path><deli></deli>";
             }
             if ($operation == "edit") {
-                echo "<edit>" . $_GET["file"] . "</edit>";
+                echo "<edit>" . htmlentities($_GET["file"]) . "</edit>";
             }
             ?>
         </div>
@@ -454,7 +454,7 @@ if (isset($_GET["operation"])) {
                         for ($i = 0; $i < count($files); $i++) {
                             if ($files[$i] == "." || $files[$i] == "..") continue;
                             $element = is_dir("./" . ($dir == "/" ? "" : $dir) . $files[$i]) ? "dire" : "file";
-                            echo "<$element>" . $files[$i] . "</$element>";
+                            echo "<$element>" . htmlentities($files[$i]) . "</$element>";
                         }
                     } else {
                         $notice = "该文件夹不存在！";
