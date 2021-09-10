@@ -1,3 +1,8 @@
+html,
+body {
+    height: 100%;
+}
+
 .admin-login {
     position: fixed;
     width: 100%;
@@ -159,7 +164,8 @@ dire {
     user-select: none;
 }
 
-file::before, dire:before {
+file::before,
+dire:before {
     display: inline-block;
     content: '';
     background-image: url("data:image/svg+xml,%3Csvg t='1629774504235' class='icon' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='2220' width='200' height='200'%3E%3Cpath d='M869.866667 152.533333c0-25.066667-20.266667-45.333333-45.333334-45.333333H198.933333c-25.066667 0-45.333333 20.266667-45.333333 45.333333v718.4c0 25.066667 20.266667 45.333333 45.333333 45.333334h277.866667c18.666667 0 34.133333-15.466667 34.133333-34.133334 0-18.666667-14.933333-34.133333-34.133333-34.133333H222.4V176h578.666667v435.2h-168.533334c-34.133333 0-62.4 27.733333-62.4 62.4V877.333333c-0.533333 9.6 2.666667 19.2 10.133334 26.666667 13.333333 13.333333 35.2 13.333333 48.533333 0l230.933333-230.933333c6.933333-6.933333 10.133333-16 10.133334-25.066667V152.533333zM656 680h99.733333l-116.8 116.8v-99.733333c0-9.6 7.466667-17.066667 17.066667-17.066667z' fill='%23000000' p-id='2221' data-spm-anchor-id='a313x.7781069.0.i3' class='selected'%3E%3C/path%3E%3Cpath d='M339.2 363.2h344.533333c19.2 0 35.2-16 35.2-35.2 0-19.2-16-35.2-35.2-35.2H339.2c-19.2 0-35.2 16-35.2 35.2 0 19.2 15.466667 35.2 35.2 35.2zM304 491.733333c0 19.2 16 35.2 35.2 35.2h344.533333c19.2 0 35.2-16 35.2-35.2 0-19.2-16-35.2-35.2-35.2H339.2c-19.733333-0.533333-35.2 15.466667-35.2 35.2z' fill='%23000000' p-id='2222' data-spm-anchor-id='a313x.7781069.0.i9' class='selected'%3E%3C/path%3E%3C/svg%3E");
@@ -249,6 +255,7 @@ btn {
     margin: 10px;
     overflow-x: scroll;
     white-space: nowrap;
+    text-align: center;
 }
 
 btn:hover {
@@ -315,12 +322,13 @@ file.selected {
 }
 
 .adminx-index {
-    position: fixed;
     width: 100%;
+    overflow: scroll;
+    height: calc(100% - 45px);
 }
 
 .adminx-filelist {
-    height: calc(100vh - 150px);
+    height: 100%;
     overflow-y: scroll;
 }
 
@@ -333,6 +341,10 @@ file.selected {
 }
 
 .control-btn::-webkit-scrollbar {
+    display: none;
+}
+
+.adminx-index::-webkit-scrollbar {
     display: none;
 }
 
