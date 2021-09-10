@@ -34,7 +34,7 @@ header("Cache-control: no-store");
 $verified = false;
 
 /* 当前版本变量，请勿修改 */
-$version = "1.2";
+$version = "1.3";
 
 /* 是否使用 opendir 方法打开目录的全局变量 */
 $GLOBALS["useopendir"] = $useopendir;
