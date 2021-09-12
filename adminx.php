@@ -98,6 +98,9 @@ if (isset($_GET["dir"]))
 if (!str_starts_with($dir, "."))
     $dir = ".$dir";
 
+if (!str_ends_with($dir, "/"))
+    $dir = "$dir/";
+
 $dirs = explode("/", $dir);
 
 if (count($dirs) > 0 && end($dirs) != "")
