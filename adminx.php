@@ -95,6 +95,9 @@ $dirname = "根目录";
 if (isset($_GET["dir"]))
     $dir = $_GET["dir"];
 
+if (!str_starts_with($dir, "/"))
+    $dir = "/$dir";
+
 if (!str_starts_with($dir, "."))
     $dir = ".$dir";
 
