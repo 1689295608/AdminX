@@ -183,6 +183,8 @@ function mkdirs($pathname)
     }
 }
 
+$operation = "";
+
 if (isset($_GET["operation"])) {
     $operation = $_GET["operation"];
     if ($operation == "login") { /* 登录 */
