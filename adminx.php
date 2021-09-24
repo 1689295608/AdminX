@@ -165,7 +165,7 @@ function delete_dir($dirname)
                 }
             }
         }
-        rmdir($dirname);
+        @rmdir($dirname);
     } else {
         unlink($dirname);
     }
