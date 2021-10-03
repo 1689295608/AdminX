@@ -413,6 +413,15 @@ dire.selected, file.selected {
     transform: rotate(180deg);
 }
 
+#index-edit {
+    overflow: scroll;
+    height: 100%;
+}
+
+#index-edit::-webkit-scrollbar {
+    display: none;
+}
+
 @media screen and (max-width:800px) {
     .admin-login-window {
         border: none;
