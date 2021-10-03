@@ -502,7 +502,7 @@ if (isset($_GET["operation"])) {
                     <textarea id="code" name="data" <?php if (isset($data)) echo "data-file=\"" . $_GET["file"] . "\""; ?>><?php echo isset($data) ? htmlentities($data) : ""; ?></textarea>
                     <?php
                         } else {
-                            echo "<$type src=\"$dir$file\">";
+                            echo "<$type src=\"$dir$file\" controls style=\"width: 100%\">";
                         }
                     ?>
                 </div>
