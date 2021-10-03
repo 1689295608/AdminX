@@ -373,18 +373,22 @@ dire.selected, file.selected {
 }
 
 .menu-group.show .menu-item {
-    display: block;
+    transform: scaleY(1);
+    opacity: 1;
 }
 
 .menu-group .menu-item {
     position: fixed;
-    display: none;
+    transform: scaleY(0);
+    opacity: 0;
+    transform-origin: top;
     min-width: 100px;
     padding: 1px;
     background: #eeeeee;
     user-select: none;
     transition: .2s;
     border-radius: 5px;
+    overflow: hidden;
     z-index: 100;
 }
 
@@ -394,6 +398,7 @@ dire.selected, file.selected {
     transition: .2s;
     border-radius: 5px;
     margin-bottom: 3px;
+    height: 25px;
 }
 
 .menu-group.show .menu-btn:after {
