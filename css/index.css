@@ -222,7 +222,7 @@ dire:hover {
 }
 
 #code, .CodeMirror {
-    height: calc(100% - 112px) !important;
+    height: calc(100% - 110px) !important;
     width: 100%;
     border-top: 1px solid #bbb;
 }
@@ -415,7 +415,7 @@ dire.selected, file.selected {
 
 #index-edit {
     overflow: scroll;
-    height: 100%;
+    height: calc(100% - 110px);
 }
 
 #index-edit::-webkit-scrollbar {
