@@ -228,7 +228,7 @@ if (isset($_GET["operation"])) {
                 if (file_exists("./adminx.zip")) {
                     header("Content-Type: application/zip");
                     header("Content-Transfer-Encoding: binary");
-                    header("Content-disposition: attachment; filename=" . $dirname . "-ziped.zip");
+                    header("Content-disposition: attachment; filename=" . $dirname . "-zipped.zip");
                     echo file_get_contents("./adminx.zip");
                     unlink("./adminx.zip");
                     return;
