@@ -108,6 +108,19 @@ function addEvent(element, event, func) {
     if (el) el.addEventListener(event, func);
 }
 
+let types = [
+    "text",
+    "image",
+    "video",
+    "audio"
+];
+for (let i in types) {
+    if (typeof types[i] != "string") continue;
+    document.getElementById(types[i]).addEventListener("click", () => {
+        window.location.search = `?operation=edit&dir=${$_GET["dir"]}&file=${$_GET["file"]}&type=${types[i]}`;
+    });
+}
+
 /* 在按下或弹起某键时更新 Ctrl 键状态 */
 addEvent(document, "keydown", event => {
     ctrl = event.ctrlKey;
