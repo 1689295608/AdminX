@@ -324,7 +324,7 @@ dire.selected, file.selected {
 
 .adminx-index {
     width: 100%;
-    overflow: scroll;
+    overflow: hidden;
     height: calc(100% - 45px);
 }
 
