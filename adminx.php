@@ -34,7 +34,7 @@ header("Cache-control: no-store");
 $verified = false;
 
 /* 当前版本变量，请勿修改 */
-$version = "1.3";
+$version = "1.4";
 
 /* 是否使用 opendir 方法打开目录的全局变量 */
 $GLOBALS["useopendir"] = $useopendir;
@@ -92,7 +92,7 @@ $dir = "/";
 /* 当前所在目录名变量 */
 $dirname = "根目录";
 
-$file = isset($_GET["file"]) ? $_GET["file"] : null;
+$filename = isset($_GET["file"]) ? $_GET["file"] : null;
 
 if (isset($_GET["dir"]))
     $dir = $_GET["dir"];
@@ -444,7 +444,7 @@ if (isset($_GET["operation"])) {
                 echo "<path p=\"$jumplink\">" . htmlentities($dirs[$i]) . "</path><deli></deli>";
             }
             if ($operation == "edit") {
-                echo "<edit>" . htmlentities($_GET["file"]) . "</edit>";
+                echo "<edit>" . htmlentities($file) . "</edit>";
             }
             ?>
         </div>
@@ -502,7 +502,7 @@ if (isset($_GET["operation"])) {
                     <textarea id="code" name="data" <?php if (isset($data)) echo "data-file=\"" . $_GET["file"] . "\""; ?>><?php echo isset($data) ? htmlentities($data) : ""; ?></textarea>
                     <?php
                         } else {
-                            echo "<$type src=\"$dir$file\" controls style=\"width: 100%\">";
+                            echo "<$type src=\"$dir$filename\" controls style=\"width: 100%\">";
                         }
                     ?>
                 </div>
