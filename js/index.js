@@ -116,7 +116,9 @@ let types = [
 ];
 for (let i in types) {
     if (typeof types[i] != "string") continue;
-    document.getElementById(types[i]).addEventListener("click", () => {
+    let type = document.getElementById(types[i]);
+    if (!type) continue;
+    type.addEventListener("click", () => {
         window.location.search = `?operation=edit&dir=${$_GET["dir"]}&file=${$_GET["file"]}&type=${types[i]}`;
     });
 }
