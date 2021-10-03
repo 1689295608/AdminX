@@ -10,8 +10,14 @@ if (path.startsWith("/") || path.startsWith(".")) path = path.substring(1);
 /* URI 编码后的路径 */
 let encodePath = uri(path);
 
+/* 代码编辑框 */
+let code = document.getElementById("code");
+
 /* 当前正在编辑的文件名，可能为 undefined */
-let file = document.getElementById("code").dataset.file;
+let file;
+if (code) {
+    file = code.dataset.file;
+}
 
 /* 是否开启 CodeMirrir 编辑器 */
 let showeditor = true;
@@ -22,8 +28,8 @@ document.getElementById("showeditor").innerText = (showeditor ? "关闭" : "打�
 
 /* 编辑器对象变量 */
 let editor = null;
-if (showeditor) {
-    editor = CodeMirror.fromTextArea(document.getElementById("code"), { lineNumbers: true });
+if (showeditor && code) {
+    editor = CodeMirror.fromTextArea(code, { lineNumbers: true });
 }
 
 /* 所有的文件元素 */
@@ -75,6 +81,22 @@ function selectAll(anti) {
     }
 }
 
+let menu = document.getElementsByClassName("menu-group");
+for (let i in menu) {
+    if (typeof menu[i] != "object") continue;
+    let btn = menu[i].getElementsByClassName("menu-btn");
+    for (let o in btn) {
+        if (typeof btn[o] != "object") continue;
+        btn[o].addEventListener("click", () => {
+            if (menu[i].classList.contains("show")) {
+                menu[i].classList.remove("show");
+                return;
+            }
+            menu[i].classList.add("show");
+        });
+    }
+}
+
 /**
  * 注册事件，当 element 为 undefined 或 null 则不作为
  * @param {element} element
@@ -87,7 +109,7 @@ function addEvent(element, event, func) {
 }
 
 /* 在按下或弹起某键时更新 Ctrl 键状态 */
-addEvent(document, "keydown", (event) => {
+addEvent(document, "keydown", event => {
     ctrl = event.ctrlKey;
     shift = event.shiftKey;
     if ($_GET["operation"] != "edit") {
@@ -114,7 +136,7 @@ addEvent(document, "keydown", (event) => {
     }
 });
 
-addEvent(document, "keyup", (event) => {
+addEvent(document, "keyup", event => {
     ctrl = event.ctrlKey;
     shift = event.shiftKey;
 });
@@ -152,14 +174,14 @@ function SetClickSelect(elements) {
                 }
             });
             /* 鼠标中键在新窗口打开 */
-            elements[i].addEventListener("mousedown", (event) => {
+            elements[i].addEventListener("mousedown", event => {
                 if (event.button == 1) {
                     event.preventDefault();
                     window.open(`?operation=edit&dir=${encodePath}&file=${uri(elements[i].innerText)}`);
                 }
             })
             /* 菜单事件 */
-            elements[i].addEventListener("contextmenu", (event) => {
+            elements[i].addEventListener("contextmenu", event => {
                 /* 开关该对象的选中模式 */
                 select(elements[i]);
                 event.preventDefault();
