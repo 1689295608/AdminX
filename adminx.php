@@ -92,6 +92,8 @@ $dir = "/";
 /* 当前所在目录名变量 */
 $dirname = "根目录";
 
+$file = isset($_GET["file"]) ? $_GET["file"] : null;
+
 if (isset($_GET["dir"]))
     $dir = $_GET["dir"];
 
@@ -216,11 +218,11 @@ if (isset($_GET["operation"])) {
                 $result_code = $zip->open("./adminx.zip", ZipArchive::CREATE | ZipArchive::OVERWRITE);
                 if ($result_code === true) {
                     foreach ($files as $key => $filename) {
-                        if (is_dir("$dir/$filename")) {
-                            adddir($zip, "$dir/$filename");
+                        if (is_dir("$dir$filename")) {
+                            adddir($zip, "$dir$filename");
                         }
-                        if (is_file("$dir/$filename")) {
-                            $zip->addFile("$dir/$filename");
+                        if (is_file("$dir$filename")) {
+                            $zip->addFile("$dir$filename");
                         }
                     }
                     $zip->close();
@@ -228,7 +230,7 @@ if (isset($_GET["operation"])) {
                 if (file_exists("./adminx.zip")) {
                     header("Content-Type: application/zip");
                     header("Content-Transfer-Encoding: binary");
-                    header("Content-disposition: attachment; filename=" . $dirname . "-zipped.zip");
+                    header("Content-disposition: attachment; filename=" . $dirname . "-ziped.zip");
                     echo file_get_contents("./adminx.zip");
                     unlink("./adminx.zip");
                     return;
@@ -246,7 +248,7 @@ if (isset($_GET["operation"])) {
                 header("Content-Type: application/octet-stream");
                 header("Content-Transfer-Encoding: binary");
                 header("Content-disposition: attachment; filename=$file");
-                echo file_get_contents("$dir/$file");
+                echo file_get_contents("$dir$file");
                 return;
             } else {
                 $notice = "文件名不能为空！";
@@ -256,7 +258,7 @@ if (isset($_GET["operation"])) {
             if (isset($_GET["file"], $_POST["new-name"])) {
                 $file = $dir . $_GET["file"];
                 $name = $_POST["new-name"];
-                if (!(is_saved($file) || is_saved("$dir/$name"))) {
+                if (!(is_saved($file) || is_saved("$dir$name"))) {
                     if (file_exists($file) || is_dir($file)) {
                         rename($file, $name);
                         echo json_encode(["code" => 200]);
@@ -275,7 +277,7 @@ if (isset($_GET["operation"])) {
             if (isset($_POST["files"])) {
                 $files = json_decode($_POST["files"], true);
                 foreach ($files as $key => $value) {
-                    $file = "$dir/$value";
+                    $file = "$dir$value";
                     if (!is_saved($file)) {
                         if (is_dir($file)) {
                             delete_dir($file);
@@ -313,7 +315,7 @@ if (isset($_GET["operation"])) {
         }
         if ($operation == "edit") { /* 编辑文件 */
             if (isset($_GET["file"])) {
-                $file = "$dir/" . $_GET["file"];
+                $file = "$dir" . $_GET["file"];
                 if (file_exists($file)) {
                     $data = file_get_contents($file);
                 } else {
@@ -323,7 +325,7 @@ if (isset($_GET["operation"])) {
         }
         if ($operation == "mkdir") { /* 创建目录 */
             if (isset($_POST["name"])) {
-                $d = "$dir/" . $_POST["name"];
+                $d = "$dir" . $_POST["name"];
                 if (!is_dir($d)) {
                     mkdirs($d);
                     echo json_encode(["code" => 200]);
@@ -337,7 +339,7 @@ if (isset($_GET["operation"])) {
         }
         if ($operation == "newfile") { /* 创建文件 */
             if (isset($_POST["name"])) {
-                $d = "$dir/" . $_POST["name"];
+                $d = "$dir" . $_POST["name"];
                 if (!file_exists($d) || !is_saved($d)) {
                     file_put_contents($d, "");
                     echo json_encode(["code" => 200]);
@@ -352,7 +354,7 @@ if (isset($_GET["operation"])) {
         if ($operation == "upload") { /* 上传文件 */
             if (isset($_FILES) && count($_FILES) > 0) {
                 foreach ($_FILES as $key => $file) {
-                    $p = "$dir/" . $file["name"];
+                    $p = "$dir" . $file["name"];
                     if (!is_saved($p)) {
                         move_uploaded_file($file["tmp_name"], $p);
                     }
@@ -377,7 +379,7 @@ if (isset($_GET["operation"])) {
                         if (isset($_POST["path"]) && $_POST["path"] != "") {
                             $path = $_POST["path"];
                         }
-                        $p = "$dir/$path";
+                        $p = "$dir$path";
                         if (!is_dir($p)) {
                             mkdirs($p);
                         }
@@ -482,8 +484,28 @@ if (isset($_GET["operation"])) {
                     <btn id="download">下载</btn>
                     <btn id="view">预览</btn>
                     <btn id="showeditor">打开编辑器</btn>
+                    <div class="menu-group">
+                        <btn class="menu-btn">打开方式</btn>
+                        <div class="menu-item">
+                            <item id="text">文本</item>
+                            <item id="image">图片</item>
+                            <item id="video">视频</item>
+                            <item id="audio">音频</item>
+                        </div>
+                    </div>
                 </div>
-                <textarea id="code" name="data" <?php if (isset($data)) echo "data-file=\"" . $_GET["file"] . "\""; ?>><?php echo isset($data) ? htmlentities($data) : ""; ?></textarea>
+                <div id="index-edit">
+                    <?php
+                        $type = isset($_GET["type"]) ? $_GET["type"] : null;
+                        if (!isset($type) || $type == "text") {
+                    ?>
+                    <textarea id="code" name="data" <?php if (isset($data)) echo "data-file=\"" . $_GET["file"] . "\""; ?>><?php echo isset($data) ? htmlentities($data) : ""; ?></textarea>
+                    <?php
+                        } else {
+                            echo "<$type src=\"$dir$file\">";
+                        }
+                    ?>
+                </div>
             </div>
         </div>
     </div>
