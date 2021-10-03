@@ -313,13 +313,15 @@ if (isset($_GET["operation"])) {
             return;
         }
         if ($operation == "edit") { /* 编辑文件 */
-            if (isset($_GET["file"])) {
-                $file = "$dir" . $_GET["file"];
+            if (isset($filename)) {
+                $file = "$dir" . $filename;
                 if (file_exists($file)) {
                     $data = file_get_contents($file);
                 } else {
                     $notice = "该文件不存在！";
                 }
+            } else {
+                $notice = "该文件不存在！";
             }
         }
         if ($operation == "mkdir") { /* 创建目录 */
