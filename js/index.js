@@ -138,16 +138,16 @@ addEvent(document, "keydown", event => {
         }
         if (event.code == "KeyM" && ctrl) {
             event.preventDefault();
-            document.getElementById("rename").click();
-        }
-        if (event.code == "KeyS" && ctrl) {
-            event.preventDefault();
-            document.getElementById("save").click();
+            document.getElementById("rname").click();
         }
         if (event.code == "KeyO" && ctrl) {
             event.preventDefault();
             document.getElementById("view").click();
         }
+    }
+    if (event.code == "KeyS" && ctrl) {
+        event.preventDefault();
+        document.getElementById("save").click();
     }
 });
 
