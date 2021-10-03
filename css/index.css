@@ -377,9 +377,9 @@ dire.selected, file.selected {
 }
 
 .menu-group .menu-item {
-    position: absolute;
+    position: fixed;
     display: none;
-    width: 100%;
+    min-width: 100px;
     padding: 1px;
     background: #eeeeee;
     user-select: none;
