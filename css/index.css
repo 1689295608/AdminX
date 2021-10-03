@@ -198,12 +198,11 @@ dire:hover {
     position: absolute;
     inset: 0;
     background: white;
-    /* display: none; */
 }
 
 .admin-view {
     position: relative;
-    height: calc(100% - 105px);
+    height: 100%;
 }
 
 #code {
@@ -216,12 +215,16 @@ dire:hover {
     font-family: auto;
 }
 
-#code,
-.CodeMirror {
-    position: fixed !important;
-    height: calc(100% - 155px) !important;
-    border-top: 1px solid #bbb;
+#adminx-edit {
+    position: fixed;
+    height: calc(100% - 155px);
     width: 100%;
+}
+
+#code, .CodeMirror {
+    height: 100% !important;
+    width: 100%;
+    border-top: 1px solid #bbb;
 }
 
 .adminx-path::after {
@@ -250,8 +253,7 @@ btn {
     cursor: pointer;
 }
 
-.mult-control-btn,
-.control-btn {
+.mult-control-btn, .control-btn {
     margin: 10px;
     overflow-x: scroll;
     white-space: nowrap;
@@ -263,16 +265,15 @@ btn:hover {
 }
 
 btn:active {
+    box-shadow: 0px 1px 3px #000000a8;
     background: #006be1;
 }
 
-file:active,
-dire:active {
+file:active, dire:active {
     background: #a1a1a1;
 }
 
-dire.selected,
-file.selected {
+dire.selected, file.selected {
     background: #0090ff;
     color: white;
 }
@@ -348,8 +349,63 @@ file.selected {
     display: none;
 }
 
-btn:active {
-    box-shadow: 0px 1px 3px #000000a8;
+.menu-group {
+    display: inline-block;
+    position: relative;
+    margin-block: 0;
+    margin-inline: 0;
+    padding-inline-start: 0;
+    list-style-type: auto;
+    border-radius: 5px;
+    transition: .2s;
+}
+
+.menu-group.show {
+    background: #eeeeee;
+}
+
+.menu-group.show item:hover {
+    background: #bbbbbb;
+}
+
+.menu-group.show item:active {
+    background: #aaaaaa;
+}
+
+.menu-group.show .menu-item {
+    display: block;
+}
+
+.menu-group .menu-item {
+    position: absolute;
+    display: none;
+    width: 100%;
+    padding: 1px;
+    background: #eeeeee;
+    user-select: none;
+    transition: .2s;
+    border-radius: 5px;
+    z-index: 100;
+}
+
+.menu-group .menu-item item {
+    display: block;
+    background: #eeeeee;
+    transition: .2s;
+    border-radius: 5px;
+    margin-bottom: 3px;
+}
+
+.menu-group.show .menu-btn:after {
+    transform: rotate(0deg);
+}
+
+.menu-group .menu-btn::after {
+    content: '△';
+    display: inline-block;
+    margin-left: 5px;
+    transition: .2s;
+    transform: rotate(180deg);
 }
 
 @media screen and (max-width:800px) {
