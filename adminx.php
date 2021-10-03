@@ -244,11 +244,10 @@ if (isset($_GET["operation"])) {
         }
         if ($operation == "download") { /* 下载文件 */
             if (isset($_GET["file"])) {
-                $file = $_GET["file"];
                 header("Content-Type: application/octet-stream");
                 header("Content-Transfer-Encoding: binary");
-                header("Content-disposition: attachment; filename=$file");
-                echo file_get_contents("$dir$file");
+                header("Content-disposition: attachment; filename=$filename");
+                echo file_get_contents("$dir$filename");
                 return;
             } else {
                 $notice = "文件名不能为空！";
@@ -444,7 +443,7 @@ if (isset($_GET["operation"])) {
                 echo "<path p=\"$jumplink\">" . htmlentities($dirs[$i]) . "</path><deli></deli>";
             }
             if ($operation == "edit") {
-                echo "<edit>" . htmlentities($file) . "</edit>";
+                echo "<edit>" . htmlentities($filename) . "</edit>";
             }
             ?>
         </div>
