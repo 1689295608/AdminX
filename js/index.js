@@ -108,6 +108,7 @@ function getName(element) {
     }
     let name = "";
     for (let i in nameTag) {
+        if (typeof nameTag[i] != "object") continue;
         name += nameTag[i].innerText;
     }
     return name;
