@@ -1,5 +1,18 @@
 'use strict'; /* 开启严格模式 */
 
+/* 网上找来的轮子，获取 search 参数 */
+const $_GET = (() => {
+    let re = {};
+    if (location.search) {
+        let a = location.search.replace("?", "").split("&");
+        for (let i in a) {
+            let b = a[i].split("=");
+            re[b[0]] = decodeURIComponent(b[1]);
+        }
+    }
+    return re;
+})();
+
 /* 已选择的文件列表 */
 let selected = [];
 
@@ -12,6 +25,14 @@ let encodePath = uri(path);
 
 /* 代码编辑框 */
 let code = document.getElementById("code");
+
+/* 以十六进制模式编辑 */
+let hex = $_GET["hex"] == "true";
+
+let hexBtn = document.getElementById("hex");
+if (hexBtn) {
+    hexBtn.innerText = (hex ? "关闭" : "开启") + "十六进制编辑";
+}
 
 /* 当前正在编辑的文件名，可能为 undefined */
 let file;
@@ -45,19 +66,6 @@ let ctrl = false;
 
 /* 是否已按下 Shift 键 */
 let shift = false;
-
-/* 网上找来的轮子，获取 search 参数 */
-const $_GET = (() => {
-    let re = {};
-    if (location.search) {
-        let a = location.search.replace("?", "").split("&");
-        for (let i in a) {
-            let b = a[i].split("=");
-            re[b[0]] = decodeURIComponent(b[1]);
-        }
-    }
-    return re;
-})();
 
 /**
  * EncodeURIComponent 太长了，简化一下
@@ -292,7 +300,7 @@ addEvent("save", "click", () => {
     document.getElementById("save").innerText = "保存中...";
 
     /* 当前编辑的文件名 */
-    fetch(`?operation=savefile&dir=${encodePath}&file=${file}`, {
+    fetch(`?operation=savefile&dir=${encodePath}&file=${file}&hex=${$_GET["hex"]}`, {
         method: "POST",
         body: "data=" + uri((editor ? editor.getValue() : document.getElementById("code").value).trim()),
         headers: {
@@ -622,4 +630,8 @@ addEvent("view", "click", () => {
 /* 全选按钮点击事件 */
 addEvent("select-all", "click", () => {
     selectAll(true);
+});
+
+addEvent("hex", "click", () => {
+    window.location.search = `?operation=edit&dir=${$_GET["dir"]}&file=${$_GET["file"]}&hex=${!hex}`;
 });
