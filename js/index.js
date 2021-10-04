@@ -253,7 +253,7 @@ function reloadSelected() {
     let selectedElement = document.getElementsByClassName("selected");
     selected = [];
     for (let i = 0; i < selectedElement.length; i++) {
-        selected[i] = getName(selectedElement[i].innerText);
+        selected[i] = getName(selectedElement[i]);
     }
 }
 
