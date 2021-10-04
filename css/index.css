@@ -152,6 +152,7 @@ body {
 
 file,
 dire {
+    position: relative;
     background: #ededed;
     height: 30px;
     padding: 5px;
@@ -421,6 +422,12 @@ dire.selected, file.selected {
 #index-edit::-webkit-scrollbar {
     display: none;
 }
+
+file size {
+    position: absolute;
+    right: 15px;
+}
+
 
 @media screen and (max-width:800px) {
     .admin-login-window {
