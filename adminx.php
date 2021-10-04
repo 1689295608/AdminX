@@ -259,7 +259,8 @@ if (isset($_GET["operation"])) {
             }
             if ($files != null) {
                 $zip = new ZipArchive();
-                $result_code = $zip->open("./adminx.zip", ZipArchive::CREATE | ZipArchive::OVERWRITE);
+                $time = time();
+                $result_code = $zip->open("./adminx.$time.zip", ZipArchive::CREATE | ZipArchive::OVERWRITE);
                 if ($result_code === true) {
                     foreach ($files as $key => $filename) {
                         if (is_dir("$dir$filename")) {
@@ -271,13 +272,13 @@ if (isset($_GET["operation"])) {
                     }
                     $zip->close();
                 }
-                if (file_exists("./adminx.zip")) {
+                if (file_exists("./adminx.$time.zip")) {
                     header("Content-Type: application/zip");
                     header("Content-Transfer-Encoding: binary");
                     header("Content-disposition: attachment; filename=" . $dirname . "-ziped.zip");
-                    header("Content-Length: " . filesize("./adminx.zip"));
-                    echo file_get_contents("./adminx.zip");
-                    unlink("./adminx.zip");
+                    header("Content-Length: " . filesize("./adminx.$time.zip"));
+                    echo file_get_contents("./adminx.$time.zip");
+                    unlink("./adminx.$time.zip");
                     return;
                 } else {
                     $msg = isset($ZIP_ERROR[$result_code]) ? $ZIP_ERROR[$result_code] : "未知错误";
