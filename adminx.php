@@ -293,6 +293,7 @@ if (isset($_GET["operation"])) {
                 header("Content-Type: application/octet-stream");
                 header("Content-Transfer-Encoding: binary");
                 header("Content-disposition: attachment; filename=$filename");
+                header("Content-Length: " . filesize("$dir$filename"));
                 echo file_get_contents("$dir$filename");
                 return;
             } else {
