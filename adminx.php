@@ -83,7 +83,7 @@ function dirlist($dir)
         }
         return $out;
     }
-    return scandir("./$dir");
+    return scandir($dir);
 }
 
 /* 当前所在目录变量 */
@@ -91,6 +91,9 @@ $dir = "/";
 
 /* 当前所在目录名变量 */
 $dirname = "根目录";
+
+/* 是否以十六进制编辑文件 */
+$hex = isset($_GET["hex"]) && $_GET["hex"] == "true";
 
 $filename = isset($_GET["file"]) ? $_GET["file"] : null;
 
@@ -103,6 +106,10 @@ if (!str_starts_with($dir, "/")) {
 
 if (!str_starts_with($dir, ".")) {
     $dir = ".$dir";
+}
+
+if (!str_starts_with($dir, "./")) {
+    $dir = "./$dir";
 }
 
 if (!str_ends_with($dir, "/")) {
@@ -195,6 +202,31 @@ function format_size($size, $decimals = 2) {
     $sz = 'BKMGTP';
     $factor = floor((strlen($size) - 1) / 3);
     return sprintf("%.{$decimals}f", $size / pow(1024, $factor)) . @$sz[$factor];
+}
+
+/**
+ * 将文件内容转为16进制输出
+ * @param  String $file 文件路径
+ * @return String
+ */
+function fileToHex($file){
+    if(file_exists($file)){
+        $data = file_get_contents($file);
+        return bin2hex($data);
+    }
+    return '';
+}
+
+/**
+ * 将16进制内容转为文件
+ * @param String $hexstr 16进制内容
+ * @param String $file   保存的文件路径
+ */
+function hexToFile($hexstr, $file){
+    if($hexstr){
+        $data = pack('H*', $hexstr);
+        file_put_contents($file, $data, true);
+    }
 }
 
 $operation = "";
@@ -314,7 +346,11 @@ if (isset($_GET["operation"])) {
                     @file_put_contents("$backupdir/$fname" . ($backuptime ? "." . time() : "") . ".bak", @file_get_contents($file));
                 }
                 if (!is_saved($file)) {
-                    file_put_contents($file, $_POST["data"]);
+                    if ($hex) {
+                        hexToFile($_POST["data"], $file);
+                    } else {
+                        file_put_contents($file, $_POST["data"]);
+                    }
                     echo json_encode(["code" => 200]);
                 } else {
                     echo json_encode(["code" => 403]);
@@ -328,7 +364,7 @@ if (isset($_GET["operation"])) {
             if (isset($filename)) {
                 $file = $dir . $filename;
                 if (file_exists($file)) {
-                    $data = file_get_contents($file);
+                    $data = $hex ? fileToHex($file) : file_get_contents($file);
                 } else {
                     $notice = "该文件不存在！";
                 }
@@ -498,6 +534,7 @@ if (isset($_GET["operation"])) {
                     <btn id="download">下载</btn>
                     <btn id="view">预览</btn>
                     <btn id="showeditor">打开编辑器</btn>
+                    <btn id="hex">开启十六进制编辑</btn>
                     <div class="menu-group">
                         <btn class="menu-btn">打开方式</btn>
                         <div class="menu-item">
