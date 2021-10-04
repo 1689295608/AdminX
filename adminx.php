@@ -61,13 +61,13 @@ $cookieoptions = [
 if (!function_exists('str_ends_with')) {
     function str_ends_with($haystack, $needle)
     {
-        return substr_compare($haystack, $needle, -strlen($needle)) === 0;
+        return substr_compare($haystack, $needle, -mb_strlen($needle)) === 0;
     }
 }
 if (!function_exists('str_starts_with')) {
     function str_starts_with($haystack, $needle)
     {
-        return substr_compare($haystack, $needle, 0, strlen($needle)) === 0;
+        return substr_compare($haystack, $needle, 0, mb_strlen($needle)) === 0;
     }
 }
 
@@ -173,7 +173,7 @@ function delete_dir($dirname)
                 delete_dir("$dirname/$file");
             } else {
                 if (!is_saved("$dirname/$file")) {
-                    unlink("$dirname/$file");
+                    @unlink("$dirname/$file");
                 }
             }
         }
@@ -322,11 +322,7 @@ if (isset($_GET["operation"])) {
                 foreach ($files as $key => $value) {
                     $file = "$dir$value";
                     if (!is_saved($file)) {
-                        if (is_dir($file)) {
-                            delete_dir($file);
-                        } else {
-                            @unlink($file);
-                        }
+                        delete_dir($file);
                     }
                 }
                 echo json_encode(["code" => 200]);
