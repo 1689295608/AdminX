@@ -110,6 +110,7 @@ for (let i in menu) {
  * @param {element} element
  */
 function getName(element) {
+    if (typeof element != "object") return null;
     let nameTag = element.getElementsByTagName("name");
     if (nameTag.length < 1) {
         return element.innerText;
