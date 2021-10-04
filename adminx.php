@@ -471,7 +471,7 @@ if (isset($_GET["operation"])) {
                             if ($files[$i] == "." || $files[$i] == "..") continue;
                             $filepath = ($dir == "/" ? "" : $dir) . $files[$i];
                             $element = is_dir($filepath) ? "dire" : "file";
-                            echo "<$element>" . htmlentities($files[$i]) . ($element == "file" ? "<size>" . filesize($filepath) . "</size>" : "") . "</$element>";
+                            echo "<$element><name>" . htmlentities($files[$i]) . "</name>" . ($element == "file" ? "<size>" . filesize($filepath) . "</size>" : "") . "</$element>";
                         }
                     } else {
                         $notice = "该文件夹不存在！($dir)";
