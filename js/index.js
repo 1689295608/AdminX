@@ -98,6 +98,22 @@ for (let i in menu) {
 }
 
 /**
+ * 内部方法，获取文件/文件夹元素名称
+ * @param {element} element
+ */
+function getName(element) {
+    let nameTag = element.getElementsByTagName("name");
+    if (nameTag.length < 1) {
+        return element.innerText;
+    }
+    let name = "";
+    for (let i in nameTag) {
+        name += nameTag[i].innerText;
+    }
+    return name;
+}
+
+/**
  * 注册事件，当 element 为 undefined 或 null 则不作为
  * @param {element} element
  * @param {string} event
@@ -171,7 +187,7 @@ function SetClickSelect(elements) {
                 } else {
                     if (selected.length == 0) {
                         if (elements[i].tagName == "FILE") {
-                            let filesearch = `?operation=edit&dir=${encodePath}&file=${uri(elements[i].innerText)}`;
+                            let filesearch = `?operation=edit&dir=${encodePath}&file=${uri(getName(elements[i]))}`;
                             if (shift) {
                                 /* 在新窗口中打开该文件的编辑 */
                                 window.open(filesearch);
@@ -181,7 +197,7 @@ function SetClickSelect(elements) {
                             }
                         } else {
                             /* 跳转到该目录 */
-                            window.location.search = `?dir=${encodePath + elements[i].innerText}`;
+                            window.location.search = `?dir=${encodePath + getName(elements[i])}`;
                         }
                     } else {
                         select(elements[i]);
@@ -192,7 +208,7 @@ function SetClickSelect(elements) {
             elements[i].addEventListener("mousedown", event => {
                 if (event.button == 1) {
                     event.preventDefault();
-                    window.open(`?operation=edit&dir=${encodePath}&file=${uri(elements[i].innerText)}`);
+                    window.open(`?operation=edit&dir=${encodePath}&file=${uri(getName(elements[i]))}`);
                 }
             })
             /* 菜单事件 */
@@ -227,7 +243,7 @@ function reloadSelected() {
     let selectedElement = document.getElementsByClassName("selected");
     selected = [];
     for (let i = 0; i < selectedElement.length; i++) {
-        selected[i] = selectedElement[i].innerText;
+        selected[i] = getName(selectedElement[i].innerText);
     }
 }
 
