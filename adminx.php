@@ -470,7 +470,7 @@ if (isset($_GET["operation"])) {
                         for ($i = 0; $i < count($files); $i++) {
                             if ($files[$i] == "." || $files[$i] == "..") continue;
                             $element = is_dir(($dir == "/" ? "" : $dir) . $files[$i]) ? "dire" : "file";
-                            echo "<$element>" . htmlentities($files[$i]) . "</$element>";
+                            echo "<$element>" . htmlentities($files[$i]) . ($element == "file" ? "<size>" . filesize($files[$i]) . "</size>" : "") . "</$element>";
                         }
                     } else {
                         $notice = "该文件夹不存在！($dir)";
