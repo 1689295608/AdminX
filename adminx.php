@@ -97,14 +97,17 @@ $filename = isset($_GET["file"]) ? $_GET["file"] : null;
 if (isset($_GET["dir"]))
     $dir = $_GET["dir"];
 
-if (!str_starts_with($dir, "/"))
+if (!str_starts_with($dir, "/")) {
     $dir = "/$dir";
+}
 
-if (!str_starts_with($dir, "."))
+if (!str_starts_with($dir, ".")) {
     $dir = ".$dir";
+}
 
-if (!str_ends_with($dir, "/"))
+if (!str_ends_with($dir, "/")) {
     $dir = "$dir/";
+}
 
 $dirs = explode("/", $dir);
 
@@ -183,6 +186,15 @@ function mkdirs($pathname)
         $nowp .= $value . "/";
         @mkdir($nowp);
     }
+}
+
+/**
+ * 格式化 byte 的文件尺寸
+ */
+function format_size($size, $decimals = 2) {
+    $sz = 'BKMGTP';
+    $factor = floor((strlen($size) - 1) / 3);
+    return sprintf("%.{$decimals}f", $size / pow(1024, $factor)) . @$sz[$factor];
 }
 
 $operation = "";
@@ -314,7 +326,7 @@ if (isset($_GET["operation"])) {
         }
         if ($operation == "edit") { /* 编辑文件 */
             if (isset($filename)) {
-                $file = "$dir" . $filename;
+                $file = $dir . $filename;
                 if (file_exists($file)) {
                     $data = file_get_contents($file);
                 } else {
@@ -326,7 +338,7 @@ if (isset($_GET["operation"])) {
         }
         if ($operation == "mkdir") { /* 创建目录 */
             if (isset($_POST["name"])) {
-                $d = "$dir" . $_POST["name"];
+                $d = $dir . $_POST["name"];
                 if (!is_dir($d)) {
                     mkdirs($d);
                     echo json_encode(["code" => 200]);
@@ -340,7 +352,7 @@ if (isset($_GET["operation"])) {
         }
         if ($operation == "newfile") { /* 创建文件 */
             if (isset($_POST["name"])) {
-                $d = "$dir" . $_POST["name"];
+                $d = $dir . $_POST["name"];
                 if (!file_exists($d) || !is_saved($d)) {
                     file_put_contents($d, "");
                     echo json_encode(["code" => 200]);
@@ -355,7 +367,7 @@ if (isset($_GET["operation"])) {
         if ($operation == "upload") { /* 上传文件 */
             if (isset($_FILES) && count($_FILES) > 0) {
                 foreach ($_FILES as $key => $file) {
-                    $p = "$dir" . $file["name"];
+                    $p = $dir . $file["name"];
                     if (!is_saved($p)) {
                         move_uploaded_file($file["tmp_name"], $p);
                     }
@@ -465,13 +477,13 @@ if (isset($_GET["operation"])) {
                 <?php
                 if ($verified) {
                     /* 列出文件列表 */
-                    if (@is_dir("$dir")) {
-                        $files = dirlist("$dir");
+                    if (@is_dir($dir)) {
+                        $files = dirlist($dir);
                         for ($i = 0; $i < count($files); $i++) {
                             if ($files[$i] == "." || $files[$i] == "..") continue;
                             $filepath = ($dir == "/" ? "" : $dir) . $files[$i];
                             $element = is_dir($filepath) ? "dire" : "file";
-                            echo "<$element><name>" . htmlentities($files[$i]) . "</name>" . ($element == "file" ? "<size>" . filesize($filepath) . "</size>" : "") . "</$element>";
+                            echo "<$element><name>" . htmlentities($files[$i]) . "</name>" . ($element == "file" ? "<size>" . format_size(filesize($filepath)) . "</size>" : "") . "</$element>";
                         }
                     } else {
                         $notice = "该文件夹不存在！($dir)";
