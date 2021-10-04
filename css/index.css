@@ -428,6 +428,9 @@ file size {
     right: 15px;
 }
 
+file size::after {
+    content: " bytes";
+}
 
 @media screen and (max-width:800px) {
     .admin-login-window {
