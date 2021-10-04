@@ -83,7 +83,7 @@ function dirlist($dir)
         }
         return $out;
     }
-    return scandir($dir);
+    return scandir("./$dir");
 }
 
 /* 当前所在目录变量 */
