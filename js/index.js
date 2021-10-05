@@ -166,10 +166,10 @@ addEvent(document, "keydown", event => {
             event.preventDefault();
             document.getElementById("rname").click();
         }
-        if (event.code == "KeyO" && ctrl) {
-            event.preventDefault();
-            document.getElementById("view").click();
-        }
+    }
+    if (event.code == "KeyO" && ctrl) {
+        event.preventDefault();
+        document.getElementById("view").click();
     }
     if (event.code == "KeyS" && ctrl) {
         event.preventDefault();
