@@ -506,7 +506,7 @@ if (isset($_GET["operation"])) {
                 <btn id="newfile">新建文件</btn>
                 <btn id="mkdir">新建目录</btn>
                 <btn id="upload">上传文件</btn>
-                <input id="upload-file" type="file" name="files" multiple></input>
+                <input id="upload-file" type="file" name="files" multiple>
             </div>
             <div class="adminx-filelist" id="filelist">
                 <?php
