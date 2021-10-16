@@ -564,6 +564,7 @@ if (isset($_GET["operation"])) {
     <script src="https://cdn.jsdelivr.net/gh/codemirror/CodeMirror/mode/css/css.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/gh/codemirror/CodeMirror/mode/javascript/javascript.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/gh/codemirror/CodeMirror/mode/xml/xml.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/gh/codemirror/CodeMirror/mode/clike/clike.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/gh/codemirror/CodeMirror/mode/php/php.js" type="text/javascript"></script>
     <script src="https://adminx.xinv.ink/js/index.js" type="text/javascript"></script>
     <!-- 提示消息 --> <?php if (isset($notice)) echo "<script>notice(\"$notice\")</script>"; ?>
