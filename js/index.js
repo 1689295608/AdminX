@@ -173,6 +173,13 @@ for (let i in types) {
 	});
 }
 
+/* 密码编辑框按下回车键后直接登录 */
+addEvent("password", "keydown", event => {
+	if (event.code = "Enter") {
+		document.getElementById("login").click();
+	}
+});
+
 /* 在按下或弹起某键时更新 Ctrl 键状态 */
 addEvent(document, "keydown", event => {
 	ctrl = event.ctrlKey;
