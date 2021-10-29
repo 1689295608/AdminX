@@ -111,6 +111,12 @@ body {
     align-items: center;
     margin-top: 20px;
     position: relative;
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+
+.adminx-path::-webkit-scrollbar {
+    display: none;
 }
 
 .adminx-path deli {
