@@ -484,7 +484,7 @@ addEvent("rname", "click", () => {
 		notice("一次只能重命名一个文件嗷！");
 		return;
 	}
-	let newName = prompt("请输入新名称喵：", path + selected[0]);
+	let newName = prompt("请输入新名称喵：", path.substr(1) + selected[0]);
 	if (newName) {
 		fetch(`?operation=rename&dir=${encodePath}&file=${uri(selected[0])}`, {
 			method: "POST",
