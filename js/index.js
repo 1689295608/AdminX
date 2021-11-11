@@ -180,7 +180,7 @@ addEvent("password", "keydown", event => {
 	}
 });
 
-/* 在按下或弹起某键时更新 Ctrl 键状态 */
+/* 快捷键相关 */
 addEvent(document, "keydown", event => {
 	ctrl = event.ctrlKey;
 	shift = event.shiftKey;
@@ -250,7 +250,11 @@ function SetClickSelect(elements) {
 			elements[i].addEventListener("mousedown", event => {
 				if (event.button == 1) {
 					event.preventDefault();
-					window.open(`?operation=edit&dir=${encodePath}&file=${uri(getName(elements[i]))}`);
+					if (elements[i].tagName == "FILE") {
+						window.open(`?operation=edit&dir=${encodePath}&file=${uri(getName(elements[i]))}`);
+					} else {
+						window.open(`?dir=${encodePath + getName(elements[i])}`);
+					}
 				}
 			})
 			/* 菜单事件 */
