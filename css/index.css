@@ -1,6 +1,5 @@
-html,
-body {
-    height: 100%;
+html,body {
+    height: 100%
 }
 
 .admin-login {
@@ -8,12 +7,12 @@ body {
     width: 100%;
     bottom: 0;
     height: calc(100% - 60px);
-    background: white;
-    z-index: 5;
+    background: #fff;
+    z-index: 5
 }
 
 .admin-login-window:hover {
-    box-shadow: 0 2px 5px #1c68ffcc;
+    box-shadow: 0 2px 5px #1c68ffcc
 }
 
 .admin-login-window {
@@ -26,21 +25,21 @@ body {
     inset: 0;
     border: 1px solid #1c68ff;
     border-radius: 5px;
-    box-shadow: 0 0px 0px;
+    box-shadow: 0 0 0;
     padding: 50px;
-    transition: .2s;
+    transition: .2s
 }
 
 .admin-login-header {
     display: block;
-    font-size: 2em;
+    font-size: 2em
 }
 
 .admin-login-window #password {
     margin-top: 30px;
     width: 200px;
     border: 1px solid grey;
-    border-right: 0px;
+    border-right: 0;
     border-radius: 5px 0 0 5px;
     display: inline-block;
     transition: border .2s;
@@ -48,7 +47,7 @@ body {
     outline: none;
     font-size: 1em;
     box-sizing: border-box;
-    height: 30px;
+    height: 30px
 }
 
 .admin-login-window #login {
@@ -56,52 +55,51 @@ body {
     border-radius: 0 5px 5px 0;
     box-sizing: border-box;
     display: inline-block;
-    height: 30px;
+    height: 30px
 }
 
 .admin-login-window #password:focus {
     border: 1px solid #1c68ff;
-    border-right: none;
+    border-right: none
 }
 
 .header {
     height: 25px;
-    box-shadow: 0 0 10px black;
-    background: white;
+    box-shadow: 0 0 10px #000;
+    background: #fff;
     padding: 10px;
     border-radius: 0 0 8px 8px;
     display: flex;
-    align-items: center;
+    align-items: center
 }
 
 body {
-    margin: 0;
+    margin: 0
 }
 
-.header-title-admin,
-.header-title-x {
-    font-size: 1.5em;
+.header-title-admin,.header-title-x {
+    font-size: 1.5em
 }
 
 .header-title-admin {
-    color: #ff6e00;
+    color: #ff6e00
 }
 
 .header-title-x {
-    color: #0091ff;
+    color: #0091ff
 }
 
 .header-version {
     font-size: .8em;
-    color: #a1a1a1;
+    color: #a1a1a1
 }
 
 .header * {
-    user-select: none;
+    user-select: none
 }
 
 #check-update {
-    cursor: pointer;
+    cursor: pointer
 }
 
 .adminx-path {
@@ -112,16 +110,16 @@ body {
     margin-top: 20px;
     position: relative;
     overflow-x: scroll;
-    white-space: nowrap;
+    white-space: nowrap
 }
 
 .adminx-path::-webkit-scrollbar {
-    display: none;
+    display: none
 }
 
 .adminx-path deli {
     user-select: none;
-    margin: 0 5px 0 5px;
+    margin: 0 5px
 }
 
 .adminx-path path::after {
@@ -134,30 +132,29 @@ body {
     left: 0;
     content: '';
     transition: .2s;
-    transform-origin: center;
+    transform-origin: center
 }
 
 .adminx-path path {
     position: relative;
     transition: .2s;
-    color: black;
-    cursor: pointer;
+    color: #000;
+    cursor: pointer
 }
 
 .adminx-path path:hover::after {
-    transform: scale(1);
+    transform: scale(1)
 }
 
 .adminx-path path:hover {
-    color: #0091ff;
+    color: #0091ff
 }
 
 * {
-    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: transparent
 }
 
-file,
-dire {
+file,dire {
     position: relative;
     background: #ededed;
     height: 30px;
@@ -168,43 +165,41 @@ dire {
     align-items: center;
     transition: .2s;
     cursor: pointer;
-    user-select: none;
+    user-select: none
 }
 
-file::before,
-dire:before {
+file::before,dire:before {
     display: inline-block;
     content: '';
-    background-image: url("data:image/svg+xml,%3Csvg t='1629774504235' class='icon' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='2220' width='200' height='200'%3E%3Cpath d='M869.866667 152.533333c0-25.066667-20.266667-45.333333-45.333334-45.333333H198.933333c-25.066667 0-45.333333 20.266667-45.333333 45.333333v718.4c0 25.066667 20.266667 45.333333 45.333333 45.333334h277.866667c18.666667 0 34.133333-15.466667 34.133333-34.133334 0-18.666667-14.933333-34.133333-34.133333-34.133333H222.4V176h578.666667v435.2h-168.533334c-34.133333 0-62.4 27.733333-62.4 62.4V877.333333c-0.533333 9.6 2.666667 19.2 10.133334 26.666667 13.333333 13.333333 35.2 13.333333 48.533333 0l230.933333-230.933333c6.933333-6.933333 10.133333-16 10.133334-25.066667V152.533333zM656 680h99.733333l-116.8 116.8v-99.733333c0-9.6 7.466667-17.066667 17.066667-17.066667z' fill='%23000000' p-id='2221' data-spm-anchor-id='a313x.7781069.0.i3' class='selected'%3E%3C/path%3E%3Cpath d='M339.2 363.2h344.533333c19.2 0 35.2-16 35.2-35.2 0-19.2-16-35.2-35.2-35.2H339.2c-19.2 0-35.2 16-35.2 35.2 0 19.2 15.466667 35.2 35.2 35.2zM304 491.733333c0 19.2 16 35.2 35.2 35.2h344.533333c19.2 0 35.2-16 35.2-35.2 0-19.2-16-35.2-35.2-35.2H339.2c-19.733333-0.533333-35.2 15.466667-35.2 35.2z' fill='%23000000' p-id='2222' data-spm-anchor-id='a313x.7781069.0.i9' class='selected'%3E%3C/path%3E%3C/svg%3E");
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB0PScxNjI5Nzc0NTA0MjM1JyBjbGFzcz0naWNvbicgdmlld0JveD0nMCAwIDEwMjQgMTAyNCcgdmVyc2lvbj0nMS4xJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHAtaWQ9JzIyMjAnIHdpZHRoPScyMDAnIGhlaWdodD0nMjAwJz48cGF0aCBkPSdNODY5Ljg2NjY2NyAxNTIuNTMzMzMzYzAtMjUuMDY2NjY3LTIwLjI2NjY2Ny00NS4zMzMzMzMtNDUuMzMzMzM0LTQ1LjMzMzMzM0gxOTguOTMzMzMzYy0yNS4wNjY2NjcgMC00NS4zMzMzMzMgMjAuMjY2NjY3LTQ1LjMzMzMzMyA0NS4zMzMzMzN2NzE4LjRjMCAyNS4wNjY2NjcgMjAuMjY2NjY3IDQ1LjMzMzMzMyA0NS4zMzMzMzMgNDUuMzMzMzM0aDI3Ny44NjY2NjdjMTguNjY2NjY3IDAgMzQuMTMzMzMzLTE1LjQ2NjY2NyAzNC4xMzMzMzMtMzQuMTMzMzM0IDAtMTguNjY2NjY3LTE0LjkzMzMzMy0zNC4xMzMzMzMtMzQuMTMzMzMzLTM0LjEzMzMzM0gyMjIuNFYxNzZoNTc4LjY2NjY2N3Y0MzUuMmgtMTY4LjUzMzMzNGMtMzQuMTMzMzMzIDAtNjIuNCAyNy43MzMzMzMtNjIuNCA2Mi40Vjg3Ny4zMzMzMzNjLTAuNTMzMzMzIDkuNiAyLjY2NjY2NyAxOS4yIDEwLjEzMzMzNCAyNi42NjY2NjcgMTMuMzMzMzMzIDEzLjMzMzMzMyAzNS4yIDEzLjMzMzMzMyA0OC41MzMzMzMgMGwyMzAuOTMzMzMzLTIzMC45MzMzMzNjNi45MzMzMzMtNi45MzMzMzMgMTAuMTMzMzMzLTE2IDEwLjEzMzMzNC0yNS4wNjY2NjdWMTUyLjUzMzMzM3pNNjU2IDY4MGg5OS43MzMzMzNsLTExNi44IDExNi44di05OS43MzMzMzNjMC05LjYgNy40NjY2NjctMTcuMDY2NjY3IDE3LjA2NjY2Ny0xNy4wNjY2Njd6JyBmaWxsPScjMDAwMDAwJyBwLWlkPScyMjIxJyBkYXRhLXNwbS1hbmNob3ItaWQ9J2EzMTN4Ljc3ODEwNjkuMC5pMycgY2xhc3M9J3NlbGVjdGVkJz48L3BhdGg+PHBhdGggZD0nTTMzOS4yIDM2My4yaDM0NC41MzMzMzNjMTkuMiAwIDM1LjItMTYgMzUuMi0zNS4yIDAtMTkuMi0xNi0zNS4yLTM1LjItMzUuMkgzMzkuMmMtMTkuMiAwLTM1LjIgMTYtMzUuMiAzNS4yIDAgMTkuMiAxNS40NjY2NjcgMzUuMiAzNS4yIDM1LjJ6TTMwNCA0OTEuNzMzMzMzYzAgMTkuMiAxNiAzNS4yIDM1LjIgMzUuMmgzNDQuNTMzMzMzYzE5LjIgMCAzNS4yLTE2IDM1LjItMzUuMiAwLTE5LjItMTYtMzUuMi0zNS4yLTM1LjJIMzM5LjJjLTE5LjczMzMzMy0wLjUzMzMzMy0zNS4yIDE1LjQ2NjY2Ny0zNS4yIDM1LjJ6JyBmaWxsPScjMDAwMDAwJyBwLWlkPScyMjIyJyBkYXRhLXNwbS1hbmNob3ItaWQ9J2EzMTN4Ljc3ODEwNjkuMC5pOScgY2xhc3M9J3NlbGVjdGVkJz48L3BhdGg+PC9zdmc+);
     background-size: cover;
     width: 1.2em;
     height: 1.2em;
     vertical-align: middle;
     margin: 10px;
-    transition: all .2s;
+    transition: all .2s
 }
 
 file.selected::before {
-    background-image: url("data:image/svg+xml,%3Csvg t='1629774504235' class='icon' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='2220' width='200' height='200'%3E%3Cpath d='M869.866667 152.533333c0-25.066667-20.266667-45.333333-45.333334-45.333333H198.933333c-25.066667 0-45.333333 20.266667-45.333333 45.333333v718.4c0 25.066667 20.266667 45.333333 45.333333 45.333334h277.866667c18.666667 0 34.133333-15.466667 34.133333-34.133334 0-18.666667-14.933333-34.133333-34.133333-34.133333H222.4V176h578.666667v435.2h-168.533334c-34.133333 0-62.4 27.733333-62.4 62.4V877.333333c-0.533333 9.6 2.666667 19.2 10.133334 26.666667 13.333333 13.333333 35.2 13.333333 48.533333 0l230.933333-230.933333c6.933333-6.933333 10.133333-16 10.133334-25.066667V152.533333zM656 680h99.733333l-116.8 116.8v-99.733333c0-9.6 7.466667-17.066667 17.066667-17.066667z' fill='%23ffffff' p-id='2221' data-spm-anchor-id='a313x.7781069.0.i3' class='selected'%3E%3C/path%3E%3Cpath d='M339.2 363.2h344.533333c19.2 0 35.2-16 35.2-35.2 0-19.2-16-35.2-35.2-35.2H339.2c-19.2 0-35.2 16-35.2 35.2 0 19.2 15.466667 35.2 35.2 35.2zM304 491.733333c0 19.2 16 35.2 35.2 35.2h344.533333c19.2 0 35.2-16 35.2-35.2 0-19.2-16-35.2-35.2-35.2H339.2c-19.733333-0.533333-35.2 15.466667-35.2 35.2z' fill='%23ffffff' p-id='2222' data-spm-anchor-id='a313x.7781069.0.i9' class='selected'%3E%3C/path%3E%3C/svg%3E");
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB0PScxNjI5Nzc0NTA0MjM1JyBjbGFzcz0naWNvbicgdmlld0JveD0nMCAwIDEwMjQgMTAyNCcgdmVyc2lvbj0nMS4xJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHAtaWQ9JzIyMjAnIHdpZHRoPScyMDAnIGhlaWdodD0nMjAwJz48cGF0aCBkPSdNODY5Ljg2NjY2NyAxNTIuNTMzMzMzYzAtMjUuMDY2NjY3LTIwLjI2NjY2Ny00NS4zMzMzMzMtNDUuMzMzMzM0LTQ1LjMzMzMzM0gxOTguOTMzMzMzYy0yNS4wNjY2NjcgMC00NS4zMzMzMzMgMjAuMjY2NjY3LTQ1LjMzMzMzMyA0NS4zMzMzMzN2NzE4LjRjMCAyNS4wNjY2NjcgMjAuMjY2NjY3IDQ1LjMzMzMzMyA0NS4zMzMzMzMgNDUuMzMzMzM0aDI3Ny44NjY2NjdjMTguNjY2NjY3IDAgMzQuMTMzMzMzLTE1LjQ2NjY2NyAzNC4xMzMzMzMtMzQuMTMzMzM0IDAtMTguNjY2NjY3LTE0LjkzMzMzMy0zNC4xMzMzMzMtMzQuMTMzMzMzLTM0LjEzMzMzM0gyMjIuNFYxNzZoNTc4LjY2NjY2N3Y0MzUuMmgtMTY4LjUzMzMzNGMtMzQuMTMzMzMzIDAtNjIuNCAyNy43MzMzMzMtNjIuNCA2Mi40Vjg3Ny4zMzMzMzNjLTAuNTMzMzMzIDkuNiAyLjY2NjY2NyAxOS4yIDEwLjEzMzMzNCAyNi42NjY2NjcgMTMuMzMzMzMzIDEzLjMzMzMzMyAzNS4yIDEzLjMzMzMzMyA0OC41MzMzMzMgMGwyMzAuOTMzMzMzLTIzMC45MzMzMzNjNi45MzMzMzMtNi45MzMzMzMgMTAuMTMzMzMzLTE2IDEwLjEzMzMzNC0yNS4wNjY2NjdWMTUyLjUzMzMzM3pNNjU2IDY4MGg5OS43MzMzMzNsLTExNi44IDExNi44di05OS43MzMzMzNjMC05LjYgNy40NjY2NjctMTcuMDY2NjY3IDE3LjA2NjY2Ny0xNy4wNjY2Njd6JyBmaWxsPScjZmZmZmZmJyBwLWlkPScyMjIxJyBkYXRhLXNwbS1hbmNob3ItaWQ9J2EzMTN4Ljc3ODEwNjkuMC5pMycgY2xhc3M9J3NlbGVjdGVkJz48L3BhdGg+PHBhdGggZD0nTTMzOS4yIDM2My4yaDM0NC41MzMzMzNjMTkuMiAwIDM1LjItMTYgMzUuMi0zNS4yIDAtMTkuMi0xNi0zNS4yLTM1LjItMzUuMkgzMzkuMmMtMTkuMiAwLTM1LjIgMTYtMzUuMiAzNS4yIDAgMTkuMiAxNS40NjY2NjcgMzUuMiAzNS4yIDM1LjJ6TTMwNCA0OTEuNzMzMzMzYzAgMTkuMiAxNiAzNS4yIDM1LjIgMzUuMmgzNDQuNTMzMzMzYzE5LjIgMCAzNS4yLTE2IDM1LjItMzUuMiAwLTE5LjItMTYtMzUuMi0zNS4yLTM1LjJIMzM5LjJjLTE5LjczMzMzMy0wLjUzMzMzMy0zNS4yIDE1LjQ2NjY2Ny0zNS4yIDM1LjJ6JyBmaWxsPScjZmZmZmZmJyBwLWlkPScyMjIyJyBkYXRhLXNwbS1hbmNob3ItaWQ9J2EzMTN4Ljc3ODEwNjkuMC5pOScgY2xhc3M9J3NlbGVjdGVkJz48L3BhdGg+PC9zdmc+)
 }
 
 dire:before {
-    background-image: url("data:image/svg+xml,%3Csvg t='1629774651688' class='icon' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='2628' width='200' height='200'%3E%3Cpath d='M894.304 228H536.704c-19.52 0-37.792-8.896-49.92-24.096L449.6 156.896a63.552 63.552 0 0 0-49.92-24.096H129.728c-35.2 0-63.68 28.48-63.68 63.68v633.408c0 35.2 28.48 63.712 63.68 63.712H894.4c35.2 0 63.68-28.48 63.68-63.68V291.584a63.808 63.808 0 0 0-63.776-63.616zM399.68 196.192l0.096 0.096 37.184 47.04a126.336 126.336 0 0 0 99.712 48.16l357.792 0.224v88.576H129.6V196.192h270.08z m-270.208 633.6L129.6 443.84h764.8l-0.096 386.208-764.8-0.224z' fill='%23000000' p-id='2629'%3E%3C/path%3E%3C/svg%3E");
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB0PScxNjI5Nzc0NjUxNjg4JyBjbGFzcz0naWNvbicgdmlld0JveD0nMCAwIDEwMjQgMTAyNCcgdmVyc2lvbj0nMS4xJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHAtaWQ9JzI2MjgnIHdpZHRoPScyMDAnIGhlaWdodD0nMjAwJz48cGF0aCBkPSdNODk0LjMwNCAyMjhINTM2LjcwNGMtMTkuNTIgMC0zNy43OTItOC44OTYtNDkuOTItMjQuMDk2TDQ0OS42IDE1Ni44OTZhNjMuNTUyIDYzLjU1MiAwIDAgMC00OS45Mi0yNC4wOTZIMTI5LjcyOGMtMzUuMiAwLTYzLjY4IDI4LjQ4LTYzLjY4IDYzLjY4djYzMy40MDhjMCAzNS4yIDI4LjQ4IDYzLjcxMiA2My42OCA2My43MTJIODk0LjRjMzUuMiAwIDYzLjY4LTI4LjQ4IDYzLjY4LTYzLjY4VjI5MS41ODRhNjMuODA4IDYzLjgwOCAwIDAgMC02My43NzYtNjMuNjE2ek0zOTkuNjggMTk2LjE5MmwwLjA5NiAwLjA5NiAzNy4xODQgNDcuMDRhMTI2LjMzNiAxMjYuMzM2IDAgMCAwIDk5LjcxMiA0OC4xNmwzNTcuNzkyIDAuMjI0djg4LjU3NkgxMjkuNlYxOTYuMTkyaDI3MC4wOHogbS0yNzAuMjA4IDYzMy42TDEyOS42IDQ0My44NGg3NjQuOGwtMC4wOTYgMzg2LjIwOC03NjQuOC0wLjIyNHonIGZpbGw9JyMwMDAwMDAnIHAtaWQ9JzI2MjknPjwvcGF0aD48L3N2Zz4=)
 }
 
 dire.selected::before {
-    background-image: url("data:image/svg+xml,%3Csvg t='1629803246735' class='icon' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='9169' width='200' height='200'%3E%3Cpath d='M894.304 228H536.704c-19.52 0-37.792-8.896-49.92-24.096L449.6 156.896a63.552 63.552 0 0 0-49.92-24.096H129.728c-35.2 0-63.68 28.48-63.68 63.68v633.408c0 35.2 28.48 63.712 63.68 63.712H894.4c35.2 0 63.68-28.48 63.68-63.68V291.584a63.808 63.808 0 0 0-63.776-63.616zM399.68 196.192l0.096 0.096 37.184 47.04a126.336 126.336 0 0 0 99.712 48.16l357.792 0.224v88.576H129.6V196.192h270.08z m-270.208 633.6L129.6 443.84h764.8l-0.096 386.208-764.8-0.224z' fill='%23ffffff' p-id='9170' data-spm-anchor-id='a313x.7781069.0.i26' class='selected'%3E%3C/path%3E%3C/svg%3E");
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB0PScxNjI5ODAzMjQ2NzM1JyBjbGFzcz0naWNvbicgdmlld0JveD0nMCAwIDEwMjQgMTAyNCcgdmVyc2lvbj0nMS4xJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHAtaWQ9JzkxNjknIHdpZHRoPScyMDAnIGhlaWdodD0nMjAwJz48cGF0aCBkPSdNODk0LjMwNCAyMjhINTM2LjcwNGMtMTkuNTIgMC0zNy43OTItOC44OTYtNDkuOTItMjQuMDk2TDQ0OS42IDE1Ni44OTZhNjMuNTUyIDYzLjU1MiAwIDAgMC00OS45Mi0yNC4wOTZIMTI5LjcyOGMtMzUuMiAwLTYzLjY4IDI4LjQ4LTYzLjY4IDYzLjY4djYzMy40MDhjMCAzNS4yIDI4LjQ4IDYzLjcxMiA2My42OCA2My43MTJIODk0LjRjMzUuMiAwIDYzLjY4LTI4LjQ4IDYzLjY4LTYzLjY4VjI5MS41ODRhNjMuODA4IDYzLjgwOCAwIDAgMC02My43NzYtNjMuNjE2ek0zOTkuNjggMTk2LjE5MmwwLjA5NiAwLjA5NiAzNy4xODQgNDcuMDRhMTI2LjMzNiAxMjYuMzM2IDAgMCAwIDk5LjcxMiA0OC4xNmwzNTcuNzkyIDAuMjI0djg4LjU3NkgxMjkuNlYxOTYuMTkyaDI3MC4wOHogbS0yNzAuMjA4IDYzMy42TDEyOS42IDQ0My44NGg3NjQuOGwtMC4wOTYgMzg2LjIwOC03NjQuOC0wLjIyNHonIGZpbGw9JyNmZmZmZmYnIHAtaWQ9JzkxNzAnIGRhdGEtc3BtLWFuY2hvci1pZD0nYTMxM3guNzc4MTA2OS4wLmkyNicgY2xhc3M9J3NlbGVjdGVkJz48L3BhdGg+PC9zdmc+)
 }
 
-file:hover,
-dire:hover {
-    background: #c7c7c7;
+file:hover,dire:hover {
+    background: #c7c7c7
 }
 
 .editor {
     position: absolute;
     inset: 0;
-    background: white;
+    background: #fff
 }
 
 .admin-view {
@@ -219,19 +214,19 @@ dire:hover {
     background: #f9f9f9;
     padding: 20px;
     font-size: 1em;
-    font-family: auto;
+    font-family: auto
 }
 
 #adminx-edit {
     position: fixed;
     height: calc(100% - 155px);
-    width: 100%;
+    width: 100%
 }
 
-#code, .CodeMirror {
-    height: 100% !important;
+#code,.CodeMirror {
+    height: 100%!important;
     width: 100%;
-    border-top: 1px solid #bbb;
+    border-top: 1px solid #bbb
 }
 
 .adminx-path::after {
@@ -241,11 +236,11 @@ dire:hover {
     content: '';
     background: #bbb;
     bottom: 0;
-    top: 100%;
+    top: 100%
 }
 
 .hidden {
-    display: none;
+    display: none
 }
 
 btn {
@@ -254,35 +249,35 @@ btn {
     margin-top: 3px;
     border-radius: 5px;
     background: #1b67ff;
-    color: white;
+    color: #fff;
     user-select: none;
     transition: .2s;
-    cursor: pointer;
+    cursor: pointer
 }
 
-.mult-control-btn, .control-btn {
+.mult-control-btn,.control-btn {
     margin: 10px;
     overflow-x: scroll;
     white-space: nowrap;
-    text-align: center;
+    text-align: center
 }
 
 btn:hover {
-    background: #3289ff;
+    background: #3289ff
 }
 
 btn:active {
-    box-shadow: 0px 1px 3px #000000a8;
-    background: #006be1;
+    box-shadow: 0 1px 3px #000000a8;
+    background: #006be1
 }
 
-file:active, dire:active {
-    background: #a1a1a1;
+file:active,dire:active {
+    background: #a1a1a1
 }
 
-dire.selected, file.selected {
+dire.selected,file.selected {
     background: #0090ff;
-    color: white;
+    color: #fff
 }
 
 .notice {
@@ -292,13 +287,13 @@ dire.selected, file.selected {
     height: 30px;
     background: orange;
     border-radius: 10px 10px 0 0;
-    color: white;
+    color: #fff;
     display: flex;
     align-items: center;
     padding-left: 10px;
     transition: .2s;
-    box-shadow: 0 0 5px 0px black;
-    z-index: 10;
+    box-shadow: 0 0 5px 0 #000;
+    z-index: 10
 }
 
 .notice-text::before {
@@ -306,82 +301,84 @@ dire.selected, file.selected {
     display: inline-block;
     width: 1.2em;
     height: 1.2em;
-    background-image: url("data:image/svg+xml,%3Csvg t='1629776240392' class='icon' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='3487' width='200' height='200'%3E%3Cpath d='M512 373.8c-20.1 0-36.3 16.3-36.3 36.3v181.6c0 20.1 16.3 36.3 36.3 36.3 20.1 0 36.3-16.3 36.3-36.3V410.1c0-20-16.2-36.3-36.3-36.3z m0 326.9c-20.1 0-36.3 16.3-36.3 36.3 0 20.1 16.3 36.3 36.3 36.3 20.1 0 36.3-16.3 36.3-36.3 0-20-16.2-36.3-36.3-36.3z' p-id='3488' fill='%23ffffff'%3E%3C/path%3E%3Cpath d='M730 836.4H149.2L294 584.6l37.6-65.5L512 205.5l180.3 313.6 37.7 65.5 144.8 251.8H730z m220.8-13.5l-389-676.5c-11.5-20-29.6-31.5-49.8-31.5-20.2 0-38.3 11.5-49.8 31.5l-389 676.5C61.8 842.8 61 864.3 71 881.7c10.1 17.4 29.1 27.4 52 27.4h778c22.9 0 41.8-10 51.9-27.4 10.2-17.4 9.4-38.9-2.1-58.8z' p-id='3489' fill='%23ffffff'%3E%3C/path%3E%3C/svg%3E");
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB0PScxNjI5Nzc2MjQwMzkyJyBjbGFzcz0naWNvbicgdmlld0JveD0nMCAwIDEwMjQgMTAyNCcgdmVyc2lvbj0nMS4xJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHAtaWQ9JzM0ODcnIHdpZHRoPScyMDAnIGhlaWdodD0nMjAwJz48cGF0aCBkPSdNNTEyIDM3My44Yy0yMC4xIDAtMzYuMyAxNi4zLTM2LjMgMzYuM3YxODEuNmMwIDIwLjEgMTYuMyAzNi4zIDM2LjMgMzYuMyAyMC4xIDAgMzYuMy0xNi4zIDM2LjMtMzYuM1Y0MTAuMWMwLTIwLTE2LjItMzYuMy0zNi4zLTM2LjN6IG0wIDMyNi45Yy0yMC4xIDAtMzYuMyAxNi4zLTM2LjMgMzYuMyAwIDIwLjEgMTYuMyAzNi4zIDM2LjMgMzYuMyAyMC4xIDAgMzYuMy0xNi4zIDM2LjMtMzYuMyAwLTIwLTE2LjItMzYuMy0zNi4zLTM2LjN6JyBwLWlkPSczNDg4JyBmaWxsPScjZmZmZmZmJz48L3BhdGg+PHBhdGggZD0nTTczMCA4MzYuNEgxNDkuMkwyOTQgNTg0LjZsMzcuNi02NS41TDUxMiAyMDUuNWwxODAuMyAzMTMuNiAzNy43IDY1LjUgMTQ0LjggMjUxLjhINzMweiBtMjIwLjgtMTMuNWwtMzg5LTY3Ni41Yy0xMS41LTIwLTI5LjYtMzEuNS00OS44LTMxLjUtMjAuMiAwLTM4LjMgMTEuNS00OS44IDMxLjVsLTM4OSA2NzYuNUM2MS44IDg0Mi44IDYxIDg2NC4zIDcxIDg4MS43YzEwLjEgMTcuNCAyOS4xIDI3LjQgNTIgMjcuNGg3NzhjMjIuOSAwIDQxLjgtMTAgNTEuOS0yNy40IDEwLjItMTcuNCA5LjQtMzguOS0yLjEtNTguOHonIHAtaWQ9JzM0ODknIGZpbGw9JyNmZmZmZmYnPjwvcGF0aD48L3N2Zz4=);
     background-size: cover;
     vertical-align: middle;
-    margin: 5px;
+    margin: 5px
 }
 
 .notice-text {
     display: flex;
-    align-items: center;
+    align-items: center
 }
 
 .notice.show {
-    bottom: 0;
+    bottom: 0
 }
 
 .adminx-path deli::before {
-    content: '/';
+    content: '/'
 }
 
 #upload-file {
-    display: none;
+    display: none
 }
 
 .adminx-index {
     width: 100%;
     overflow: hidden;
-    height: calc(100% - 45px);
+    height: calc(100% - 45px)
 }
 
 .adminx-filelist {
     height: calc(100% - 100px);
     overflow-y: scroll;
+    max-width: 640px;
+    margin: auto;
 }
 
 .mult-control-btn::-webkit-scrollbar {
-    display: none;
+    display: none
 }
 
 .adminx-filelist::-webkit-scrollbar {
-    display: none;
+    display: none
 }
 
 .control-btn::-webkit-scrollbar {
-    display: none;
+    display: none
 }
 
 .adminx-index::-webkit-scrollbar {
-    display: none;
+    display: none
 }
 
 .menu-group {
     display: inline-block;
     position: relative;
-    margin-block: 0;
-    margin-inline: 0;
-    padding-inline-start: 0;
-    list-style-type: auto;
+    margin-block:0;
+	margin-inline:0;
+	padding-inline-start:0;
+	list-style-type: auto;
     border-radius: 5px;
-    transition: .2s;
+    transition: .2s
 }
 
 .menu-group.show {
-    background: #eeeeee;
+    background: #eee
 }
 
 .menu-group.show item:hover {
-    background: #bbbbbb;
+    background: #bbb
 }
 
 .menu-group.show item:active {
-    background: #aaaaaa;
+    background: #aaa
 }
 
 .menu-group.show .menu-item {
     transform: scaleY(1);
-    opacity: 1;
+    opacity: 1
 }
 
 .menu-group .menu-item {
@@ -391,25 +388,25 @@ dire.selected, file.selected {
     transform-origin: top;
     min-width: 100px;
     padding: 1px;
-    background: #eeeeee;
+    background: #eee;
     user-select: none;
     transition: .2s;
     border-radius: 5px;
     overflow: hidden;
-    z-index: 100;
+    z-index: 100
 }
 
 .menu-group .menu-item item {
     display: block;
-    background: #eeeeee;
+    background: #eee;
     transition: .2s;
     border-radius: 5px;
     margin-bottom: 3px;
-    height: 25px;
+    height: 25px
 }
 
 .menu-group.show .menu-btn:after {
-    transform: rotate(0deg);
+    transform: rotate(0deg)
 }
 
 .menu-group .menu-btn::after {
@@ -417,27 +414,27 @@ dire.selected, file.selected {
     display: inline-block;
     margin-left: 5px;
     transition: .2s;
-    transform: rotate(180deg);
+    transform: rotate(180deg)
 }
 
 #index-edit {
     overflow: scroll;
-    height: calc(100% - 110px);
+    height: calc(100% - 110px)
 }
 
 #index-edit::-webkit-scrollbar {
-    display: none;
+    display: none
 }
 
 file size {
     position: absolute;
-    right: 15px;
+    right: 15px
 }
 
-@media screen and (max-width:800px) {
+@media screen and (max-width: 800px) {
     .admin-login-window {
-        border: none;
+        border:none;
         padding: 0;
-        box-shadow: none !important;
+        box-shadow: none!important
     }
 }
