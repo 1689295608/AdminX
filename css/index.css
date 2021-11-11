@@ -327,14 +327,14 @@ dire.selected,file.selected {
 .adminx-index {
     width: 100%;
     overflow: hidden;
-    height: calc(100% - 45px)
+    height: calc(100% - 45px);
+    max-width: 640px;
+    margin: auto;
 }
 
 .adminx-filelist {
     height: calc(100% - 100px);
     overflow-y: scroll;
-    max-width: 640px;
-    margin: auto;
 }
 
 .mult-control-btn::-webkit-scrollbar {
