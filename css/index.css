@@ -6,9 +6,10 @@ html,body {
     position: fixed;
     width: 100%;
     bottom: 0;
+    left: 0;
     height: calc(100% - 60px);
     background: #fff;
-    z-index: 5
+    z-index: 5;
 }
 
 .admin-login-window:hover {
@@ -436,7 +437,6 @@ file size {
 #index-edit img {
     position: absolute;
     max-width: 600px;
-    max-height: 600px;
     margin: auto;
     left: 0;
     right: 0;
