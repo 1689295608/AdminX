@@ -1,6 +1,11 @@
 # AdminX
 一个轻量级的 PHP 文件编辑器
 
+# 关于 AdminX 停止维护
+由于一些特殊原因，AdminX 决定停止维护。
+
+替代它的将会是一个近期开发的新项目，敬请期待吧~
+
 ## 安装
 只需要前往 [Release](https://github.com/1689295608/AdminX/releases) 页面下载最新版本的 `adminx.php` 放在你的主机文件里即可
 
